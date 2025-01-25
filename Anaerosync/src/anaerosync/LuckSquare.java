@@ -1,4 +1,4 @@
-public class LuckSquare {
+public class LuckSquare extends Square {
     private int id;
     private SquareType squareType;
 
