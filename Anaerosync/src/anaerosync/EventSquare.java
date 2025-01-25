@@ -1,4 +1,4 @@
-public class EventSquare {
+public class EventSquare extends Square {
     private String name;
     private int id;
     private SquareType squareType;
