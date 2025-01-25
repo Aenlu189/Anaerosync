@@ -1,4 +1,4 @@
-public class TaskSquare {
+public class TaskSquare extends Square {
     private int id;
     private SquareType squareType;
     private Task task;
