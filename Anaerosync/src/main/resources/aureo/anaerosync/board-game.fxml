@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
+   <children>
+      <AnchorPane maxHeight="830.0" prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <ImageView fitHeight="888.0" fitWidth="877.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/GameBoard.jpeg" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" layoutX="981.0" layoutY="34.0" spacing="20.0">
+               <children>
+                  <Label style="-fx-font-size: 20px;" text="Current Player:" />
+                  <Circle fx:id="currentPlayerIndicator" fill="DODGERBLUE" radius="15" />
+                  <VBox fx:id="playerInfoContainer" spacing="10" />
+                  <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice" />
+                  <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
+               </children>
+            </VBox>
+            <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-40.0" layoutY="-4.0" prefHeight="857.0" prefWidth="968.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="-40.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="-4.0">
+               <columnConstraints>
+                  <ColumnConstraints percentWidth="14.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="9.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="15.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="220.0" minHeight="20.99999237060547" percentHeight="17.0" prefHeight="141.0" />
+                  <RowConstraints maxHeight="199.00000762939453" minHeight="0.0" percentHeight="10.0" prefHeight="70.33332824707031" />
+                  <RowConstraints maxHeight="172.0" minHeight="0.0" percentHeight="10.0" prefHeight="94.66667175292969" />
+                  <RowConstraints maxHeight="172.0" minHeight="0.0" percentHeight="11.0" prefHeight="159.3333282470703" />
+                  <RowConstraints maxHeight="5.0" minHeight="0.0" percentHeight="0.0" prefHeight="0.666656494140625" />
+                  <RowConstraints maxHeight="86.0" minHeight="79.0" percentHeight="11.0" prefHeight="85.33334350585938" />
+                  <RowConstraints maxHeight="123.0" minHeight="61.0" percentHeight="11.0" prefHeight="119.0" />
+                  <RowConstraints maxHeight="137.66668701171875" minHeight="53.66668701171875" percentHeight="11.0" prefHeight="137.66668701171875" />
+                  <RowConstraints maxHeight="135.33331298828125" minHeight="70.0" percentHeight="15.0" prefHeight="51.33331298828125" />
+               </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Circle fx:id="B1" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G1" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O1" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R1" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                     <children>
+                        <Circle fx:id="B2" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G2" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O2" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R2" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                     <children>
+                        <Circle fx:id="B3" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G3" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O3" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R3" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+                     <children>
+                        <Circle fx:id="B4" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G4" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O4" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R4" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4">
+                     <children>
+                        <Circle fx:id="B5" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G5" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O5" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R5" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5">
+                     <children>
+                        <Circle fx:id="B6" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G6" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O6" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R6" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6">
+                     <children>
+                        <Circle fx:id="B7" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G7" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O7" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="R7" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7">
+                     <children>
+                        <Circle fx:id="R8" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O8" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G8" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B8" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <children>
+                        <Circle fx:id="R9" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O9" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G9" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B9" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <children>
+                        <Circle fx:id="R10" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O10" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G10" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B10" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                     <children>
+                        <Circle fx:id="R11" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O11" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G11" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B11" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+                     <children>
+                        <Circle fx:id="R13" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O13" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G13" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B13" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                     <children>
+                        <Circle fx:id="R12" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O12" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G12" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B12" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+                     <children>
+                        <Circle fx:id="R14" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O14" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G14" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="B14" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R15" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O15" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G15" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B15" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R16" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O16" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G16" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B16" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R17" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O17" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G17" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B17" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R18" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O18" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G18" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B18" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R20" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O20" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G20" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B20" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R19" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O19" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G19" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B19" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="R21" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="O21" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="G21" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                        <Circle fx:id="B21" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Circle>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="8">
+                     <children>
+                        <Circle fx:id="B22" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G22" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O22" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R22" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="7">
+                     <children>
+                        <Circle fx:id="B23" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G23" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O23" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R23" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+                     <children>
+                        <Circle fx:id="B25" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G25" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O25" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R25" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
+                     <children>
+                        <Circle fx:id="B24" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G24" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O24" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R24" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Circle fx:id="B28" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G28" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O28" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R28" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <children>
+                        <Circle fx:id="B27" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G27" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O27" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R27" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                     <children>
+                        <Circle fx:id="B26" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="G26" fill="#37ff1f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="O26" fill="#ff821f" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                        <Circle fx:id="R26" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Circle>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
