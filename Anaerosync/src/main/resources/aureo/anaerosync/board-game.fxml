@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="888.0" fitWidth="877.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/GameBoard.jpeg" />
+                  <Image url="@../../images/Board.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" layoutX="981.0" layoutY="34.0" spacing="20.0">
