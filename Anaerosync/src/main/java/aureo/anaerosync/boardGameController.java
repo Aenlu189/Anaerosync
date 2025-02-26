@@ -61,7 +61,7 @@ public class boardGameController {
         updateCurrentPlayerDisplay();
     }
 
-    // Create player objects based on names provided in index
+    // to carry the data from index
     public void setGameData(String[] playerNames) {
         this.numPlayers = playerNames.length;
         for (int i = 0; i < numPlayers; i++) {
