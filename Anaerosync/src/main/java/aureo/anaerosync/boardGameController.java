@@ -41,9 +41,19 @@ public class boardGameController {
             Color.ORANGE,
             Color.RED
     };
-    private final int[] position = new int[numPlayers];
+
     private final Random random = new Random();
-    private String[] playerNames;
+
+    /**
+     * We no longer use "playerNames" and "position" arrays.
+     * That functionality has been replaced with Player objects stored in this array.
+     */
+    private Player[] players = {
+            new Player(1, "Error: no name", 500, 500),
+            new Player(2, "Error: no name", 500, 500),
+            new Player(3, "Error: no name", 500, 500),
+            new Player(4, "Error: no name", 500, 500)
+    };
 
     @FXML
     public void initialize() {
@@ -51,10 +61,12 @@ public class boardGameController {
         updateCurrentPlayerDisplay();
     }
 
-    // to carry the data from index
+    // Create player objects based on names provided in index
     public void setGameData(String[] playerNames) {
-        this.playerNames = playerNames;
         this.numPlayers = playerNames.length;
+        for (int i = 0; i < numPlayers; i++) {
+            this.players[i].setName(playerNames[i]);
+        }
         
         // Initialize the game with the correct number of players
         initializeGame();
@@ -91,7 +103,7 @@ public class boardGameController {
             playerIndicator.setFill(playerColors[i]);
             playerIndicator.setStroke(Color.BLACK);
 
-            Text playerName = new Text(playerNames[i]);
+            Text playerName = new Text(players[i].getName()); // Uses player object getter now
             playerName.setStyle("-fx-font-family: 'Chalkboard SE Regular'; -fx-font-size: 16px;");
 
             playerInfo.getChildren().addAll(playerIndicator, playerName);
@@ -118,7 +130,7 @@ public class boardGameController {
 
         // Set the position of every player to zero
         for (int i=0; i<numPlayers; i++) {
-            position[i] = 0;
+            players[i].setPosition(0);  // Sets position of player to 0 through setter
         }
     }
 
@@ -141,14 +153,14 @@ public class boardGameController {
 
     // to move the player according to the roll dice
     private void movePlayer(int playerIndex, int spaces) {
-        int currentPosition = position[playerIndex];
+        int currentPosition = players[playerIndex].getPosition();
         int newPosition = currentPosition + spaces;
         newPosition = newPosition % 28;
 
         Circle[] playerCircle = getPlayerCircles(playerIndex);
         playerCircle[currentPosition].setVisible(false);
         playerCircle[newPosition].setVisible(true);
-        position[playerIndex] = newPosition;
+        players[playerIndex].setPosition(newPosition);
     }
 
     // getting the circles which represent each player's positions
