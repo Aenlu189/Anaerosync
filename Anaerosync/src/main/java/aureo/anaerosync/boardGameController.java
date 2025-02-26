@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
 
 import java.util.Random;
 
@@ -44,15 +45,17 @@ public class boardGameController {
 
     private final Random random = new Random();
 
+    private static final int STARTING_MONEY = 500;
+    private static final int STARTING_TIME = 500;
+
     /**
-     * We no longer use "playerNames" and "position" arrays.
-     * That functionality has been replaced with Player objects stored in this array.
+     * Initialize players with proper resources
      */
     private Player[] players = {
-            new Player(1, "Error: no name", 500, 500),
-            new Player(2, "Error: no name", 500, 500),
-            new Player(3, "Error: no name", 500, 500),
-            new Player(4, "Error: no name", 500, 500)
+        new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY),
+        new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY),
+        new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY),
+        new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY)
     };
 
     @FXML
@@ -61,13 +64,14 @@ public class boardGameController {
         updateCurrentPlayerDisplay();
     }
 
-    // to carry the data from index
+    // Update setGameData to initialize players with resources
     public void setGameData(String[] playerNames) {
         this.numPlayers = playerNames.length;
         for (int i = 0; i < numPlayers; i++) {
-            this.players[i].setName(playerNames[i]);
+            players[i].setName(playerNames[i]);
+            players[i].setPosition(0); // to reset the position but not sure if it is required but its working
         }
-        
+
         // Initialize the game with the correct number of players
         initializeGame();
         setupPlayerInfo();
@@ -92,22 +96,44 @@ public class boardGameController {
         }
     }
 
+    // updated so that now it shows the resources
     private void setupPlayerInfo() {
         playerInfoContainer.getChildren().clear();
 
-        for (int i=0; i<numPlayers; i++) {
-            HBox playerInfo = new HBox(10);
-            playerInfo.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        for (int i = 0; i < numPlayers; i++) {
+            VBox playerBox = new VBox(5);
+            playerBox.setAlignment(Pos.CENTER_LEFT);
+
+            HBox nameRow = new HBox(10);
+            nameRow.setAlignment(Pos.CENTER_LEFT);
 
             Circle playerIndicator = new Circle(8);
             playerIndicator.setFill(playerColors[i]);
             playerIndicator.setStroke(Color.BLACK);
 
-            Text playerName = new Text(players[i].getName()); // Uses player object getter now
-            playerName.setStyle("-fx-font-family: 'Chalkboard SE Regular'; -fx-font-size: 16px;");
+            // Add player ID and name
+            Text playerInfo = new Text(String.format("Player %d: %s", 
+                players[i].getId(), 
+                players[i].getName()));
+            playerInfo.setStyle("-fx-font-family: 'Chalkboard SE Regular'; -fx-font-size: 16px;");
 
-            playerInfo.getChildren().addAll(playerIndicator, playerName);
-            playerInfoContainer.getChildren().add(playerInfo);
+            nameRow.getChildren().addAll(playerIndicator, playerInfo);
+
+            // Add resource information
+            Text moneyText = new Text(String.format("Money: $%d", players[i].getMoneyResource()));
+            Text timeText = new Text(String.format("Time: %d", players[i].getTimeResource()));
+
+            // some styling I have to do this or I will perish from this world
+            moneyText.setStyle("-fx-font-size: 12px;");
+            timeText.setStyle("-fx-font-size: 12px;");
+
+            playerBox.getChildren().addAll(
+                nameRow,
+                moneyText,
+                timeText
+            );
+
+            playerInfoContainer.getChildren().add(playerBox);
         }
     }
 
@@ -149,13 +175,14 @@ public class boardGameController {
         movePlayer(currentPlayer, roll);
         currentPlayer = (currentPlayer + 1) % numPlayers;
         updateCurrentPlayerDisplay();
+        setupPlayerInfo();
     }
 
     // to move the player according to the roll dice
     private void movePlayer(int playerIndex, int spaces) {
-        int currentPosition = players[playerIndex].getPosition();
-        int newPosition = currentPosition + spaces;
-        newPosition = newPosition % 28;
+        // updated for efficiency of the code
+        int currentPosition = players[playerIndex].getPosition() % 28;
+        int newPosition = (currentPosition + spaces) % 28;
 
         Circle[] playerCircle = getPlayerCircles(playerIndex);
         playerCircle[currentPosition].setVisible(false);
