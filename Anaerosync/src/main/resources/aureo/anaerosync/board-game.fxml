@@ -12,28 +12,34 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
    <children>
-      <AnchorPane maxHeight="830.0" prefHeight="800.0" prefWidth="1200.0">
+      <AnchorPane maxHeight="954.0" maxWidth="1667.0" minWidth="1400.0" prefHeight="954.0" prefWidth="1442.0">
          <children>
             <ImageView fitHeight="888.0" fitWidth="877.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Board.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" layoutX="981.0" layoutY="34.0" spacing="20.0">
+            <VBox alignment="CENTER" layoutX="922.0" layoutY="176.0" prefHeight="271.0" prefWidth="173.0" spacing="20.0">
                <children>
                   <Label style="-fx-font-size: 20px;" text="Current Player:" />
                   <Circle fx:id="currentPlayerIndicator" fill="DODGERBLUE" radius="15" />
                   <VBox fx:id="playerInfoContainer" spacing="10">
-                     <!-- New resource info will be added here dynamically -->
+                     <!-- Player info will be added here dynamically -->
                   </VBox>
-                  <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice" />
+                  <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
                   <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
+                  <Button fx:id="endTurnButton" onAction="#endTurn" style="-fx-font-size: 16px;" text="End Turn" visible="false" />
                </children>
             </VBox>
-            <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-40.0" layoutY="-4.0" prefHeight="857.0" prefWidth="968.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="-40.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="-4.0">
+            <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-37.0" layoutY="-6.0" prefHeight="877.0" prefWidth="964.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="-6.0">
                <columnConstraints>
                   <ColumnConstraints percentWidth="14.0" />
                   <ColumnConstraints percentWidth="10.0" />
@@ -224,7 +230,7 @@
                         </Circle>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7">
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="163.0" GridPane.columnIndex="7">
                      <children>
                         <Circle fx:id="R8" fill="#ff5112" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
                            <HBox.margin>
@@ -730,6 +736,55 @@
                   </HBox>
                </children>
             </GridPane>
+            <Label fx:id="showErrorDialog" layoutX="996.0" layoutY="20.0" prefWidth="317.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" layoutX="1143.0" layoutY="183.0" spacing="20.0">
+               <children>
+                  <VBox fx:id="taskInfoBox" spacing="10" visible="false">
+                     <!-- Task information will be added dynamically -->
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Button fx:id="acceptTaskButton" text="Accept Task" visible="false" />
+                        <Button fx:id="declineTaskButton" text="Decline" visible="false" />
+                        <Button fx:id="offerTaskButton" text="Offer Task" visible="false" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <!-- Add the offer response modal -->
+            <VBox fx:id="offerResponseModal" alignment="CENTER" layoutX="-6.0" prefHeight="958.0" prefWidth="1446.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-width: 1;" visible="false">
+               <children>
+                  <Label fx:id="offerMessage" style="-fx-font-size: 16px;">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="offeredTaskInfo" alignment="CENTER" spacing="5">
+               <!-- Task info will be shown here -->
+            </VBox>
+                  <HBox alignment="CENTER" spacing="10">
+                     <Button fx:id="acceptOfferButton" text="Accept Offer" />
+                     <Button fx:id="declineOfferButton" text="Decline Offer" />
+                  </HBox>
+               </children>
+            </VBox>
+            <!-- Add the offer modal -->
+            <VBox fx:id="offerModal" alignment="CENTER" layoutX="2.0" prefHeight="958.0" prefWidth="1442.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+               <children>
+                  <Label style="-fx-font-size: 16px;" text="Choose Player to Offer Task:" />
+                  <VBox fx:id="playerChoiceBox" maxWidth="200.0" prefWidth="187.0" spacing="5">
+               <!-- Player choices will be added dynamically -->
+            </VBox>
+                  <HBox alignment="CENTER" spacing="10">
+                     <Button fx:id="confirmOfferButton" text="Confirm Offer" />
+                     <Button fx:id="cancelOfferButton" text="Cancel" />
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>

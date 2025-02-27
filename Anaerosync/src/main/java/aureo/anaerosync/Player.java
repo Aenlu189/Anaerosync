@@ -7,52 +7,89 @@ public class Player {
     private String name;
     private int moneyResource;
     private int timeResource;
+    private int trustResource;
     private int position;
-    /**
-     * WARNING!!!!! Currently implemented as String[] but should be Task[]. Update once we add the Task class to this project
-     * */
-    private ArrayList<String> ownedTasks;
 
-    public Player(int id, String name, int moneyResource, int timeResource) {
+    private ArrayList<Task> ownedTasks;
+
+    public Player(int id, String name, int timeResource, int moneyResource, int trustResource) {
         this.id = id;
         this.name = name;
-        this.moneyResource = moneyResource;
         this.timeResource = timeResource;
+        this.moneyResource = moneyResource;
+        this.trustResource = trustResource;
         this.position = 0;
-        this.ownedTasks = new ArrayList<String>();
+        this.ownedTasks = new ArrayList<>();
     }
 
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
+    public void setMoneyResource(int moneyResource) {
+        this.moneyResource = moneyResource;
+    }
+
     public int getMoneyResource() {
         return moneyResource;
     }
+
+    public void setTimeResource(int timeResource) {
+        this.timeResource = timeResource;
+    }
+
     public int getTimeResource() {
         return timeResource;
     }
-    public ArrayList<String> getOwnedTasks() {
+
+    public void setTrustResource(int trustResource) {
+        this.trustResource = trustResource;
+    }
+    public int getTrustResource() {
+        return trustResource;
+    }
+
+    public ArrayList<Task> getOwnedTasks() {
         return ownedTasks;
     }
+
     public int getPosition() {
         return position;
     }
+
     public void setPosition(int position) {
         this.position = position;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * WARNING!!!! Will change once we have class implementation of Tasks
-     * @param task: (currently a String but should change to Task object)
-     */
-    public void addOwnedTasks(String task) {
-        this.ownedTasks.add(task);
+    public void addTask(Task task) {
+        if (task != null) {
+            ownedTasks.add(task);
+        }
+    }
+
+    public boolean ownsTask(Task task) {
+        if (task == null) return false;
+        return ownedTasks.contains(task);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", timeResource=" + timeResource +
+                ", moneyResource=" + moneyResource +
+                ", position=" + position +
+                ", tasks=" + ownedTasks.size() +
+                '}';
     }
 
     // Setters and other methods can be added below accordingly as becomes necessary, with proper validation

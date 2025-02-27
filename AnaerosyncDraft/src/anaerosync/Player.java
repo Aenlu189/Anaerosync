@@ -1,29 +1,27 @@
+package aureo.anaerosync;
+
 import java.util.ArrayList;
+import aureo.anaerosync.Task;
 
 public class Player {
     private int id;
     private String name;
+    private int timeResource;
+    private int moneyResource;
+    private int position;
     private ArrayList<Task> ownedTasks;
-    private int energy;
-    private int workforce;
-    private int money;
-    private int currentSquare;
 
-    public Player(int id, String name, int energy, int workforce, int money) {
+    public Player(int id, String name, int timeResource, int moneyResource) {
         this.id = id;
         this.name = name;
-        this.energy = energy;
-        this.workforce = workforce;
-        this.money = money;
+        this.timeResource = timeResource;
+        this.moneyResource = moneyResource;
+        this.position = 0;
+        this.ownedTasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
-        ownedTasks.add(task);
-    }
-
-    public Task removeTask(Task task) {
-        ownedTasks.remove(task);
-        return task;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -34,36 +32,43 @@ public class Player {
         this.name = name;
     }
 
-    public int getEnergy() {
-        return energy;
+    public int getTimeResource() {
+        return timeResource;
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void setTimeResource(int timeResource) {
+        this.timeResource = timeResource;
     }
 
-    public int getWorkforce() {
-        return workforce;
+    public int getMoneyResource() {
+        return moneyResource;
     }
 
-    public void setWorkforce(int workforce) {
-        this.workforce = workforce;
+    public void setMoneyResource(int moneyResource) {
+        this.moneyResource = moneyResource;
     }
 
-    public int getMoney() {
-        return money;
+    public int getPosition() {
+        return position;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void addTask(Task task) {
+        if (task != null) {
+            ownedTasks.add(task);
+        }
     }
 
     public ArrayList<Task> getOwnedTasks() {
         return ownedTasks;
     }
 
-    public int getCurrentSquare() {
-        return currentSquare;
+    public boolean ownsTask(Task task) {
+        if (task == null) return false;
+        return ownedTasks.contains(task);
     }
 
     @Override
@@ -71,11 +76,9 @@ public class Player {
         return "Player{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ownedTasks=" + ownedTasks +
-                ", energy=" + energy +
-                ", workforce=" + workforce +
-                ", money=" + money +
-                ", currentSquare=" + currentSquare +
+                ", timeResource=" + timeResource +
+                ", moneyResource=" + moneyResource +
+                ", position=" + position +
                 '}';
     }
 }
