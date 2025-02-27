@@ -47,7 +47,7 @@ public class boardGameController {
     private Button declineTaskButton;
 
     @FXML
-    private VBox taskInfoBox;
+    private VBox cardInfoBox;
 
     @FXML
     private Label showErrorDialog;
@@ -316,15 +316,15 @@ public class boardGameController {
 
     // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
-        if (TaskManager.isTaskPosition(position)) {
-            showTaskDialog(TaskManager.getTaskAtPosition(position));
-        } else if (TaskManager.isOtherPosition(position)) {
+        if (PositionManager.isTaskPosition(position)) {
+            showTaskDialog(PositionManager.getTaskAtPosition(position));
+        } else if (PositionManager.isOtherPosition(position)) {
             handleSpecialPosition(position);
         }
     }
 
     private void showTaskDialog(Task task) {
-        taskInfoBox.getChildren().clear();
+        cardInfoBox.getChildren().clear();
         
         // Check if task is already owned
         Player owner = null;
@@ -351,9 +351,9 @@ public class boardGameController {
         
         taskName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
         
-        taskInfoBox.getChildren().addAll(
+        cardInfoBox.getChildren().addAll(
             taskCardView,
-            taskName, 
+            taskName,
             taskDesc, 
             taskCost
         );
@@ -363,7 +363,7 @@ public class boardGameController {
             // to show the owner and made it red to make it visible
             Text ownerText = new Text(String.format("Owned by: %s", owner.getName()));
             ownerText.setStyle("-fx-font-size: 14px; -fx-fill: #e74c3c;");
-            taskInfoBox.getChildren().add(ownerText);
+            cardInfoBox.getChildren().add(ownerText);
             
             acceptTaskButton.setVisible(false);
             declineTaskButton.setVisible(false);
@@ -378,7 +378,7 @@ public class boardGameController {
             offerTaskButton.setOnAction(e -> showOfferModal(task));
         }
         
-        taskInfoBox.setVisible(true);
+        cardInfoBox.setVisible(true);
     }
 
     // to accept the task for yourself
@@ -424,14 +424,14 @@ public class boardGameController {
     }
 
     private void hideTaskDialog() {
-        taskInfoBox.setVisible(false);
+        cardInfoBox.setVisible(false);
         acceptTaskButton.setVisible(false);
         declineTaskButton.setVisible(false);
         offerTaskButton.setVisible(false);
     }
 
     private void handleSpecialPosition(int position) {
-        String specialType = TaskManager.getOthersAtPosition(position);
+        String specialType = PositionManager.getOthersAtPosition(position);
         switch (specialType) {
             case "HOME":
                 // Handle home position

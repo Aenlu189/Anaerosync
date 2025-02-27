@@ -2,7 +2,7 @@ package aureo.anaerosync;
 
 import java.util.HashMap;
 
-public class TaskManager {
+public class PositionManager {
     private static final HashMap<Integer, Task> taskPositions = new HashMap<>();
     private static final HashMap<Integer, String> otherPositions = new HashMap<>();
     
