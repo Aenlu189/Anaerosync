@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ScrollPane?>
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
    <children>
@@ -37,6 +38,7 @@
                   </Button>
                   <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
                   <Button fx:id="endTurnButton" onAction="#endTurn" style="-fx-font-size: 16px;" text="End Turn" visible="false" />
+                  <Button fx:id="tradeButton" onAction="#showTradeModal" style="-fx-font-size: 16px;" text="Trade Cards" />
                </children>
             </VBox>
             <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-37.0" layoutY="-6.0" prefHeight="877.0" prefWidth="964.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="-6.0">
@@ -785,6 +787,48 @@
                   </HBox>
                </children>
             </VBox>
+            <!-- Add trade player selection modal -->
+            <VBox fx:id="tradePlayerModal" alignment="CENTER" layoutX="2.0" prefHeight="958.0" prefWidth="1442.0" spacing="10" 
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+               <children>
+                  <Label style="-fx-font-size: 16px;" text="Choose Player to Trade With:" />
+                  <VBox fx:id="tradePlayerChoiceBox" maxWidth="200.0" prefWidth="187.0" spacing="5">
+                     <!-- Player choices will be added dynamically -->
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10">
+                     <Button fx:id="confirmTradePlayerButton" text="Confirm" onAction="#confirmTradePlayer" />
+                     <Button fx:id="cancelTradePlayerButton" text="Cancel" onAction="#cancelTradePlayer" />
+                  </HBox>
+               </children>
+            </VBox>
+            <!-- Add trade cards modal -->
+            <HBox fx:id="tradeCardsModal" alignment="CENTER" layoutX="2.0" prefHeight="958.0" prefWidth="1442.0" spacing="20" 
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+               <children>
+                  <!-- Current player's cards -->
+                  <VBox alignment="CENTER" spacing="10" prefWidth="400">
+                     <Label style="-fx-font-size: 16px;" text="Your Cards" />
+                     <ScrollPane>
+                        <VBox fx:id="currentPlayerCards" spacing="10" />
+                     </ScrollPane>
+                  </VBox>
+                  
+                  <!-- Trade arrows -->
+                  <VBox alignment="CENTER" spacing="10">
+                     <Label style="-fx-font-size: 20px;" text="⇄" />
+                     <Button fx:id="confirmTradeButton" text="Confirm Trade" onAction="#confirmTrade" />
+                     <Button fx:id="cancelTradeButton" text="Cancel" onAction="#cancelTrade" />
+                  </VBox>
+                  
+                  <!-- Selected player's cards -->
+                  <VBox alignment="CENTER" spacing="10" prefWidth="400">
+                     <Label fx:id="tradePartnerLabel" style="-fx-font-size: 16px;" text="Their Cards" />
+                     <ScrollPane>
+                        <VBox fx:id="selectedPlayerCards" spacing="10" />
+                     </ScrollPane>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>

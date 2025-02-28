@@ -1,6 +1,7 @@
 package aureo.anaerosync;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
+import javafx.geometry.Insets;
 
 public class boardGameController {
     // Initialization
@@ -88,6 +90,33 @@ public class boardGameController {
     @FXML
     private Button declineOfferButton;
 
+    @FXML
+    private Button tradeButton;
+    
+    @FXML
+    private VBox tradePlayerModal;
+    
+    @FXML
+    private VBox tradePlayerChoiceBox;
+    
+    @FXML
+    private HBox tradeCardsModal;
+    
+    @FXML
+    private VBox currentPlayerCards;
+    
+    @FXML
+    private VBox selectedPlayerCards;
+    
+    @FXML
+    private Label tradePlayerLabel;
+
+    @FXML
+    private Button confirmTradeButton;
+    
+    @FXML
+    private Button cancelTradeButton;
+
     private int numPlayers = 4;
     private int currentPlayer = 0;
     private final Color[] playerColors = {
@@ -118,6 +147,10 @@ public class boardGameController {
     private Task currentOfferedTask;
     private Player offeringPlayer;
     private Player selectedPlayer;
+
+    private Task selectedCardToTrade;
+    private Task selectedCardToReceive;
+    private Player tradePlayer;
 
     @FXML
     public void initialize() {
@@ -542,5 +575,159 @@ public class boardGameController {
         } else {
             showErrorDialog.setText("Not enough resources to accept offer!");
         }
+    }
+
+    @FXML
+    public void showTradeModal() {
+        tradePlayerChoiceBox.getChildren().clear();
+        
+        // Add radio buttons for each player except current player
+        ToggleGroup group = new ToggleGroup();
+        for (int i = 0; i < numPlayers; i++) {
+            if (i != currentPlayer && !players[i].getOwnedTasks().isEmpty()) {
+                RadioButton rb = new RadioButton(players[i].getName());
+                rb.setToggleGroup(group);
+                rb.setUserData(players[i]);
+                tradePlayerChoiceBox.getChildren().add(rb);
+            }
+        }
+        
+        // Only show trade modal if there are players to trade with
+        if (!tradePlayerChoiceBox.getChildren().isEmpty()) {
+            tradePlayerModal.setVisible(true);
+        } else {
+            showErrorDialog.setText("No players available to trade with!");
+        }
+    }
+
+    private void showTradeCardsModal(Player player) {
+        tradePlayer = player;
+        tradePlayerLabel.setText(player.getName() + "'s Cards");
+        selectedCardToTrade = null;
+        selectedCardToReceive = null;
+
+        // Show current player's cards
+        currentPlayerCards.getChildren().clear();
+        for (Task task: players[currentPlayer].getOwnedTasks()){
+            VBox cardBox = createTaskCardForTrade(task, true);
+            currentPlayerCards.getChildren().add(cardBox);
+        }
+
+        // Show selected player's cards
+        selectedPlayerCards.getChildren().clear();
+        for (Task task: player.getOwnedTasks()) {
+            VBox cardBox = createTaskCardForTrade(task, false);
+            selectedPlayerCards.getChildren().add(cardBox);
+        }
+
+        // buttons
+        confirmTradeButton.setOnAction(e -> confirmTrade());
+        cancelTradeButton.setOnAction(e -> cancelTrade());
+
+        // disable confirm button until cards to trade are being selected
+        confirmTradeButton.setDisable(true);
+        tradeCardsModal.setVisible(true);
+    }
+
+    private VBox createTaskCardForTrade(Task task, boolean isCurrentPlayer) {
+        // chose vertical box so that I can put the name of the task below the image of the task
+        VBox cardBox = new VBox();
+        cardBox.setAlignment(Pos.CENTER);
+        cardBox.setPadding(new Insets(5));
+        cardBox.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white");
+
+        // Task card image
+        Image image = new Image(getClass().getResourceAsStream(task.getTaskCard()));
+        ImageView taskCardView = new ImageView(image);
+        taskCardView.setFitWidth(150);
+        taskCardView.setPreserveRatio(true);
+
+        // under the image I want the name of the task
+        Text taskName = new Text(task.getTaskName());
+        taskName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+
+        cardBox.getChildren().addAll(taskCardView, taskName);
+
+        // event action so that when clicked on the mouse ->
+        cardBox.setOnMouseClicked(e -> {
+            // check if the current player is making the selection
+            if (isCurrentPlayer) {
+                // if a card was previously selected for trading, reset the visual
+                if (selectedCardToTrade != null) {
+                    // Reset Previous Selection
+                    currentPlayerCards.getChildren().forEach(node ->
+                            node.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white;"));
+                }
+                // Selection visual for the player
+                selectedCardToTrade = task;
+                cardBox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-background-color: lightblue;");
+            } else {
+                // for the other player essentially but logic is the same
+                if (selectedCardToReceive != null) {
+                    // Reset Previous selection
+                    selectedPlayerCards.getChildren().forEach(node ->
+                            node.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white;"));
+                }
+                selectedCardToReceive = task;
+                cardBox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-background-color: lightblue;");
+            }
+            // to check if both cards are being selected before trading
+            if (selectedCardToTrade == null || selectedCardToReceive == null) {
+                confirmTradeButton.setDisable(true);
+            }
+        });
+        return cardBox;
+    }
+
+    @FXML
+    private void confirmTrade() {
+        if (selectedCardToTrade != null && selectedCardToReceive != null) {
+            // remove cards from both first
+            players[currentPlayer].getOwnedTasks().remove(selectedCardToTrade);
+            tradePlayer.getOwnedTasks().remove(selectedCardToReceive);
+
+            // add swapped cards to both
+            players[currentPlayer].getOwnedTasks().add(selectedCardToReceive);
+            tradePlayer.getOwnedTasks().add(selectedCardToTrade);
+
+            selectedCardToReceive.setOwner(players[currentPlayer]);
+            selectedCardToTrade.setOwner(tradePlayer);
+
+            // Update the display
+            setupPlayerInfo();
+            tradeCardsModal.setVisible(false);
+            showErrorDialog.setText("Trade completed successfully");
+        }
+    }
+
+    @FXML
+    private void cancelTrade() {
+        tradeCardsModal.setVisible(false);
+        tradePlayerModal.setVisible(false);
+    }
+
+    @FXML
+    public void confirmTradePlayer() {
+        Player player = null;
+
+        for (Node node: tradePlayerChoiceBox.getChildren()) {
+            if (node instanceof RadioButton) {
+                RadioButton radioButton = (RadioButton) node;
+                if (radioButton.isSelected()) {
+                    player = (Player) radioButton.getUserData();
+                    break;
+                }
+            }
+        }
+
+        if (player != null) {
+            tradePlayerModal.setVisible(false);
+            showTradeCardsModal(player);
+        }
+    }
+
+    @FXML
+    public void cancelTradePlayer() {
+        tradePlayerModal.setVisible(false);
     }
 }
