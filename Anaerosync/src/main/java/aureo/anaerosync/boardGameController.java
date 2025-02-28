@@ -674,6 +674,8 @@ public class boardGameController {
             // to check if both cards are being selected before trading
             if (selectedCardToTrade == null || selectedCardToReceive == null) {
                 confirmTradeButton.setDisable(true);
+            } else {
+                confirmTradeButton.setDisable(false);
             }
         });
         return cardBox;
