@@ -1,4 +1,4 @@
-package aureo.anaerosync;
+package aureo.anaerosync.squares;
 
 public class CornerSquare extends Square {
 

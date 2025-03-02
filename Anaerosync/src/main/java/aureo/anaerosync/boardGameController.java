@@ -828,7 +828,7 @@ public class boardGameController {
                 players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() + moneyToReceive);
                 players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() + timeToReceive);
             } else {
-                showErrorDialog.setText("Your team mate does not have enough resources!");
+                showErrorDialog.setText("Your teammate does not have enough resources!");
                 return;
             }
         }

@@ -1,4 +1,4 @@
-package aureo.anaerosync;
+package aureo.anaerosync.squares;
 
 public class HomeSquare extends Square {
     HomeSquare(int position){

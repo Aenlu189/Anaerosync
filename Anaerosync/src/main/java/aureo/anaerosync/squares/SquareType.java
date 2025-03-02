@@ -1,4 +1,4 @@
-package aureo.anaerosync;
+package aureo.anaerosync.squares;
 
 public enum SquareType {
     TASK_SQUARE,

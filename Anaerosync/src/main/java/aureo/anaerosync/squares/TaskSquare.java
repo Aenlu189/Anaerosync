@@ -1,4 +1,6 @@
-package aureo.anaerosync;
+package aureo.anaerosync.squares;
+
+import aureo.anaerosync.Task;
 
 public class TaskSquare extends Square {
 
