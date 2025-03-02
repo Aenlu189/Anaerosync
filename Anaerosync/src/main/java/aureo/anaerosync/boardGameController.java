@@ -13,11 +13,15 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Random;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
 import javafx.geometry.Insets;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
 public class boardGameController {
     // Initialization
@@ -103,10 +107,10 @@ public class boardGameController {
     private HBox tradeCardsModal;
     
     @FXML
-    private VBox currentPlayerCards;
+    private FlowPane currentPlayerCards;
     
     @FXML
-    private VBox selectedPlayerCards;
+    private FlowPane selectedPlayerCards;
     
     @FXML
     private Label tradePlayerLabel;
@@ -116,6 +120,17 @@ public class boardGameController {
     
     @FXML
     private Button cancelTradeButton;
+
+    @FXML
+    private VBox currentPlayerResources;
+    
+    @FXML
+    private VBox selectedPlayerResources;
+    
+    private int moneyToGive = 0;
+    private int timeToGive = 0;
+    private int moneyToReceive = 0;
+    private int timeToReceive = 0;
 
     private int numPlayers = 4;
     private int currentPlayer = 0;
@@ -151,6 +166,10 @@ public class boardGameController {
     private Task selectedCardToTrade;
     private Task selectedCardToReceive;
     private Player tradePlayer;
+
+    // Add these fields after the existing fields
+    private List<Task> selectedCardsToGive = new ArrayList<>();
+    private List<Task> selectedCardsToReceive = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -377,9 +396,8 @@ public class boardGameController {
         
         Text taskName = new Text(task.getTaskName());
         Text taskDesc = new Text(task.getTaskObjective());
-        Text taskCost = new Text(String.format("Cost: Money %d, Time %d, Trust %d",
-            task.getTaskMoney(), 
-            task.getTaskTime(),
+        Text taskCost = new Text(String.format("Cost: Money %d, Trust %d",
+            task.getTaskMoney(),
             task.getTaskTrustNeeded()));
         
         taskName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -433,7 +451,6 @@ public class boardGameController {
             
             // Deduct resources
             currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
-            currentPlayerObj.setTimeResource(currentPlayerObj.getTimeResource() - task.getTaskTime());
             SHARED_TRUST -= task.getTaskTrustNeeded();
             
             // Add task to player's owned tasks
@@ -584,7 +601,7 @@ public class boardGameController {
         // Add radio buttons for each player except current player
         ToggleGroup group = new ToggleGroup();
         for (int i = 0; i < numPlayers; i++) {
-            if (i != currentPlayer && !players[i].getOwnedTasks().isEmpty()) {
+            if (i != currentPlayer) {
                 RadioButton rb = new RadioButton(players[i].getName());
                 rb.setToggleGroup(group);
                 rb.setUserData(players[i]);
@@ -605,107 +622,221 @@ public class boardGameController {
         tradePlayerLabel.setText(player.getName() + "'s Cards");
         selectedCardToTrade = null;
         selectedCardToReceive = null;
+        moneyToGive = 0;
+        timeToGive = 0;
+        moneyToReceive = 0;
+        timeToReceive = 0;
 
-        // Show current player's cards
-        currentPlayerCards.getChildren().clear();
+        // Create main container with horizontal layout
+        HBox mainContainer = new HBox(20);
+        mainContainer.setAlignment(Pos.CENTER);
+        
+        // Current player's section
+        VBox currentPlayerSection = new VBox(5);
+        currentPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
+        Text currentPlayerTitle = new Text("Your Offer");
+        currentPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        
+        // Resource inputs for current player
+        HBox currentResourceInputs = new HBox(10);
+        VBox moneyInputBox = createResourceInput("Money to give:", 
+            players[currentPlayer].getMoneyResource());
+        VBox timeInputBox = createResourceInput("Time to give:", 
+            players[currentPlayer].getTimeResource());
+        currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
+        
+        // Cards section for current player
+        Text currentPlayerCardsText = new Text("Your Cards to Trade:");
+        currentPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+        
+        // Container for current player's cards - Ignacio can change this according to what he wants
+        currentPlayerCards = new FlowPane();
+        currentPlayerCards.setHgap(10);
+        currentPlayerCards.setVgap(10);
+        currentPlayerCards.setPrefWrapLength(330);
+        currentPlayerCards.setStyle("-fx-padding: 5;");
+        
+        currentPlayerSection.getChildren().addAll(
+            currentPlayerTitle,
+            currentResourceInputs,
+            currentPlayerCardsText,
+            currentPlayerCards
+        );
+        
+        // Add current player's cards
         for (Task task: players[currentPlayer].getOwnedTasks()){
             VBox cardBox = createTaskCardForTrade(task, true);
             currentPlayerCards.getChildren().add(cardBox);
         }
 
-        // Show selected player's cards
-        selectedPlayerCards.getChildren().clear();
+        // Center section with trade controls
+        VBox centerControls = new VBox(10);
+        centerControls.setAlignment(Pos.CENTER);
+        
+        // Trade direction indicator
+        Text tradeArrow = new Text("⇄");
+        tradeArrow.setStyle("-fx-font-size: 24px;");
+        
+        // Trade buttons
+        confirmTradeButton = new Button("Confirm Trade");
+        cancelTradeButton = new Button("Cancel");
+        
+        confirmTradeButton.setOnAction(e -> confirmTrade());
+        cancelTradeButton.setOnAction(e -> cancelTrade());
+        
+        centerControls.getChildren().addAll(tradeArrow, confirmTradeButton, cancelTradeButton);
+
+        // Selected player's section
+        VBox selectedPlayerSection = new VBox(5);
+        selectedPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
+        Text selectedPlayerTitle = new Text(player.getName() + "'s Offer");
+        selectedPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        
+        // Resource inputs for selected player
+        HBox selectedResourceInputs = new HBox(10);
+        VBox moneyReceiveBox = createResourceInput("Money to receive:", 
+            player.getMoneyResource());
+        VBox timeReceiveBox = createResourceInput("Time to receive:", 
+            player.getTimeResource());
+        selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
+        
+        // Cards section for selected player
+        Text selectedPlayerCardsText = new Text("Their Cards to Trade:");
+        selectedPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+        
+        // Container for selected player's cards
+        selectedPlayerCards = new FlowPane();
+        selectedPlayerCards.setHgap(10);
+        selectedPlayerCards.setVgap(10);
+        selectedPlayerCards.setPrefWrapLength(330); // Width for 3 cards (100px) + gaps
+        selectedPlayerCards.setStyle("-fx-padding: 5;");
+        
+        selectedPlayerSection.getChildren().addAll(
+            selectedPlayerTitle,
+            selectedResourceInputs,
+            selectedPlayerCardsText,
+            selectedPlayerCards
+        );
+        
+        // Add selected player's cards
         for (Task task: player.getOwnedTasks()) {
             VBox cardBox = createTaskCardForTrade(task, false);
             selectedPlayerCards.getChildren().add(cardBox);
         }
 
-        // buttons
-        confirmTradeButton.setOnAction(e -> confirmTrade());
-        cancelTradeButton.setOnAction(e -> cancelTrade());
+        // Add all sections to main container
+        mainContainer.getChildren().addAll(currentPlayerSection, centerControls, selectedPlayerSection);
 
-        // disable confirm button until cards to trade are being selected
-        confirmTradeButton.setDisable(true);
+        // Update trade modal
+        tradeCardsModal.getChildren().clear();
+        tradeCardsModal.getChildren().add(mainContainer);
         tradeCardsModal.setVisible(true);
     }
 
-    private VBox createTaskCardForTrade(Task task, boolean isCurrentPlayer) {
-        // chose vertical box so that I can put the name of the task below the image of the task
-        VBox cardBox = new VBox();
-        cardBox.setAlignment(Pos.CENTER);
-        cardBox.setPadding(new Insets(5));
-        cardBox.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white");
+    private VBox createResourceInput(String label, int maxValue) {
+        VBox container = new VBox(5);
+        Text labelText = new Text(label);
+        labelText.setStyle("-fx-font-size: 12px;");
+        
+        // Create text field for input
+        TextField inputField = new TextField("0");
+        inputField.setPrefWidth(80);
 
-        // Task card image
-        Image image = new Image(getClass().getResourceAsStream(task.getTaskCard()));
-        ImageView taskCardView = new ImageView(image);
-        taskCardView.setFitWidth(150);
-        taskCardView.setPreserveRatio(true);
+        // count implement a way to only input numbers and not letters - Sebastian
 
-        // under the image I want the name of the task
-        Text taskName = new Text(task.getTaskName());
-        taskName.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-
-        cardBox.getChildren().addAll(taskCardView, taskName);
-
-        // event action so that when clicked on the mouse ->
-        cardBox.setOnMouseClicked(e -> {
-            // check if the current player is making the selection
-            if (isCurrentPlayer) {
-                // if a card was previously selected for trading, reset the visual
-                if (selectedCardToTrade != null) {
-                    // Reset Previous Selection
-                    currentPlayerCards.getChildren().forEach(node ->
-                            node.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white;"));
+        // Add listener for value changes
+        inputField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    // just a validator to check if the value is greater than max value
+                    if (value > maxValue) {
+                        inputField.setText(String.valueOf(maxValue));
+                    }
+                } catch (NumberFormatException e) {
+                    inputField.setText("0");
                 }
-                // Selection visual for the player
-                selectedCardToTrade = task;
-                cardBox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-background-color: lightblue;");
-            } else {
-                // for the other player essentially but logic is the same
-                if (selectedCardToReceive != null) {
-                    // Reset Previous selection
-                    selectedPlayerCards.getChildren().forEach(node ->
-                            node.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white;"));
-                }
-                selectedCardToReceive = task;
-                cardBox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-background-color: lightblue;");
-            }
-            // to check if both cards are being selected before trading
-            if (selectedCardToTrade == null || selectedCardToReceive == null) {
-                confirmTradeButton.setDisable(true);
-            } else {
-                confirmTradeButton.setDisable(false);
             }
         });
-        return cardBox;
+        
+        // Add max value indicator
+        Text maxValueText = new Text("(Max: " + maxValue + ")");
+        maxValueText.setStyle("-fx-font-size: 10px; -fx-fill: #666666;");
+        
+        container.getChildren().addAll(labelText, inputField, maxValueText);
+        return container;
     }
 
     @FXML
     private void confirmTrade() {
-        if (selectedCardToTrade != null && selectedCardToReceive != null) {
-            // remove cards from both first
-            players[currentPlayer].getOwnedTasks().remove(selectedCardToTrade);
-            tradePlayer.getOwnedTasks().remove(selectedCardToReceive);
-
-            // add swapped cards to both
-            players[currentPlayer].getOwnedTasks().add(selectedCardToReceive);
-            tradePlayer.getOwnedTasks().add(selectedCardToTrade);
-
-            selectedCardToReceive.setOwner(players[currentPlayer]);
-            selectedCardToTrade.setOwner(tradePlayer);
-
-            // Update the display
-            setupPlayerInfo();
-            tradeCardsModal.setVisible(false);
-            showErrorDialog.setText("Trade completed successfully");
+        // Validate if any cards or resources are selected not that efficient but couldn't think of a better way
+        if (selectedCardsToGive.isEmpty() && selectedCardsToReceive.isEmpty() && moneyToGive == 0 && timeToGive == 0 && moneyToReceive == 0 && timeToReceive == 0) {
+            showErrorDialog.setText("Please select at least one card or resource to trade");
+            return;
         }
-    }
 
-    @FXML
-    private void cancelTrade() {
+        // Process resources first
+        if (moneyToGive > 0 || timeToGive > 0) {
+            if (players[currentPlayer].getMoneyResource() >= moneyToGive &&
+                players[currentPlayer].getTimeResource() >= timeToGive) {
+                players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() - moneyToGive);
+                players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() - timeToGive);
+                tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() + moneyToGive);
+                tradePlayer.setTimeResource(tradePlayer.getTimeResource() + timeToGive);
+            } else {
+                showErrorDialog.setText("Not enough resources to give!");
+                return;
+            }
+        }
+
+        if (moneyToReceive > 0 || timeToReceive > 0) {
+            if (tradePlayer.getMoneyResource() >= moneyToReceive &&
+                tradePlayer.getTimeResource() >= timeToReceive) {
+                tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() - moneyToReceive);
+                tradePlayer.setTimeResource(tradePlayer.getTimeResource() - timeToReceive);
+                players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() + moneyToReceive);
+                players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() + timeToReceive);
+            } else {
+                showErrorDialog.setText("Your team mate does not have enough resources!");
+                return;
+            }
+        }
+
+        // Process cards to give
+        for (Task cardToGive : selectedCardsToGive) {
+            players[currentPlayer].getOwnedTasks().remove(cardToGive);
+            tradePlayer.getOwnedTasks().add(cardToGive);
+            cardToGive.setOwner(tradePlayer);
+        }
+
+        // Process cards to receive
+        for (Task cardToReceive : selectedCardsToReceive) {
+            tradePlayer.getOwnedTasks().remove(cardToReceive);
+            players[currentPlayer].getOwnedTasks().add(cardToReceive);
+            cardToReceive.setOwner(players[currentPlayer]);
+        }
+
+        // Trade Summary
+        StringBuilder message = new StringBuilder("Trade completed! ");
+        if (!selectedCardsToGive.isEmpty()) {
+            message.append("You gave ").append(selectedCardsToGive.size()).append(" cards. ");
+        }
+        if (!selectedCardsToReceive.isEmpty()) {
+            message.append("You received ").append(selectedCardsToReceive.size()).append(" cards. ");
+        }
+        if (moneyToGive > 0 || timeToGive > 0) {
+            message.append("You gave $").append(moneyToGive).append(" and ").append(timeToGive).append(" time. ");
+        }
+        if (moneyToReceive > 0 || timeToReceive > 0) {
+            message.append("You received $").append(moneyToReceive).append(" and ").append(timeToReceive).append(" time.");
+        }
+        showErrorDialog.setText(message.toString());
+
+        // Reset trade state
+        selectedCardsToGive.clear();
+        selectedCardsToReceive.clear();
         tradeCardsModal.setVisible(false);
-        tradePlayerModal.setVisible(false);
+        setupPlayerInfo(); // Update the player info display
     }
 
     @FXML
@@ -730,6 +861,78 @@ public class boardGameController {
 
     @FXML
     public void cancelTradePlayer() {
+        tradePlayerModal.setVisible(false);
+    }
+
+    private VBox createTaskCardForTrade(Task task, boolean isCurrentPlayer) {
+        VBox cardBox = new VBox(10);
+        cardBox.setAlignment(Pos.CENTER);
+        cardBox.setPadding(new Insets(10));
+        cardBox.setStyle("-fx-border-color: transparent; -fx-border-width: 2;");
+
+        String imagePath = task.getTaskCard();
+        if (imagePath != null) {
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            ImageView taskImage = new ImageView(image);
+            taskImage.setFitWidth(100);
+            taskImage.setPreserveRatio(true); // Preserve aspect ratio
+            taskImage.setSmooth(true); // Enable smooth scaling
+            cardBox.getChildren().add(taskImage);
+        }
+
+        // Add task name below with better formatting
+        Label taskName = new Label(task.getTaskName());
+        taskName.setWrapText(true);
+        taskName.setMaxWidth(90);
+        taskName.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        taskName.setStyle("-fx-font-size: 11px;"); // Slightly smaller font for better fit
+        cardBox.getChildren().add(taskName);
+
+        // Update selection logic to handle multiple cards
+        cardBox.setOnMouseClicked(event -> {
+            if (isCurrentPlayer) {
+                if (selectedCardsToGive.contains(task)) {
+                    selectedCardsToGive.remove(task);
+                    cardBox.setStyle("-fx-border-color: transparent; -fx-border-width: 2;");
+                } else {
+                    selectedCardsToGive.add(task);
+                    cardBox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+                }
+            } else {
+                if (selectedCardsToReceive.contains(task)) {
+                    selectedCardsToReceive.remove(task);
+                    cardBox.setStyle("-fx-border-color: transparent; -fx-border-width: 2;");
+                } else {
+                    selectedCardsToReceive.add(task);
+                    cardBox.setStyle("-fx-border-color: green; -fx-border-width: 2; -fx-border-radius: 5;");
+                }
+            }
+            
+            // Enable trade button if at least one card is selected on either side
+            confirmTradeButton.setDisable(selectedCardsToGive.isEmpty() && selectedCardsToReceive.isEmpty());
+        });
+
+        // Add hover effect for better interactivity
+        cardBox.setOnMouseEntered(e -> {
+            if (!selectedCardsToGive.contains(task) && !selectedCardsToReceive.contains(task)) {
+                cardBox.setStyle("-fx-border-color: #dddddd; -fx-border-width: 2; -fx-border-radius: 5;");
+            }
+        });
+        
+        cardBox.setOnMouseExited(e -> {
+            if (!selectedCardsToGive.contains(task) && !selectedCardsToReceive.contains(task)) {
+                cardBox.setStyle("-fx-border-color: transparent; -fx-border-width: 2;");
+            }
+        });
+
+        return cardBox;
+    }
+
+    @FXML
+    private void cancelTrade() {
+        selectedCardsToGive.clear();
+        tradeCardsModal.setVisible(false);
+        selectedCardsToReceive.clear();
         tradePlayerModal.setVisible(false);
     }
 }

@@ -12,7 +12,7 @@ public class Task {
     private Player owner;
     private String taskCard;
 
-    public Task(int id, String taskName, int taskMoney, int taskTime, int taskTrustNeeded, 
+    public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
                 int taskWorkforce, int taskEnergy, int taskBonus, String taskObjective, String taskCard) {
         this.id = id;
         this.taskName = taskName;

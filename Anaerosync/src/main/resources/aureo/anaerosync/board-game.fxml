@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
@@ -804,25 +805,25 @@
             <HBox fx:id="tradeCardsModal" alignment="CENTER" layoutX="2.0" prefHeight="958.0" prefWidth="1442.0" spacing="20" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
                <children>
                   <!-- Current player's cards -->
-                  <VBox alignment="CENTER" prefWidth="400" spacing="10">
+                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="455.0" spacing="10">
                      <Label style="-fx-font-size: 16px;" text="Your Cards" />
                      <ScrollPane>
-                        <VBox fx:id="currentPlayerCards" spacing="10" />
+                        <FlowPane fx:id="currentPlayerCards" hgap="10" vgap="10" />
                      </ScrollPane>
                   </VBox>
                   
                   <!-- Trade arrows -->
-                  <VBox alignment="CENTER" spacing="10">
+                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="194.0" spacing="10">
                      <Label style="-fx-font-size: 20px;" text="⇄" />
                      <Button fx:id="confirmTradeButton" onAction="#confirmTrade" text="Confirm Trade" />
                      <Button fx:id="cancelTradeButton" onAction="#cancelTrade" text="Cancel" />
                   </VBox>
                   
                   <!-- Selected player's cards -->
-                  <VBox alignment="CENTER" prefWidth="400" spacing="10">
+                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="455.0" spacing="10">
                      <Label fx:id="tradePlayerLabel" style="-fx-font-size: 16px;" text="Their Cards" />
                      <ScrollPane>
-                        <VBox fx:id="selectedPlayerCards" spacing="10" />
+                        <FlowPane fx:id="selectedPlayerCards" hgap="10" vgap="10" />
                      </ScrollPane>
                   </VBox>
                </children>
