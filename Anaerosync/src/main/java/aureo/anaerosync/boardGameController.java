@@ -620,12 +620,16 @@ public class boardGameController {
     private void showTradeCardsModal(Player player) {
         tradePlayer = player;
         tradePlayerLabel.setText(player.getName() + "'s Cards");
+        
+        // Reset all trade values
         selectedCardToTrade = null;
         selectedCardToReceive = null;
         moneyToGive = 0;
         timeToGive = 0;
         moneyToReceive = 0;
         timeToReceive = 0;
+        selectedCardsToGive.clear();
+        selectedCardsToReceive.clear();
 
         // Create main container with horizontal layout
         HBox mainContainer = new HBox(20);
@@ -741,21 +745,48 @@ public class boardGameController {
         // Create text field for input
         TextField inputField = new TextField("0");
         inputField.setPrefWidth(80);
-
-        // count implement a way to only input numbers and not letters - Sebastian
-
+        
+        // This one I got it from ChatGPT no idea how to implement in JavaFX
+        inputField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
+        
         // Add listener for value changes
         inputField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 try {
                     int value = Integer.parseInt(newValue);
-                    // just a validator to check if the value is greater than max value
+                    // Ensure value doesn't exceed max
                     if (value > maxValue) {
                         inputField.setText(String.valueOf(maxValue));
+                        value = maxValue;
                     }
+                    
+                    // Update the appropriate resource value based on the label
+                    if (label.contains("Money to give")) {
+                        moneyToGive = value;
+                    } else if (label.contains("Time to give")) {
+                        timeToGive = value;
+                    } else if (label.contains("Money to receive")) {
+                        moneyToReceive = value;
+                    } else if (label.contains("Time to receive")) {
+                        timeToReceive = value;
+                    }
+                    
+                    // Enable trade button if any resources are selected
+                    boolean hasResources = moneyToGive > 0 || timeToGive > 0 || 
+                                        moneyToReceive > 0 || timeToReceive > 0;
+                    boolean hasCards = !selectedCardsToGive.isEmpty() || !selectedCardsToReceive.isEmpty();
+                    confirmTradeButton.setDisable(!(hasResources || hasCards));
+                    
                 } catch (NumberFormatException e) {
                     inputField.setText("0");
                 }
+            } else {
+                inputField.setText("0");
             }
         });
         
@@ -875,17 +906,17 @@ public class boardGameController {
             Image image = new Image(getClass().getResourceAsStream(imagePath));
             ImageView taskImage = new ImageView(image);
             taskImage.setFitWidth(100);
-            taskImage.setPreserveRatio(true); // Preserve aspect ratio
-            taskImage.setSmooth(true); // Enable smooth scaling
+            taskImage.setPreserveRatio(true);
+            taskImage.setSmooth(true);
             cardBox.getChildren().add(taskImage);
         }
 
-        // Add task name below with better formatting
+        // Ignacio could format this more to be better
         Label taskName = new Label(task.getTaskName());
         taskName.setWrapText(true);
         taskName.setMaxWidth(90);
         taskName.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        taskName.setStyle("-fx-font-size: 11px;"); // Slightly smaller font for better fit
+        taskName.setStyle("-fx-font-size: 11px;");
         cardBox.getChildren().add(taskName);
 
         // Update selection logic to handle multiple cards
@@ -907,9 +938,6 @@ public class boardGameController {
                     cardBox.setStyle("-fx-border-color: green; -fx-border-width: 2; -fx-border-radius: 5;");
                 }
             }
-            
-            // Enable trade button if at least one card is selected on either side
-            confirmTradeButton.setDisable(selectedCardsToGive.isEmpty() && selectedCardsToReceive.isEmpty());
         });
 
         // Add hover effect for better interactivity
