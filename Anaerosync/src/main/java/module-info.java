@@ -14,4 +14,6 @@ module aureo.anaerosync {
 
     opens aureo.anaerosync to javafx.fxml;
     exports aureo.anaerosync;
+    exports aureo.anaerosync.squares;
+    opens aureo.anaerosync.squares to javafx.fxml;
 }
