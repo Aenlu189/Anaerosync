@@ -8,6 +8,7 @@ public class Task {
     private int taskTime;
     private int taskTrustNeeded;
     private int taskWorkforce;
+    private int taskBonus;
     private boolean isCompleted;
     private Player owner;
     private String taskCard;
@@ -20,6 +21,7 @@ public class Task {
         this.taskTime = taskTime;
         this.taskTrustNeeded = taskTrustNeeded;
         this.taskWorkforce = taskWorkforce;
+        this.taskBonus = taskBonus;
         this.taskObjective = taskObjective;
         this.taskCard = taskCard;
         this.isCompleted = false;
@@ -67,6 +69,10 @@ public class Task {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    public int getTaskBonus(){
+        return taskBonus;
     }
 
     public String getTaskCard() {

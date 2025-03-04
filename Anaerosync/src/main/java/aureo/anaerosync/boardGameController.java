@@ -15,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.InputStream;
 
 import java.util.Random;
 
@@ -24,6 +27,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.text.TextAlignment;
 
 public class boardGameController {
     // Initialization
@@ -177,6 +181,23 @@ public class boardGameController {
     private List<Task> selectedCardsToReceive = new ArrayList<>();
 
     @FXML
+    private VBox completeTaskModal;
+    
+    @FXML
+    private FlowPane completableTaskCards;
+    
+    @FXML
+    private Label availableTimeLabel;
+    
+    @FXML
+    private Button confirmCompleteButton;
+    
+    private Task selectedTaskToComplete;
+
+    // Ahmed you can use this for the progress bar objectives because each player's list of tasks that they finished is stored here
+    private HashMap<Player, List<Task>> completedTasks = new HashMap<>();
+
+    @FXML
     public void initialize() {
         System.out.println("Initializing controller...");
 
@@ -234,66 +255,32 @@ public class boardGameController {
         }
     }
 
-    // updated so that now it shows the resources
+    // Changed the way how the objectives are counted instead of shown each by each for space
     private void setupPlayerInfo() {
         playerInfoContainer.getChildren().clear();
 
-        // Add shared trust display at the top
+        // Shared-trust display at the top
         Text sharedTrustText = new Text(String.format("Trust: %d", SHARED_TRUST));
-        sharedTrustText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        sharedTrustText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold");
         playerInfoContainer.getChildren().add(sharedTrustText);
 
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i=0; i<numPlayers; i++) {
+            Player player = players[i];
             VBox playerBox = new VBox(5);
-            playerBox.setAlignment(Pos.CENTER_LEFT);
+            playerBox.setStyle("-fx-padding:10; -fx-background-color: "+ toRGBCode(playerColors[i]) + "20;");
 
-            HBox nameRow = new HBox(10);
-            nameRow.setAlignment(Pos.CENTER_LEFT);
+            Text nameText = new Text(player.getName());
+            nameText.setStyle("-fx-font-weight: bold");
+            Text moneyText = new Text("Money: "+player.getMoneyResource());
+            Text timeText = new Text("Time: "+player.getTimeResource());
+            Text tasksText = new Text("Tasks: "+player.getOwnedTasks().size());
 
-            Circle playerIndicator = new Circle(8);
-            playerIndicator.setFill(playerColors[i]);
-            playerIndicator.setStroke(Color.BLACK);
+            // Add completed tasks count
+            List<Task> playerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
+            Text completedTasksText = new Text("Completed Tasks: " + playerCompletedTasks.size());
 
-            Text playerInfo = new Text(String.format("Player %d: %s", 
-                players[i].getId(), 
-                players[i].getName()));
-            playerInfo.setStyle("-fx-font-family: 'Chalkboard SE Regular'; -fx-font-size: 16px;");
-
-            nameRow.getChildren().addAll(playerIndicator, playerInfo);
-
-            // Add resource information
-            Text moneyText = new Text(String.format("Money: $%d", players[i].getMoneyResource()));
-            Text timeText = new Text(String.format("Time: %d", players[i].getTimeResource()));
-            
-            // Add owned tasks
-            Text tasksText = new Text("Owned Tasks:");
-            // all the tasks that the player owned will show here
-            VBox tasksBox = new VBox(2);
-            ArrayList<Task> playerTasks = players[i].getOwnedTasks();
-            // checking how many and if the player really has task
-            if (playerTasks != null && !playerTasks.isEmpty()) {
-                for (Task task : playerTasks) {
-                    if (task != null) {
-                        Text taskText = new Text("- " + task.getTaskName());
-                        taskText.setStyle("-fx-font-size: 10px;");
-                        tasksBox.getChildren().add(taskText);
-                    }
-                }
-            }
-
-            moneyText.setStyle("-fx-font-size: 12px;");
-            timeText.setStyle("-fx-font-size: 12px;");
-            tasksText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-
-            playerBox.getChildren().addAll(
-                nameRow,
-                moneyText,
-                timeText,
-                tasksText,
-                tasksBox
-            );
-
-            playerInfoContainer.getChildren().add(playerBox);
+            playerBox.getChildren().addAll(nameText, moneyText, timeText, tasksText, completedTasksText);
+            playerInfoContainer.getChildren().addAll(playerBox);
         }
     }
 
@@ -318,7 +305,6 @@ public class boardGameController {
 
     @FXML
     public void rollDice() {
-
         // Roll the dice
         int roll = random.nextInt(6) + 1;
         System.out.println("Player " + currentPlayer + " rolled: " + roll);
@@ -377,7 +363,6 @@ public class boardGameController {
 
     // Initialization using Ignacio's tasks
     private static void initializeTasks() {
-
         tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 10, 25, "RESEARCH", "/images/1.png"));
         tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 13, 25, "RESEARCH", "/images/2.png"));
         tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 16, 50, "SKETCHING", "/images/3.png"));
@@ -400,7 +385,7 @@ public class boardGameController {
         tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png"));
     }
 
-    //initialization using Ignacio's lucks
+    // Initialization using Ignacio's lucks
     private static void initializeLucks() {
 
     }
@@ -457,16 +442,17 @@ public class boardGameController {
         
         Text taskName = new Text(task.getTaskName());
         Text taskDesc = new Text(task.getTaskObjective());
-        Text taskCost = new Text(String.format("Cost: Money %d, Trust %d",
-            task.getTaskMoney(),
-            task.getTaskTrustNeeded()));
+        Text taskBonus = new Text(Integer.toString(task.getTaskBonus()));
+        Text taskCost = new Text(String.format("Cost: Money %d, Trust %d, Task Bonus Trust: %d",
+            task.getTaskMoney(), task.getTaskTrustNeeded(), task.getTaskBonus()));
         
         taskName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
         
         cardInfoBox.getChildren().addAll(
             taskCardView,
             taskName,
-            taskDesc, 
+            taskDesc,
+            taskBonus,
             taskCost
         );
 
@@ -506,8 +492,7 @@ public class boardGameController {
         }
         
         // Check if player has enough resources
-        if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() && 
-            currentPlayerObj.getTimeResource() >= task.getTaskTime() &&
+        if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() &&
             SHARED_TRUST >= task.getTaskTrustNeeded()) {
             
             // Deduct resources
@@ -517,6 +502,8 @@ public class boardGameController {
             // Add task to player's owned tasks
             currentPlayerObj.addTask(task);
             task.setOwner(currentPlayerObj);
+
+            SHARED_TRUST += task.getTaskBonus();
             
             // Update display
             setupPlayerInfo();
@@ -853,17 +840,15 @@ public class boardGameController {
         }
 
         // Process resources first
-        if (moneyToGive > 0 || timeToGive > 0) {
-            if (players[currentPlayer].getMoneyResource() >= moneyToGive &&
-                players[currentPlayer].getTimeResource() >= timeToGive) {
-                players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() - moneyToGive);
-                players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() - timeToGive);
-                tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() + moneyToGive);
-                tradePlayer.setTimeResource(tradePlayer.getTimeResource() + timeToGive);
-            } else {
-                showErrorDialog.setText("Not enough resources to give!");
-                return;
-            }
+        if (players[currentPlayer].getMoneyResource() >= moneyToGive &&
+            players[currentPlayer].getTimeResource() >= timeToGive) {
+            players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() - moneyToGive);
+            players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() - timeToGive);
+            tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() + moneyToGive);
+            tradePlayer.setTimeResource(tradePlayer.getTimeResource() + timeToGive);
+        } else {
+            showErrorDialog.setText("Not enough resources to give!");
+            return;
         }
 
         if (moneyToReceive > 0 || timeToReceive > 0) {
@@ -1008,5 +993,104 @@ public class boardGameController {
         tradeCardsModal.setVisible(false);
         selectedCardsToReceive.clear();
         tradePlayerModal.setVisible(false);
+    }
+
+    // Completing Task
+    @FXML
+    public void showCompleteTaskModal() {
+        // Initialize completed tasks list for current player if not exist
+        completedTasks.putIfAbsent(players[currentPlayer], new ArrayList<>());
+
+        // Clear previous selections
+        selectedTaskToComplete = null;
+        confirmCompleteButton.setDisable(true);
+
+        // Show available time
+        availableTimeLabel.setText(String.valueOf(players[currentPlayer].getTimeResource()));
+
+        // Clear and dynamically output all the task cards which the player's gonna complete
+        completableTaskCards.getChildren().clear();
+        for (Task task: players[currentPlayer].getOwnedTasks()){
+            VBox taskCard = createTaskCardForCompletion(task);
+            completableTaskCards.getChildren().add(taskCard);
+        }
+        completeTaskModal.setVisible(true);
+    }
+
+    private VBox createTaskCardForCompletion(Task task){
+        VBox container = new VBox(5);
+        container.setAlignment(Pos.CENTER);
+        container.setPrefWidth(200);
+        container.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;");
+
+        String imagePath = task.getTaskCard();
+        InputStream imageStream = getClass().getResourceAsStream(imagePath);
+        Image image = new Image(imageStream);
+        ImageView taskImage = new ImageView(image);
+        taskImage.setFitWidth(180);
+        taskImage.setPreserveRatio(true);
+        container.getChildren().add(taskImage);
+
+        Text timeRequired = new Text("Time Required: " + task.getTaskTime());
+        timeRequired.setStyle("-fx-font-size: 12px");
+        container.getChildren().add(timeRequired);
+
+        // Add click handler
+        container.setOnMouseClicked(event -> {
+            // Deselect previously selected card
+            completableTaskCards.getChildren().forEach(node ->
+                node.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2px;"));
+
+            selectedTaskToComplete = task;
+            container.setStyle("-fx-padding: 10; -fx-border-color: #4CAF50; -fx-border-width: 2;");
+
+            // Enable confirm only if the player has enough time resource
+            confirmCompleteButton.setDisable(players[currentPlayer].getTimeResource() < task.getTaskTime());
+        });
+        return container;
+    }
+
+    @FXML
+    private void confirmCompleteTask() {
+        if (selectedTaskToComplete != null) {
+            Player player = players[currentPlayer];
+
+            // Check if player has enough time
+            if (player.getTimeResource() >= selectedTaskToComplete.getTaskTime()) {
+                // Deduct time
+                player.setTimeResource(player.getTimeResource() - selectedTaskToComplete.getTaskTime());
+
+                // Remove task from owned
+                player.getOwnedTasks().remove(selectedTaskToComplete);
+
+                // Add to completed tasks
+                completedTasks.get(player).add(selectedTaskToComplete);
+
+                // Update player display
+                setupPlayerInfo();
+
+                // Show message on top which I basically need to change it later on but right now temporary solution
+                showErrorDialog.setText("Task completed successfully!");
+                showErrorDialog.setStyle("-fx-text-fill: green;");
+
+                completeTaskModal.setVisible(false);
+            } else {
+                showErrorDialog.setText("Not enough time resource to complete this task");
+                showErrorDialog.setStyle("-fx-text-fill: red;");
+            }
+        }
+    }
+
+    @FXML
+    private void cancelCompleteTask() {
+        completeTaskModal.setVisible(false);
+    }
+
+    // Got from ChatGPT to convert Hex to RGB Code for transparency essentially for the background!
+    private String toRGBCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 }
