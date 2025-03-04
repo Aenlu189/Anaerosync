@@ -400,6 +400,12 @@ public class boardGameController {
         tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png"));
     }
 
+    //initialization using Ignacio's lucks
+    private static void initializeLucks() {
+
+    }
+
+
     // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
         Square currentSquare = PositionManager.getSquareAtPosition(position);
