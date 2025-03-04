@@ -3,7 +3,7 @@ package aureo.anaerosync;
 public class Task {
     private int id;
     private String taskName;
-    private String taskObjective;
+    private String taskObjective; // TODO: So far only implemented as String. Should be Objective class
     private int taskMoney;
     private int taskTime;
     private int taskTrustNeeded;

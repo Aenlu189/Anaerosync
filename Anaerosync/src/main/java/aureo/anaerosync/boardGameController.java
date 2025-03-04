@@ -1,5 +1,6 @@
 package aureo.anaerosync;
 
+import aureo.anaerosync.squares.*;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Random;
+
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
 import javafx.geometry.Insets;
@@ -157,6 +159,9 @@ public class boardGameController {
         new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
+    // ArrayList containing all tasks in the game
+    private static final ArrayList<Task> tasks = new ArrayList<Task>();
+
     private boolean hasMoved = false;  // Track if current player has moved
 
     private Task currentOfferedTask;
@@ -174,7 +179,11 @@ public class boardGameController {
     @FXML
     public void initialize() {
         System.out.println("Initializing controller...");
-        
+
+        // Initialize task and square objects
+        initializeTasks();
+        PositionManager.initializeSquares(tasks);
+
         // Initialize game state
         hideAllCirclesExceptStart();
         updateCurrentPlayerDisplay();
@@ -366,12 +375,58 @@ public class boardGameController {
         }
     }
 
+    // Initialization using Ignacio's tasks
+    private static void initializeTasks() {
+
+        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 10, 25, "RESEARCH", "/images/1.png"));
+        tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 13, 25, "RESEARCH", "/images/2.png"));
+        tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 16, 50, "SKETCHING", "/images/3.png"));
+        tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 20, 50, "SKETCHING", "/images/4.png"));
+        tasks.add(new Task(5, "Develop Visual Design", 105, 0, 120, 21, 24, 75, "FRONT-END", "/images/5.png"));
+        tasks.add(new Task(6, "Start JavaScript Development", 120, 0, 135, 24, 27, 75, "FRONT-END", "/images/6.png"));
+        tasks.add(new Task(7, "Develop Classes", 135, 0, 155, 27, 31, 100, "BACK-END", "/images/7.png"));
+        tasks.add(new Task(8, "Implement Functions", 150, 0, 180, 30, 36, 100, "BACK-END", "/images/8.png"));
+        tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 37, 125, "TESTING", "/images/9.png"));
+        tasks.add(new Task(10, "Testing Plan", 230, 0, 210, 46, 42, 125, "TESTING", "/images/10.png"));
+        tasks.add(new Task(11, "SSL Certificate", 235, 250, 235, 47, 47, 150, "SECURITY", "/images/11.png"));
+        tasks.add(new Task(12, "Cookies System", 245, 300, 240, 49, 48, 150, "SECURITY", "/images/12.png"));
+        tasks.add(new Task(13, "Sell Subscriptions", 270, 400, 265, 54, 53, 175, "DEPLOYMENT", "/images/13.png"));
+        tasks.add(new Task(14, "Add Media", 290, 600, 285, 58, 57, 175, "DEPLOYMENT", "/images/14.png"));
+        tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 60, 200, "PARTNERS", "/images/15.png"));
+        tasks.add(new Task(16, "Hardware Store Partners", 315, 1000, 320, 63, 64, 200, "PARTNERS", "/images/16.png"));
+        tasks.add(new Task(17, "Market Research", 330, 1500, 340, 70, 68, 225, "MARKETING", "/images/17.png"));
+        tasks.add(new Task(18, "Content Development", 375, 2000, 355, 75, 71, 225, "MARKETING", "/images/18.png"));
+        tasks.add(new Task(19, "Maintain System", 395, 3000, 375, 79, 75, 250, "MAINTAIN", "/images/19.png"));
+        tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png"));
+    }
+
     // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
-        if (PositionManager.isTaskPosition(position)) {
-            showTaskDialog(PositionManager.getTaskAtPosition(position));
-        } else if (PositionManager.isOtherPosition(position)) {
-            handleSpecialPosition(position);
+        Square currentSquare = PositionManager.getSquareAtPosition(position);
+
+        if (currentSquare.getType() == SquareType.TASK_SQUARE) {
+            Task task = ((TaskSquare) currentSquare).getTask();
+            showTaskDialog(task);
+
+        } else if (currentSquare.getType() == SquareType.LUCK_SQUARE) {
+            // TODO: Handle LUCK position
+
+        } else {
+            String specialType = ((CornerSquare) currentSquare).getSquareName();
+            switch (specialType) {
+                case "Home":
+                    // TODO: Call method that handles home position
+                    break;
+                case "DDOS":
+                    // TODO: Call method that handles DDOS position
+                    break;
+                case "Receive Funds":
+                    // TODO: Call method that handles Receive Funds position
+                    break;
+                case "Donate Money":
+                    // TODO: Call method that handles Donate Money position
+                    break;
+            }
         }
     }
 
@@ -478,21 +533,6 @@ public class boardGameController {
         acceptTaskButton.setVisible(false);
         declineTaskButton.setVisible(false);
         offerTaskButton.setVisible(false);
-    }
-
-    private void handleSpecialPosition(int position) {
-        String specialType = PositionManager.getOthersAtPosition(position);
-        switch (specialType) {
-            case "HOME":
-                // Handle home position
-                break;
-            case "LUCK":
-                // Handle luck position
-                break;
-            case "CORNER":
-                // Handle corner position
-                break;
-        }
     }
 
     // getting the circles which represent each player's positions

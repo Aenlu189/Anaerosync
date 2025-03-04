@@ -8,4 +8,8 @@ public abstract class Square {
         this.position = position;
         this.type = type;
     }
+
+    public SquareType getType() {
+        return type;
+    }
 }
