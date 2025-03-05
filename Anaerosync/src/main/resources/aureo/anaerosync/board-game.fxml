@@ -8,11 +8,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
@@ -25,7 +25,7 @@
                   <Image url="@../../images/Board.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" layoutX="922.0" layoutY="176.0" prefHeight="271.0" prefWidth="173.0" spacing="20.0">
+            <VBox alignment="CENTER" layoutX="921.0" layoutY="30.0" prefHeight="271.0" prefWidth="173.0" spacing="20.0">
                <children>
                   <Label style="-fx-font-size: 20px;" text="Current Player:" />
                   <Circle fx:id="currentPlayerIndicator" fill="DODGERBLUE" radius="15" />
@@ -745,7 +745,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <VBox alignment="CENTER" layoutX="1143.0" layoutY="183.0" spacing="20.0">
+            <VBox alignment="CENTER" layoutX="1145.0" layoutY="30.0" spacing="20.0">
                <children>
                   <VBox fx:id="cardInfoBox" spacing="10" visible="false">
                      <!-- Task information will be added dynamically -->
