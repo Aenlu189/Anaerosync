@@ -12,6 +12,10 @@ public class Task {
     private boolean isCompleted;
     private Player owner;
     private String taskCard;
+    private String claimMessage;
+    private String feeMessage;
+    private String completeTask;
+
 
     public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
                 int taskWorkforce, int taskEnergy, int taskBonus, String taskObjective, String taskCard) {
@@ -82,6 +86,18 @@ public class Task {
     public void setTaskCard(String taskCard) {
         this.taskCard = taskCard;
     }
+
+    public String getClaimMessage() { return claimMessage; }
+
+    public void setClaimMessage(String claimMessage) {this.claimMessage = claimMessage; }
+
+    public String getFeeMessage() { return feeMessage; }
+
+    public void setFeeMessage(String feeMessage) {this.feeMessage = feeMessage; }
+
+    public String getCompleteTask() { return completeTask; }
+
+    public void setCompleteTask(String completeTask) {this.completeTask = completeTask; }
 
     @Override
     public String toString() {
