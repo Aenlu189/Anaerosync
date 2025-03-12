@@ -2,6 +2,7 @@ package aureo.anaerosync;
 
 public class Objective {
 
+
     private int objectiveID;
     private String objectiveName;
     private int objectiveMoney;

@@ -15,10 +15,11 @@ public class Task {
     private String claimMessage;
     private String feeMessage;
     private String completeTask;
+    private int feeReward;
 
 
     public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
-                int taskWorkforce, int taskEnergy, int taskBonus, String taskObjective, String taskCard) {
+                int taskWorkforce, int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeReward) {
         this.id = id;
         this.taskName = taskName;
         this.taskMoney = taskMoney;
@@ -29,6 +30,7 @@ public class Task {
         this.taskObjective = taskObjective;
         this.taskCard = taskCard;
         this.isCompleted = false;
+        this.feeReward = feeReward;
     }
 
     public int getId() {

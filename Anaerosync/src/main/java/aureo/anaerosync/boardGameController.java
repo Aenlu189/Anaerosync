@@ -165,6 +165,7 @@ public class boardGameController {
 
     // ArrayList containing all tasks in the game
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final ArrayList<Objective> objectives = new ArrayList<>();
 
     private boolean hasMoved = false;  // Track if current player has moved
 
@@ -363,27 +364,108 @@ public class boardGameController {
 
     // Initialization using Ignacio's tasks
     private static void initializeTasks() {
-        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 10, 25, "RESEARCH", "/images/1.png"));
-        tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 13, 25, "RESEARCH", "/images/2.png"));
-        tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 16, 50, "SKETCHING", "/images/3.png"));
-        tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 20, 50, "SKETCHING", "/images/4.png"));
-        tasks.add(new Task(5, "Develop Visual Design", 105, 0, 120, 21, 24, 75, "FRONT-END", "/images/5.png"));
-        tasks.add(new Task(6, "Start JavaScript Development", 120, 0, 135, 24, 27, 75, "FRONT-END", "/images/6.png"));
-        tasks.add(new Task(7, "Develop Classes", 135, 0, 155, 27, 31, 100, "BACK-END", "/images/7.png"));
-        tasks.add(new Task(8, "Implement Functions", 150, 0, 180, 30, 36, 100, "BACK-END", "/images/8.png"));
-        tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 37, 125, "TESTING", "/images/9.png"));
-        tasks.add(new Task(10, "Testing Plan", 230, 0, 210, 46, 42, 125, "TESTING", "/images/10.png"));
-        tasks.add(new Task(11, "SSL Certificate", 235, 250, 235, 47, 47, 150, "SECURITY", "/images/11.png"));
-        tasks.add(new Task(12, "Cookies System", 245, 300, 240, 49, 48, 150, "SECURITY", "/images/12.png"));
-        tasks.add(new Task(13, "Sell Subscriptions", 270, 400, 265, 54, 53, 175, "DEPLOYMENT", "/images/13.png"));
-        tasks.add(new Task(14, "Add Media", 290, 600, 285, 58, 57, 175, "DEPLOYMENT", "/images/14.png"));
-        tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 60, 200, "PARTNERS", "/images/15.png"));
-        tasks.add(new Task(16, "Hardware Store Partners", 315, 1000, 320, 63, 64, 200, "PARTNERS", "/images/16.png"));
-        tasks.add(new Task(17, "Market Research", 330, 1500, 340, 70, 68, 225, "MARKETING", "/images/17.png"));
-        tasks.add(new Task(18, "Content Development", 375, 2000, 355, 75, 71, 225, "MARKETING", "/images/18.png"));
-        tasks.add(new Task(19, "Maintain System", 395, 3000, 375, 79, 75, 250, "MAINTAIN", "/images/19.png"));
-        tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png"));
+        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 10, 25, "RESEARCH", "/images/1.png", 10));
+        tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 13, 25, "RESEARCH", "/images/2.png", 10));
+        tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 16, 50, "SKETCHING", "/images/3.png", 20));
+        tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 20, 50, "SKETCHING", "/images/4.png", 20));
+        tasks.add(new Task(5, "Develop Visual Design", 105, 0, 120, 21, 24, 75, "FRONT-END", "/images/5.png", 30));
+        tasks.add(new Task(6, "Start JavaScript Development", 120, 0, 135, 24, 27, 75, "FRONT-END", "/images/6.png", 30));
+        tasks.add(new Task(7, "Develop Classes", 135, 0, 155, 27, 31, 100, "BACK-END", "/images/7.png", 40));
+        tasks.add(new Task(8, "Implement Functions", 150, 0, 180, 30, 36, 100, "BACK-END", "/images/8.png", 40));
+        tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 37, 125, "TESTING", "/images/9.png", 50));
+        tasks.add(new Task(10, "Testing Plan", 230, 0, 210, 46, 42, 125, "TESTING", "/images/10.png", 50));
+        tasks.add(new Task(11, "SSL Certificate", 235, 250, 235, 47, 47, 150, "SECURITY", "/images/11.png", 60));
+        tasks.add(new Task(12, "Cookies System", 245, 300, 240, 49, 48, 150, "SECURITY", "/images/12.png", 60));
+        tasks.add(new Task(13, "Sell Subscriptions", 270, 400, 265, 54, 53, 175, "DEPLOYMENT", "/images/13.png", 70));
+        tasks.add(new Task(14, "Add Media", 290, 600, 285, 58, 57, 175, "DEPLOYMENT", "/images/14.png", 70));
+        tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 60, 200, "PARTNERS", "/images/15.png", 80));
+        tasks.add(new Task(16, "Hardware Store Partners", 315, 1000, 320, 63, 64, 200, "PARTNERS", "/images/16.png", 80));
+        tasks.add(new Task(17, "Market Research", 330, 1500, 340, 70, 68, 225, "MARKETING", "/images/17.png", 90));
+        tasks.add(new Task(18, "Content Development", 375, 2000, 355, 75, 71, 225, "MARKETING", "/images/18.png", 90));
+        tasks.add(new Task(19, "Maintain System", 395, 3000, 375, 79, 75, 250, "MAINTAIN", "/images/19.png", 100));
+        tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png", 100));
+
+        tasks.getFirst().setClaimMessage("Research is the foundation of AnaeroSync. Investigate the economic, environmental, and social factors of anaerobic digestion. Invest 50 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 25 Community Trust units as a reward for claiming this task.");
+        tasks.get(1).setClaimMessage("Understanding the local environment is key for AnaeroSync’s success. Investigate the waste management situation in Makers Valley and potential opportunities. Invest 60 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 25 Community Trust units as a reward for claiming this task.");
+        tasks.get(2).setClaimMessage("Before development starts, it’s essential to define how users will interact with AnaeroSync. Create detailed use cases. Invest 80 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 50 Community Trust units as a reward for claiming this task.");
+        tasks.get(3).setClaimMessage("Structuring the system is crucial for development. Create a UML diagram to map out the project’s structure. Invest 85 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 50 Community Trust units as a reward for claiming this task.");
+        tasks.get(4).setClaimMessage("A user-friendly design is key! Start working on AnaeroSync’s UI/UX using Figma. Invest 105 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 75 Community Trust units as a reward for claiming this task.");
+        tasks.get(5).setClaimMessage("The coding phase begins! Lay the groundwork for AnaeroSync by starting JavaScript development. Invest 120 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 75 Community Trust units as a reward for claiming this task.");
+        tasks.get(6).setClaimMessage("Create reusable and well-structured classes for the project. Invest 135 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 100 Community Trust units as a reward for claiming this task.");
+        tasks.get(7).setClaimMessage("Write essential functions and methods to ensure AnaeroSync’s core operations work smoothly. Invest 150 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 100 Community Trust units as a reward for claiming this task.");
+        tasks.get(8).setClaimMessage("Testing is crucial! Define test cases for AnaeroSync’s functionalities. Invest 190 units of Money to claim this Task.You are not required any Community Trust units for this task, however, receive 125 Community Trust units as a reward for claiming this task.");
+        tasks.get(9).setClaimMessage("Ensure smooth integration of all system components by developing an integration acceptance plan. Invest 230 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 125 Community Trust units as a reward for claiming this task.");
+        tasks.get(10).setClaimMessage("Secure the AnaeroSync website with an SSL certificate. Invest 235 units of Money to claim this Task. You are required 250 Community Trust units to claim this task. Receive 150 Community Trust units as a reward for claiming this task.");
+        tasks.get(11).setClaimMessage("Set up a secure and functional cookies system for AnaeroSync. Invest 245 units of Money to claim this Task. You are required 300 Community Trust units to claim this task. Receive 150 Community Trust units as a reward for claiming this task.");
+        tasks.get(12).setClaimMessage("Keep AnaeroSync up to date with improvements and bug fixes. Invest 270 units of Money to claim this Task. You are required 400 Community Trust units to claim this task. Receive 175 Community Trust units as a reward for claiming this task.");
+        tasks.get(13).setClaimMessage("Ensure that AnaeroSync is running smoothly and without errors. Invest 290 units of Money to claim this Task. You are required 600 Community Trust units to claim this task. Receive 175 Community Trust units as a reward for claiming this task.");
+        tasks.get(14).setClaimMessage("Create engaging and informative content for AnaeroSync. Invest 300 units of Money to claim this Task. You are required 800 Community Trust units to claim this task. Receive 200 Community Trust units as a reward for claiming this task.");
+        tasks.get(15).setClaimMessage("Promote AnaeroSync through social media and marketing strategies. Invest 315 units of Money to claim this Task. You are required 1000 Community Trust units to claim this task. Receive 200 Community Trust units as a reward for claiming this task.");
+        tasks.get(16).setClaimMessage("Establish partnerships to enhance AnaeroSync’s impact. Invest 350 units of Money to claim this Task. You are required 1500 Community Trust units to claim this task. Receive 225 Community Trust units as a reward for claiming this task.");
+        tasks.get(17).setClaimMessage("Develop a sustainability plan for long-term success. Invest 375 units of Money to claim this Task. You are required 2000 Community Trust units to claim this task. Receive 225 Community Trust units as a reward for claiming this task.");
+        tasks.get(18).setClaimMessage("Optimize performance and security for AnaeroSync. Invest 395 units of Money to claim this Task. You are required 300 Community Trust units to claim this task. Receive 250 Community Trust units as a reward for claiming this task.");
+        tasks.get(19).setClaimMessage("Finalize and deploy AnaeroSync for public access. Invest 400 units of Money to claim this Task. You are required 4000 Community Trust units to claim this task. Receive 250 Community Trust units as a reward for claiming this task.");
+
+        tasks.getFirst().setFeeMessage("You have landed on an already claimed task! You can offer to help investigate the sustainability of anaerobic digesters by investing 10 units of Money and 10 units of Time. Receive 10 Community Trust units as a reward.");
+        tasks.get(1).setFeeMessage("You have landed on an already claimed task! Support ongoing research by contributing 12 units of Money and 13 units of Time. Receive 10 Community Trust units as a reward.");
+        tasks.get(2).setFeeMessage("You have landed on an already claimed task! Assist in structuring use case scenarios by investing 16 units of Money and 16 units of Time. Receive 20 Community Trust units as a reward.");
+        tasks.get(3).setFeeMessage("You have landed on an already claimed task! Help refine the UML diagram by investing 17 units of Money and 20 units of Time. Receive 20 Community Trust units as a reward.");
+        tasks.get(4).setFeeMessage("You have landed on an already claimed task! Support the design process by suggesting improvements. Invest 21 units of Money and 24 units of Time. Receive 30 Community Trust units as a reward.");
+        tasks.get(5).setFeeMessage("You have landed on an already claimed task! Contribute to the coding process by assisting in JavaScript development. Invest 24 units of Money and 27 units of Time. Receive 30 Community Trust units as a reward.");
+        tasks.get(6).setFeeMessage("You have landed on an already claimed task! Help refine and optimize class structures. Invest 27 units of Money and 31 units of Time. Receive 40 Community Trust units as a reward.");
+        tasks.get(7).setFeeMessage("You have landed on an already claimed task! Assist by debugging and refining the implemented functions. Invest 30 units of Money and 36 units of Time.Receive 40 Community Trust units as a reward.");
+        tasks.get(8).setFeeMessage("You have landed on an already claimed task! Contribute to test planning by reviewing and suggesting improvements. Invest 38 units of Money and 37 units of Time. Receive 50 Community Trust units as a reward.");
+        tasks.get(9).setFeeMessage("You have landed on an already claimed task! Help refine and validate integration strategies. Invest 46 units of Money and 42 units of Time. Receive 50 Community Trust units as a reward.");
+        tasks.get(10).setFeeMessage("You have landed on an already claimed task! Contribute to the security enhancement by reviewing options. Invest 47 units of Money and 47 units of Time. Receive 60 Community Trust units as a reward.");
+        tasks.get(11).setFeeMessage("You have landed on an already claimed task! Assist in designing and testing the cookies system. Invest 49 units of Money and 48 units of Time.Receive 60 Community Trust units as a reward.");
+        tasks.get(12).setFeeMessage("You have landed on an already claimed task! Contribute by suggesting or testing updates. Invest 54 units of Money and 53 units of Time. Receive 70 Community Trust units as a reward.");
+        tasks.get(13).setFeeMessage("You have landed on an already claimed task! Assist in monitoring the system for issues. Invest 58 units of Money and 57 units of Time. Receive 70 Community Trust units as a reward.");
+        tasks.get(14).setFeeMessage("You have landed on an already claimed task! Help by contributing articles, videos, or images. Invest 60 units of Money and 60 units of Time. Receive 80 Community Trust units as a reward.");
+        tasks.get(15).setFeeMessage("You have landed on an already claimed task! Support marketing efforts with ideas or content creation. Invest 63 units of Money and 64 units of Time. Receive 80 Community Trust units as a reward.");
+        tasks.get(16).setFeeMessage("You have landed on an already claimed task! Help establish connections by reaching out to potential partners. Invest 70 units of Money and 68 units of Time. Receive 90 Community Trust units as a reward.");
+        tasks.get(17).setFeeMessage("You have landed on an already claimed task! Assist in developing a sustainability plan. Invest 75 units of Money and 71 units of Time. Receive 90 Community Trust units as a reward.");
+        tasks.get(18).setFeeMessage("You have landed on an already claimed task! Contribute to performance optimization and security measures. Invest 79 units of Money and 75 units of Time. Receive 100 Community Trust units as a reward.");
+        tasks.get(19).setFeeMessage("You have landed on an already claimed task! Support the deployment process by reviewing final steps. Invest 80 units of Money and 80 units of Time. Receive 100 Community Trust units as a reward.");
+
+        tasks.getFirst().setCompleteTask("In order to complete this research stage, you must spend time reading news, scientific articles, and surfing the web. Invest 50 units of Time to complete this Task.");
+        tasks.get(1).setCompleteTask("Conduct interviews, collect data, and explore case studies on waste management in Makers Valley. Invest 60 units of Time to complete this Task.");
+        tasks.get(2).setCompleteTask("Develop user stories and diagrams to visualize user interactions. Invest 80 units of Time to complete this Task.");
+        tasks.get(3).setCompleteTask("Finalize a well-documented UML diagram covering all system components. Invest 100 units of Time to complete this Task.");
+        tasks.get(4).setCompleteTask("Finalize wireframes and prototypes for a seamless user experience. Invest 120 units of Time to complete this Task.");
+        tasks.get(5).setCompleteTask("Write initial code for core functionalities and set up the development environment. Invest 135 units of Time to complete this Task.");
+        tasks.get(6).setCompleteTask("Ensure object-oriented principles are correctly implemented in the development. Invest 155 units of Time to complete this Task.");
+        tasks.get(7).setCompleteTask("Write, test, and document key functions for system operations. Invest 180 units of Time to complete this Task.");
+        tasks.get(8).setCompleteTask("Develop and execute test cases to ensure system reliability. Invest 185 units of Time to complete this Task.");
+        tasks.get(9).setCompleteTask("Finalize and document the integration acceptance plan. Invest 210 units of Time to complete this Task.");
+        tasks.get(10).setCompleteTask("Purchase and configure the SSL certificate for the domain. Invest 235 units of Time to complete this Task.");
+        tasks.get(11).setCompleteTask("Implement, test, and document the cookies system. Invest 240 units of Time to complete this Task.");
+        tasks.get(12).setCompleteTask("Implement and document necessary updates. Invest 265 units of Time to complete this Task.");
+        tasks.get(13).setCompleteTask("Analyze logs and optimize performance. Invest 285 units of Time to complete this Task.");
+        tasks.get(14).setCompleteTask("Develop and publish high-quality content. Invest 300 units of Time to complete this Task.");
+        tasks.get(15).setCompleteTask("Create marketing materials and outreach strategies. Invest 320 units of Time to complete this Task.");
+        tasks.get(16).setCompleteTask("Establish and finalize partnerships with relevant organizations. Invest 340 units of Time to complete this Task.");
+        tasks.get(17).setCompleteTask("Develop a long-term sustainability plan for AnaeroSync. Invest 355 units of Time to complete this Task.");
+        tasks.get(18).setCompleteTask("Optimize system security and ensure compliance with best practices. Invest 375 units of Time to complete this Task.");
+        tasks.get(19).setCompleteTask("Deploy the final version of AnaeroSync and ensure a successful launch. Invest 400 units of Time to complete this Task.");
     }
+    // Initialization of objectives
+    private static void initializeObjectives(){
+        objectives.add(new Objective(1, "RESEARCH", 50, 50, 25, tasks.getFirst(), tasks.get(1)));
+        objectives.add(new Objective(2, "SKETCHING", 100, 100, 50, tasks.get(2), tasks.get(3)));
+        objectives.add(new Objective(3, "FRONT-END", 150, 150, 75, tasks.get(4), tasks.get(5)));
+        objectives.add(new Objective(4, "BACK-END", 200, 200, 100, tasks.get(6), tasks.get(7)));
+        objectives.add(new Objective(5, "TESTING", 250, 250, 125, tasks.get(8), tasks.get(9)));
+        objectives.add(new Objective(6, "CYBERSECURITY", 300, 300, 150, tasks.get(10), tasks.get(11)));
+        objectives.add(new Objective(7, "DEPLOYMENT", 350, 350, 175, tasks.get(12), tasks.get(13)));
+        objectives.add(new Objective(8, "PARTNERSHIPS", 400, 400, 200, tasks.get(14), tasks.get(15)));
+        objectives.add(new Objective(9, "MARKETING", 450, 450, 225, tasks.get(16), tasks.get(17)));
+        objectives.add(new Objective(10, "SUSTAINABILITY", 500, 500, 250, tasks.get(18), tasks.get(19)));
+        for (int i = 1; i < objectives.size() + 1; ++i) {
+            objectives.get(i).setCompleteObjectiveMessage("Congratulations on completing both tasks of the" + objectives.get(i).getObjectiveName() + "OBJECTIVE. You can’t step on these squares anymore! Please receive, as a thank you for your commitment, " + 50*i + " units of Money, " + 50*i + " units of Time and " + 50*i/2 + " units of Community Trust.");
+        }
+
+    }
+
 
     // Initialization using Ignacio's lucks
     private static void initializeLucks() {
