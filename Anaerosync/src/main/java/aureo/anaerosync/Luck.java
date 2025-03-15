@@ -11,13 +11,14 @@ public class Luck {
     private Player owner;
     private String luckCard;
 
-    public Luck(int id, String luckName, int luckMoney, int luckTime, int luckTrustNeeded, int luckWorkforce, boolean isCompleted) {
+    public Luck(int id, String luckName, int luckMoney, int luckTime, int luckTrustNeeded, int luckWorkforce, String luckCard) {
         this.id = id;
         this.luckName = luckName;
         this.luckMoney = luckMoney;
         this.luckTime = luckTime;
         this.luckTrustNeeded = luckTrustNeeded;
         this.luckWorkForce = luckWorkforce;
+        this.luckCard = luckCard;
         this.isCompleted = false;
     }
 

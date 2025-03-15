@@ -3,7 +3,6 @@ package aureo.anaerosync;
 import aureo.anaerosync.squares.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PositionManager {
 

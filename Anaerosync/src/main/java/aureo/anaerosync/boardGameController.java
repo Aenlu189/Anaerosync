@@ -181,6 +181,9 @@ public class boardGameController {
     private List<Task> selectedCardsToGive = new ArrayList<>();
     private List<Task> selectedCardsToReceive = new ArrayList<>();
 
+    //ArrayList containing all lucks in the game
+    private static final ArrayList<Luck> lucks = new ArrayList<Luck>();
+
     @FXML
     private VBox completeTaskModal;
     
@@ -205,6 +208,10 @@ public class boardGameController {
         // Initialize task and square objects
         initializeTasks();
         PositionManager.initializeSquares(tasks);
+
+        // Initialize luck and square objects
+        initializeLucks();
+        //PositionManager.initializeSquares(lucks);
 
         // Initialize game state
         hideAllCirclesExceptStart();
@@ -469,6 +476,28 @@ public class boardGameController {
 
     // Initialization using Ignacio's lucks
     private static void initializeLucks() {
+        private static void initializeLucks() {
+            lucks.add(new Luck(1, "Good or Bad", 0, 100, 0, 0, "/images/LuckCard1.png"));
+            lucks.add(new Luck(2, "Good or Bad", 100, 0, 0, 0, "/images/LuckCard2.png"));
+            lucks.add(new Luck(3, "Good or Bad", 0, 200, 0, 0, "/images/LuckCard3.png"));
+            lucks.add(new Luck(4, "Good or Bad", 200, 0, 0, 0, "/images/LuckCard4.png"));
+            lucks.add(new Luck(5, "Good or Bad", 0, 400, 0, 0, "/images/LuckCard5.png"));
+            lucks.add(new Luck(6, "Good or Bad", 400, 0, 0, 0, "/images/LuckCard6.png"));
+            lucks.add(new Luck(7, "Good or Bad", 200, 200, 0, 0, "/images/LuckCard7.png"));
+            lucks.add(new Luck(8, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard8.png"));
+            lucks.add(new Luck(9, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard9.png"));
+            lucks.add(new Luck(10, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard10.png"));
+            lucks.add(new Luck(11, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard11.png"));
+            lucks.add(new Luck(12, "Good or Bad", 0, -100, 0, 0, "/images/LuckCard12.png"));
+            lucks.add(new Luck(13, "Good or Bad", 0, -200, 0, 0, "/images/LuckCard13.png"));
+            lucks.add(new Luck(14, "Good or Bad", -200, 0, 0, 0, "/images/LuckCard14.png"));
+            lucks.add(new Luck(15, "Good or Bad", 0, -400, 0, 0, "/images/LuckCard15.png"));
+            lucks.add(new Luck(16, "Good or Bad", -400, 0, 0, 0, "/images/LuckCard16.png"));
+            lucks.add(new Luck(17, "Good or Bad", -200, -200, 0, 0, "/images/LuckCard17.png"));
+            lucks.add(new Luck(18, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard18.png"));
+            lucks.add(new Luck(19, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard19.png"));
+            lucks.add(new Luck(20, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard20.png"));
+        }
 
     }
 
