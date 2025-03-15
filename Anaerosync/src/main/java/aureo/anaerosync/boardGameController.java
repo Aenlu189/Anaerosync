@@ -165,7 +165,7 @@ public class boardGameController {
 
     // ArrayList containing all tasks in the game
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
-    private static final ArrayList<Objective> objectives = new ArrayList<>();
+    private static final ArrayList<Objective> objectives = new ArrayList<Objective>();
 
     private boolean hasMoved = false;  // Track if current player has moved
 
@@ -476,7 +476,6 @@ public class boardGameController {
 
     // Initialization using Ignacio's lucks
     private static void initializeLucks() {
-        private static void initializeLucks() {
             lucks.add(new Luck(1, "Good or Bad", 0, 100, 0, 0, "/images/LuckCard1.png"));
             lucks.add(new Luck(2, "Good or Bad", 100, 0, 0, 0, "/images/LuckCard2.png"));
             lucks.add(new Luck(3, "Good or Bad", 0, 200, 0, 0, "/images/LuckCard3.png"));
@@ -497,7 +496,6 @@ public class boardGameController {
             lucks.add(new Luck(18, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard18.png"));
             lucks.add(new Luck(19, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard19.png"));
             lucks.add(new Luck(20, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard20.png"));
-        }
 
     }
 
