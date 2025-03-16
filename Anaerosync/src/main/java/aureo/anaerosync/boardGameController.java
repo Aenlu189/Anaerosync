@@ -377,6 +377,15 @@ public class boardGameController {
             int currentPosition = players[playerIndex].getPosition() % 28;
             int newPosition = (currentPosition + spaces) % 28;
 
+            // if the current position is a bigger number than the new position (e.g. going from 27 to 2), it means you're crossing home
+            if(currentPosition > newPosition) {
+                // give player resources for crossing home
+                int newMoney = players[playerIndex].getMoneyResource() + 100;
+                int newTime = players[playerIndex].getTimeResource() + 100;
+                players[playerIndex].setMoneyResource(newMoney);
+                players[playerIndex].setTimeResource(newTime);
+            }
+
             // Debug added these
             System.out.println("Current position: " + currentPosition);
             System.out.println("New position: " + newPosition);
