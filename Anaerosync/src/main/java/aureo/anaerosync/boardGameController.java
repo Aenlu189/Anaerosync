@@ -30,109 +30,31 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.text.TextAlignment;
 
 public class boardGameController {
-    // Initialization
-    @FXML
-    private Label diceResult;
+    @FXML public Button completeTaskButton, rollDiceButton, acceptTaskButton, declineTaskButton, endTurnButton;
+    @FXML public Button offerTaskButton, confirmOfferButton, cancelOfferButton;
+    @FXML public Button acceptOfferButton, declineOfferButton, confirmTradeButton, cancelTradeButton;
+    @FXML public Button viewOwnedTasksButton, viewCompletedTasksButton, confirmCompleteButton;
 
-    @FXML
-    private Circle currentPlayerIndicator;
+    @FXML private Label diceResult, showErrorDialog, offerMessage, tradePlayerLabel;
+    @FXML private Label availableTimeLabel, viewTaskField, taskCountLabel;
 
-    @FXML
-    private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
+    @FXML private Circle currentPlayerIndicator;
 
-    @FXML
-    private Circle G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23, G24, G25, G26, G27, G28;
+    @FXML private VBox playerInfoContainer, cardInfoBox, offerModal, playerChoiceBox, offerResponseModal, offeredTaskInfo;
+    @FXML private VBox tradePlayerModal, tradePlayerChoiceBox, completeTaskModal, viewTasksModal;
 
-    @FXML
-    private Circle O1, O2, O3, O4, O5, O6, O7, O8, O9, O10, O11, O12, O13, O14, O15, O16, O17, O18, O19, O20, O21, O22, O23, O24, O25, O26, O27, O28;
+    @FXML private HBox tradeCardsModal;
 
-    @FXML
-    private Circle R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28;
+    @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
 
-    @FXML
-    private VBox playerInfoContainer;
+    @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
+    @FXML private Circle G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23, G24, G25, G26, G27, G28;
+    @FXML private Circle O1, O2, O3, O4, O5, O6, O7, O8, O9, O10, O11, O12, O13, O14, O15, O16, O17, O18, O19, O20, O21, O22, O23, O24, O25, O26, O27, O28;
+    @FXML private Circle R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28;
 
-    @FXML
-    private Button acceptTaskButton;
+    @FXML private Label taskNameLabel, taskDescLabel, taskBonusLabel, taskCostLabel, taskOwnerLabel;
+    @FXML private ImageView taskCardImage;
 
-    @FXML
-    private Button declineTaskButton;
-
-    @FXML
-    private VBox cardInfoBox;
-
-    @FXML
-    private Label showErrorDialog;
-
-    @FXML
-    private Button rollDiceButton;
-
-    @FXML
-    private Button endTurnButton;
-
-    @FXML
-    private Button offerTaskButton;
-    
-    @FXML
-    private VBox offerModal;
-    
-    @FXML
-    private VBox playerChoiceBox;
-    
-    @FXML
-    private Button confirmOfferButton;
-    
-    @FXML
-    private Button cancelOfferButton;
-    
-    @FXML
-    private VBox offerResponseModal;
-    
-    @FXML
-    private Label offerMessage;
-    
-    @FXML
-    private VBox offeredTaskInfo;
-    
-    @FXML
-    private Button acceptOfferButton;
-    
-    @FXML
-    private Button declineOfferButton;
-
-    @FXML
-    private Button tradeButton;
-    
-    @FXML
-    private VBox tradePlayerModal;
-    
-    @FXML
-    private VBox tradePlayerChoiceBox;
-    
-    @FXML
-    private HBox tradeCardsModal;
-    
-    @FXML
-    private FlowPane currentPlayerCards;
-    
-    @FXML
-    private FlowPane selectedPlayerCards;
-    
-    @FXML
-    private Label tradePlayerLabel;
-
-    @FXML
-    private Button confirmTradeButton;
-    
-    @FXML
-    private Button cancelTradeButton;
-
-    @FXML
-    private VBox currentPlayerResources;
-    
-    @FXML
-    private VBox selectedPlayerResources;
-    
     private int moneyToGive = 0;
     private int timeToGive = 0;
     private int moneyToReceive = 0;
@@ -183,23 +105,11 @@ public class boardGameController {
 
     //ArrayList containing all lucks in the game
     private static final ArrayList<Luck> lucks = new ArrayList<Luck>();
-
-    @FXML
-    private VBox completeTaskModal;
-    
-    @FXML
-    private FlowPane completableTaskCards;
-    
-    @FXML
-    private Label availableTimeLabel;
-    
-    @FXML
-    private Button confirmCompleteButton;
     
     private Task selectedTaskToComplete;
 
     // Ahmed you can use this for the progress bar objectives because each player's list of tasks that they finished is stored here
-    private HashMap<Player, List<Task>> completedTasks = new HashMap<>();
+    private HashMap<Player, ArrayList<Task>> completedTasks = new HashMap<>();
 
     @FXML
     public void initialize() {
@@ -286,10 +196,126 @@ public class boardGameController {
             // Add completed tasks count
             List<Task> playerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
             Text completedTasksText = new Text("Completed Tasks: " + playerCompletedTasks.size());
+            Button viewTasks = new Button();
+            viewTasks.setText("View tasks");
 
-            playerBox.getChildren().addAll(nameText, moneyText, timeText, tasksText, completedTasksText);
+            // Store the player reference for the lambda
+            final Player currentPlayerForButton = player;
+
+            // Add event handler to view this specific player's owned tasks
+            viewTasks.setOnAction(event -> {
+                showPlayerOwnedTasks(currentPlayerForButton);
+            });
+
+            playerBox.getChildren().addAll(nameText, moneyText, timeText, tasksText, completedTasksText, viewTasks);
             playerInfoContainer.getChildren().addAll(playerBox);
         }
+    }
+
+    // Method to help show owned tasks according to the player view task button
+    private void showPlayerOwnedTasks(Player player) {
+        // Clear previous tasks
+        taskList.getChildren().clear();
+
+        // Set the title
+        viewTaskField.setText(player.getName() + "'s Owned Tasks");
+
+        // Get owned tasks for this player
+        List<Task> playerOwnedTasks = player.getOwnedTasks();
+
+        // Update task count
+        taskCountLabel.setText(String.valueOf(playerOwnedTasks.size()));
+
+        // Add each owned task to the display
+        for (Task task : playerOwnedTasks) {
+            VBox taskCard = createTaskCardsForView(task, false);
+            taskList.getChildren().add(taskCard);
+        }
+
+        final Player currentPlayerForButton = player;
+
+        viewOwnedTasksButton.setOnAction(event -> {
+            showPlayerOwnedTasks(currentPlayerForButton);
+        });
+
+        viewCompletedTasksButton.setOnAction(event -> {
+            showViewCompletedTasksModal(currentPlayerForButton);
+        });
+
+        // Show the modal
+        viewTasksModal.setVisible(true);
+    }
+
+    // Method to show completed tasks for the current player
+    @FXML
+    public void showViewCompletedTasksModal(Player player) {
+        // Clear previous tasks
+        taskList.getChildren().clear();
+
+        // Title
+        viewTaskField.setText(player.getName() + "'s Completed Tasks");
+
+        // Get completed tasks for players
+        ArrayList<Task> playerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
+
+        // Update the task count according to how many tasks the player have
+        taskCountLabel.setText(String.valueOf(playerCompletedTasks.size()));
+
+        // Add each completed task to display on the modal
+        for (Task task : playerCompletedTasks) {
+            VBox taskCard = createTaskCardsForView(task, true);
+            taskList.getChildren().add(taskCard);
+        }
+
+        // Show the modal
+        viewTasksModal.setVisible(true);
+    }
+
+    // Create task cards to put in view tasks modal
+    private VBox createTaskCardsForView(Task task, boolean isCompleted) {
+        VBox container = new VBox(5);
+        container.setAlignment(Pos.CENTER);
+        container.setPrefWidth(200);
+        container.setStyle("-fx-padding: 10;");
+
+        String imagePath = task.getTaskCard();
+        InputStream imageStream = getClass().getResourceAsStream(imagePath);
+
+        Image image = new Image(imageStream);
+        ImageView taskImage = new ImageView(image);
+        taskImage.setFitWidth(180);
+        taskImage.setPreserveRatio(true);
+        taskImage.setSmooth(true);
+        container.getChildren().add(taskImage);
+
+        // Add task details
+        VBox detailsBox = new VBox(3);
+        detailsBox.setAlignment(Pos.CENTER_LEFT);
+        detailsBox.setPadding(new Insets(5, 0, 0, 0));
+
+        Text taskNameText = new Text(task.getTaskName());
+        taskNameText.setStyle("-fx-font-weight: bold; -fx-font-size: 12px;");
+        taskNameText.setWrappingWidth(180);
+
+        Text taskTypeText = new Text("Type: " + task.getTaskName().split(":")[0]); // Use first part of name as type
+        taskTypeText.setStyle("-fx-font-size: 11px;");
+
+        Text taskTimeText = new Text("Time Required: " + task.getTaskTime());
+        taskTimeText.setStyle("-fx-font-size: 11px;");
+
+        Text taskMoneyText = new Text("Money Cost: " + task.getTaskMoney());
+        taskMoneyText.setStyle("-fx-font-size: 11px;");
+
+        detailsBox.getChildren().addAll(taskNameText, taskTypeText, taskTimeText, taskMoneyText);
+        container.getChildren().add(detailsBox);
+
+        return container;
+    }
+
+    // Just to close the view task modal
+    @FXML
+    private void OkViewTask() {
+        viewTasksModal.setVisible(false);
     }
 
     // to initialize the start of the game and the player positions
@@ -560,7 +586,8 @@ public class boardGameController {
         offerTaskButton.setVisible(false);
 
         // Disable trade and complete task buttons (but keep them visible)
-        tradeButton.setDisable(true);
+        confirmTradeButton.setDisable(true);
+        confirmCompleteButton.setDisable(true);
 
         // Load the Luck card image
         String imagePath = luck.getLuckCard();
@@ -614,7 +641,8 @@ public class boardGameController {
             updateCurrentPlayerDisplay();
 
             // Enable trade and complete task buttons after Luck session
-            tradeButton.setDisable(false);
+            confirmTradeButton.setDisable(false);
+            confirmCompleteButton.setDisable(false);
 
             // Hide the luck card UI
             cardInfoBox.setVisible(false);
