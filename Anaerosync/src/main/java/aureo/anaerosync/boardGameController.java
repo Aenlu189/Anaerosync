@@ -476,29 +476,25 @@ public class boardGameController {
 
     // Initialization using Ignacio's lucks
     private static void initializeLucks() {
-            lucks.add(new Luck(1, "Good or Bad", 0, 100, 0, 0, "/images/LuckCard1.png"));
-            lucks.add(new Luck(2, "Good or Bad", 100, 0, 0, 0, "/images/LuckCard2.png"));
-            lucks.add(new Luck(3, "Good or Bad", 0, 200, 0, 0, "/images/LuckCard3.png"));
-            lucks.add(new Luck(4, "Good or Bad", 200, 0, 0, 0, "/images/LuckCard4.png"));
-            lucks.add(new Luck(5, "Good or Bad", 0, 400, 0, 0, "/images/LuckCard5.png"));
-            lucks.add(new Luck(6, "Good or Bad", 400, 0, 0, 0, "/images/LuckCard6.png"));
-            lucks.add(new Luck(7, "Good or Bad", 200, 200, 0, 0, "/images/LuckCard7.png"));
-            lucks.add(new Luck(8, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard8.png"));
-            lucks.add(new Luck(9, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard9.png"));
-            lucks.add(new Luck(10, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard10.png"));
-            lucks.add(new Luck(11, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard11.png"));
-            lucks.add(new Luck(12, "Good or Bad", 0, -100, 0, 0, "/images/LuckCard12.png"));
-            lucks.add(new Luck(13, "Good or Bad", 0, -200, 0, 0, "/images/LuckCard13.png"));
-            lucks.add(new Luck(14, "Good or Bad", -200, 0, 0, 0, "/images/LuckCard14.png"));
-            lucks.add(new Luck(15, "Good or Bad", 0, -400, 0, 0, "/images/LuckCard15.png"));
-            lucks.add(new Luck(16, "Good or Bad", -400, 0, 0, 0, "/images/LuckCard16.png"));
-            lucks.add(new Luck(17, "Good or Bad", -200, -200, 0, 0, "/images/LuckCard17.png"));
-            lucks.add(new Luck(18, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard18.png"));
-            lucks.add(new Luck(19, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard19.png"));
-            lucks.add(new Luck(20, "Good or Bad", 0, 0, 0, 0, "/images/LuckCard20.png"));
-
+        lucks.add(new Luck(1, "You deserve a day off!\nHave 100 units of Time!", 0, 100, 0, 0, "/images/LuckCard1.png", -1));
+        lucks.add(new Luck(2, "You got a new hardware store subscription!\nHave 100 units of Money!", 100, 0, 0, 0, "/images/LuckCard2.png", -1));
+        lucks.add(new Luck(3, "You deserve two days off!\nHave 200 units of Time!", 0, 200, 0, 0, "/images/LuckCard3.png", -1));
+        lucks.add(new Luck(4, "You got two new hardware store subscriptions!\nHave 200 units of Money!", 200, 0, 0, 0, "/images/LuckCard4.png", -1));
+        lucks.add(new Luck(5, "A new intern just arrived and wants to help!\nReceive 400 units of Time!", 0, 400, 0, 0, "/images/LuckCard5.png", -1));
+        lucks.add(new Luck(6, "South Africa’s Government appreciates you!\nThey want to help you.\nReceive 400 units of Money.", 400, 0, 0, 0, "/images/LuckCard6.png", -1));
+        lucks.add(new Luck(7, "Congratulations!\nYou are doing everything very well.\nReceive 200 units of Money and Time as a reward.", 200, 200, 0, 0, "/images/LuckCard7.png", -1));
+        lucks.add(new Luck(8, "Advance to\n“Updating AnaeroSync” Task square", 0, 0, 0, 0, "/images/LuckCard8.png", 1));
+        lucks.add(new Luck(9, "Advance to\n“Receive funds” Event Square", 0, 0, 0, 0, "/images/LuckCard9.png", 14));
+        lucks.add(new Luck(10, "The other Software Engineer is sick!\nYou have to work twice as much.\nLose 100 units of time", 0, -100, 0, 0, "/images/LuckCard11.png", -1));
+        lucks.add(new Luck(11, "Buy the necessary materials\nto build the DIY Anaerobic Digester\nfor the video instructions.\nLose 100 units of Money", -100, 0, 0, 0, "/images/LuckCard12.png", -1));
+        lucks.add(new Luck(12, "Lock requires you to help them\norganize an event.\nLose 200 units of time", 0, -200, 0, 0, "/images/LuckCard13.png", -1));
+        lucks.add(new Luck(13, "Buy the Apple Store and\nGoogle Play upload permits.\nLose 200 units of Money", -200, 0, 0, 0, "/images/LuckCard14.png", -1));
+        lucks.add(new Luck(14, "Oh Oh! The app crashed.\nFix it now!\nLose 200 units of Time", 0, -200, 0, 0, "/images/LuckCard15.png", -1));
+        lucks.add(new Luck(15, "Hire another software engineer\nto finish the programming of\nthe app sooner.\nLose 400 units of Money", -400, 0, 0, 0, "/images/LuckCard16.png", -1));
+        lucks.add(new Luck(16, "There has been a lot of complaints\nabout the app’s performance.\nPeople are mad.\nLose 200 units of Money and Time", -200, -200, 0, 0, "/images/LuckCard17.png", -1));
+        lucks.add(new Luck(17, "Advance to the\n“Denial of Service Attack” Event Square", 0, 0, 0, 0, "/images/LuckCard18.png", 7));
+        lucks.add(new Luck(18, "Advance to the\n“Donate Money” Event Square", 0, 0, 0, 0, "/images/LuckCard19.png", 21));
     }
-
 
     // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
@@ -509,7 +505,8 @@ public class boardGameController {
             showTaskDialog(task);
 
         } else if (currentSquare.getType() == SquareType.LUCK_SQUARE) {
-            // TODO: Handle LUCK position
+            Luck luck = lucks.get(new Random().nextInt(lucks.size())); // Pick a random Luck card
+            showLuckDialog(luck);
 
         } else {
             String specialType = ((CornerSquare) currentSquare).getSquareName();
@@ -529,6 +526,120 @@ public class boardGameController {
             }
         }
     }
+
+    private void handleLuckCard(Luck luck){
+        // Show the luck card in the UI
+        showLuckDialog(luck);
+
+        // Update player's resources (ensuring they don’t go negative)
+        players[currentPlayer].setMoneyResource(Math.max(0, players[currentPlayer].getMoneyResource() + luck.getLuckMoney()));
+        players[currentPlayer].setTimeResource(Math.max(0, players[currentPlayer].getTimeResource() + luck.getLuckTime()));
+        SHARED_TRUST = Math.max(0, SHARED_TRUST + luck.getLuckTrustNeeded());
+
+        // Move the player if the Luck card specifies a new position
+        if (luck.getNewPosition() != -1) {
+            int currentPosition = players[currentPlayer].getPosition();
+            int newPosition = luck.getNewPosition();
+
+            System.out.println("Moving player from position " + currentPosition + " to " + newPosition);
+
+            // Ensure the movePlayer method correctly moves the player
+            movePlayer(currentPlayer, newPosition - currentPosition);
+        }
+    }
+
+    private void showLuckDialog(Luck luck) {
+        cardInfoBox.getChildren().clear();
+
+        // Disable the "End Turn" button until OK is clicked
+        endTurnButton.setDisable(true);
+
+        // Hide task-related buttons (accept, decline, offer)
+        acceptTaskButton.setVisible(false);
+        declineTaskButton.setVisible(false);
+        offerTaskButton.setVisible(false);
+
+        // Disable trade and complete task buttons (but keep them visible)
+        tradeButton.setDisable(true);
+
+        // Load the Luck card image
+        String imagePath = luck.getLuckCard();
+        InputStream imageStream = getClass().getResourceAsStream(imagePath);
+
+        ImageView luckCardView = new ImageView();
+        if (imageStream != null) {
+            Image image = new Image(imageStream);
+            luckCardView.setImage(image);
+            luckCardView.setFitWidth(200);
+            luckCardView.setPreserveRatio(true);
+        } else {
+            // Display a placeholder if image is missing
+            luckCardView.setImage(new Image(getClass().getResourceAsStream("/images/placeholder.png")));
+        }
+
+        // Display the Luck card details
+        Text luckName = new Text(luck.getLuckName());
+        luckName.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Text luckEffect = new Text(String.format("Effect: Money %d, Time %d, Trust %d",
+                luck.getLuckMoney(), luck.getLuckTime(), luck.getLuckTrustNeeded()));
+
+        // Show movement effect if applicable
+        Text movementText = new Text(luck.getNewPosition() == -1 ? "No movement effect" :
+                "Move to position " + luck.getNewPosition());
+
+        // Create the OK button to apply the effects and close the dialog
+        Button okButton = new Button("OK");
+        okButton.setOnAction(e -> {
+            // Apply luck effects to the player
+            Player current = players[currentPlayer];
+            current.setMoneyResource(current.getMoneyResource() + luck.getLuckMoney());
+            current.setTimeResource(current.getTimeResource() + luck.getLuckTime());
+            SHARED_TRUST += luck.getLuckTrustNeeded(); // Trust can go negative
+
+            boolean positionChanged = false;
+
+            // Move the player if needed
+            if (luck.getNewPosition() != -1) {
+                int currentPosition = current.getPosition();
+                int newPosition = luck.getNewPosition();
+                positionChanged = true;
+
+                System.out.println("Moving player from position " + currentPosition + " to " + newPosition);
+                movePlayer(currentPlayer, newPosition - currentPosition);
+            }
+
+            // Update the UI after changing resources & position
+            setupPlayerInfo();
+            updateCurrentPlayerDisplay();
+
+            // Enable trade and complete task buttons after Luck session
+            tradeButton.setDisable(false);
+
+            // Hide the luck card UI
+            cardInfoBox.setVisible(false);
+
+            // ✅ Re-enable "End Turn" button only after OK is clicked
+            endTurnButton.setDisable(false);
+
+            // ✅ If position changed, auto-end the turn
+            if (positionChanged) {
+                endTurn();
+            }
+        });
+
+        // Center align the OK button
+        HBox buttonContainer = new HBox(okButton);
+        buttonContainer.setAlignment(Pos.CENTER);
+        buttonContainer.setPadding(new Insets(10));
+
+        // Add everything to the UI box
+        cardInfoBox.getChildren().addAll(luckCardView, luckName, luckEffect, movementText, buttonContainer);
+
+        // Make the card visible in the UI
+        cardInfoBox.setVisible(true);
+    }
+
 
     private void showTaskDialog(Task task) {
         cardInfoBox.getChildren().clear();

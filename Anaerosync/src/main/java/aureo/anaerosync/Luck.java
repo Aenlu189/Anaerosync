@@ -10,8 +10,9 @@ public class Luck {
     private boolean isCompleted;
     private Player owner;
     private String luckCard;
+    private int newPosition;
 
-    public Luck(int id, String luckName, int luckMoney, int luckTime, int luckTrustNeeded, int luckWorkforce, String luckCard) {
+    public Luck(int id, String luckName, int luckMoney, int luckTime, int luckTrustNeeded, int luckWorkforce, String luckCard, int newPosition) {
         this.id = id;
         this.luckName = luckName;
         this.luckMoney = luckMoney;
@@ -19,7 +20,12 @@ public class Luck {
         this.luckTrustNeeded = luckTrustNeeded;
         this.luckWorkForce = luckWorkforce;
         this.luckCard = luckCard;
+        this.newPosition = newPosition;
         this.isCompleted = false;
+    }
+
+    public int getNewPosition() {
+        return newPosition;
     }
 
     public int getId() {
@@ -77,6 +83,7 @@ public class Luck {
                 ", luckWorkForce=" + luckWorkForce +
                 ", isCompleted=" + isCompleted +
                 ", owner=" + (owner != null ? owner.getName() : "none") +
+                ", newPosition=" + (newPosition != -1 ? newPosition : "No Position Change") +
                 '}';
     }
 }
