@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -15,11 +16,85 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
    <children>
       <AnchorPane maxHeight="954.0" maxWidth="1667.0" minWidth="1400.0" prefHeight="954.0" prefWidth="1442.0">
          <children>
+            <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="957.0" prefWidth="1444.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to exit?" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                           <font>
+                              <Font name="Chalkboard SE Regular" size="53.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="30.0" prefWidth="559.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The game data will be erased permanently." textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
+                           <children>
+                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" text="←">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Button>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
+                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="46.0" text="OK">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox id="Credits" fx:id="thankyou" alignment="CENTER" prefHeight="966.0" prefWidth="1442.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for playing! :)" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                           <font>
+                              <Font name="Chalkboard SE Regular" size="53.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="30.0" prefWidth="559.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
             <ImageView fitHeight="888.0" fitWidth="877.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Board.png" />
@@ -32,15 +107,12 @@
                   <VBox fx:id="playerInfoContainer" spacing="10">
                      <!-- Player info will be added here dynamically -->
                   </VBox>
-                  <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice">
+                  <HBox alignment="CENTER" spacing="10">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
-                  </Button>
+                  </HBox>
                   <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
-                  <Button fx:id="endTurnButton" onAction="#endTurn" style="-fx-font-size: 16px;" text="End Turn" visible="false" />
-                  <Button fx:id="tradeButton" onAction="#showTradeModal" style="-fx-font-size: 16px;" text="Trade Cards" />
-                  <Button fx:id="completeTaskButton" onAction="#showCompleteTaskModal" style="-fx-font-size: 16px;" text="Complete Task" />
                </children>
             </VBox>
             <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-37.0" layoutY="-6.0" prefHeight="877.0" prefWidth="964.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="-6.0">
@@ -745,20 +817,125 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <VBox alignment="CENTER" layoutX="1145.0" layoutY="30.0" spacing="20.0">
+            <VBox fx:id="luckInfoBox" alignment="CENTER" layoutX="210.0" layoutY="155.0" maxWidth="801.0" prefHeight="547.0" prefWidth="463.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #cccccc; -fx-border-width: 2; -fx-border-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" visible="false">
                <children>
-                  <VBox fx:id="cardInfoBox" spacing="10" visible="false">
-                     <!-- Task information will be added dynamically -->
-                  </VBox>
+                  <ImageView fx:id="luckCardImage" fitWidth="200.0" preserveRatio="true" />
+                  <Label fx:id="luckNameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" wrapText="true" />
+                  <Label fx:id="luckDescLabel" style="-fx-font-size: 14px;" wrapText="true" />
+                  <Label fx:id="luckBonusLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="luckCostLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="luckOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="acceptTaskButton" text="Accept Task" visible="false" />
-                        <Button fx:id="declineTaskButton" text="Decline" visible="false" />
-                        <Button fx:id="offerTaskButton" text="Offer Task" visible="false" />
+                        <Button fx:id="Ok" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Ok" textAlignment="CENTER" />
                      </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
+            <!-- Task Card Modal -->
+            <VBox fx:id="cardInfoBox" alignment="CENTER" layoutX="211.0" layoutY="159.0" maxWidth="801.0" prefHeight="533.0" prefWidth="463.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #cccccc; -fx-border-width: 2; -fx-border-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" visible="false">
+               <children>
+                  <ImageView fx:id="taskCardImage" fitWidth="200.0" preserveRatio="true" />
+                  <Label fx:id="taskNameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" wrapText="true" />
+                  <Label fx:id="taskDescLabel" style="-fx-font-size: 14px;" wrapText="true" />
+                  <Label fx:id="taskBonusLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="taskCostLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="taskOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
+                  <HBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Button fx:id="acceptTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Accept" />
+                        <Button fx:id="declineTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Decline" />
+                        <Button fx:id="offerTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Offer to Player" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="esInfoBox" alignment="CENTER" layoutX="209.0" layoutY="157.0" maxWidth="801.0" prefHeight="547.0" prefWidth="472.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #cccccc; -fx-border-width: 2; -fx-border-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" visible="false">
+               <children>
+                  <ImageView fx:id="esCardImage" fitWidth="200.0" preserveRatio="true" />
+                  <Label fx:id="esNameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" wrapText="true" />
+                  <Label fx:id="esDescLabel" style="-fx-font-size: 14px;" wrapText="true" />
+                  <Label fx:id="esBonusLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="esCostLabel" style="-fx-font-size: 14px;" />
+                  <Label fx:id="esOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
+                  <HBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Button fx:id="Ok1" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Ok" textAlignment="CENTER" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <!-- Add Progress Bar -->
+            <VBox alignment="CENTER" layoutX="1166.0" layoutY="28.0" prefHeight="150.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #f5f5f5; -fx-padding: 15; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-border-radius: 5;">
+               <children>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Task Progress" />
+                  <HBox alignment="CENTER" spacing="5">
+                     <children>
+                        <Label fx:id="progressPercentage" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="0%" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="progressBarContainer" alignment="CENTER" prefHeight="0.0" prefWidth="218.0" style="-fx-border-color: #333333; -fx-border-width: 1; -fx-background-color: white;">
+                     <!-- Progress bar will be added here programmatically -->
+                  </HBox>
+                  <Label style="-fx-font-size: 12px; -fx-font-style: italic;" text="Completed Tasks" />
+                  <Button fx:id="viewObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-font-size: 14px;" text="View Objectives" />
+               </children>
+            </VBox>
+            
+                  <!-- Objectives Panel -->
+            <VBox fx:id="objectivesPanel" alignment="TOP_CENTER" layoutX="212.0" layoutY="162.0" prefHeight="541.0" prefWidth="460.0" spacing="5.0" style="-fx-background-color: white; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-border-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" visible="false">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="388.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Game Objectives" textAlignment="RIGHT" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="closeObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-font-size: 10px;" text="✕" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" prefHeight="493.0" prefWidth="438.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                     <content>
+                        <VBox fx:id="objectivesContainer" spacing="10" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <VBox fx:id="esInfoBox" alignment="TOP_CENTER" layoutX="1209.0" layoutY="334.0" prefHeight="177.0" prefWidth="171.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="171.0">
+                     <children>
+                        <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice" />
+                        <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#endTurn" prefHeight="32.0" prefWidth="80.0" text="End Turn">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label />
+                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="31.0" prefWidth="124.0" style="-fx-font-size: 16px;" text="Trade Cards" />
+                  <Label />
+                  <Button fx:id="completeTaskButton" onAction="#showCompleteTaskModal" style="-fx-font-size: 16px;" text="Complete Task" />
+                  <Label />
+                  <Button fx:id="quitGame" onAction="#quitGame" prefHeight="31.0" prefWidth="123.0" style="-fx-font-size: 16px;" text="Quit" />
+               </children>
+            </VBox>
+            
             <!-- Add the offer response modal -->
             <VBox fx:id="offerResponseModal" alignment="CENTER" layoutX="-6.0" prefHeight="958.0" prefWidth="1446.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-width: 1;" visible="false">
                <children>
@@ -855,6 +1032,39 @@
                      <children>
                         <Button fx:id="confirmCompleteButton" onAction="#confirmCompleteTask" style="-fx-font-size: 14px;" text="Complete Selected Task" />
                         <Button fx:id="cancelCompleteButton" onAction="#cancelCompleteTask" style="-fx-font-size: 14px;" text="Cancel" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="viewTasksModal" alignment="CENTER" prefHeight="958.0" prefWidth="1442.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+               <children>
+                  <Label fx:id="viewTaskField" style="-fx-font-size: 20px;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Label style="-fx-font-size: 16px;" text="Task Count: " />
+                        <Label fx:id="taskCountLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" prefHeight="600.0">
+                     <content>
+                        <FlowPane fx:id="taskList" hgap="10" vgap="10" />
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="CENTER" spacing="20">
+                     <children>
+                        <Button fx:id="viewCompletedTasksButton" style="-fx-font-size: 12px;" text="View Completed Tasks" />
+                        <Button fx:id="viewOwnedTasksButton" style="-fx-font-size: 12px;" text="View Owned Tasks" />
+                        <Button fx:id="OkButton" onAction="#OkViewTask" style="-fx-font-size: 14px;" text="Close" />
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />

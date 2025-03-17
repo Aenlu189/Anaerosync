@@ -15,6 +15,7 @@ public class AnaerosyncApplication extends Application {
         stage.setTitle("Anaerosync");
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.setFullScreen(false);
         stage.show();
     }
 

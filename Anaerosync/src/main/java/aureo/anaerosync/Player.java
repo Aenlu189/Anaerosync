@@ -95,5 +95,26 @@ public class Player {
     // Setters and other methods can be added below accordingly as becomes necessary, with proper validation
     // What we have above will do for now, as Player's full functionality is not fully implemented
 
+    // Helper methods for adding and removing resources
+    public void addMoney(int amount) {
+        this.moneyResource += amount;
+    }
 
+    public void removeMoney(int amount) {
+        this.moneyResource -= amount;
+        if (this.moneyResource < 0) {
+            this.moneyResource = 0;
+        }
+    }
+
+    public void addTime(int amount) {
+        this.timeResource += amount;
+    }
+
+    public void removeTime(int amount) {
+        this.timeResource -= amount;
+        if (this.timeResource < 0) {
+            this.timeResource = 0;
+        }
+    }
 }

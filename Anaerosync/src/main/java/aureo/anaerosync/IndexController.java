@@ -97,6 +97,7 @@ public class IndexController {
             // Switch to the board game scene
             Stage stage = (Stage) nameInput.getScene().getWindow();
             stage.setScene(boardGameScene);
+            stage.setFullScreen(true);
             stage.show();
             
         } catch (IOException e) {

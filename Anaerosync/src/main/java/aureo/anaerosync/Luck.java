@@ -71,19 +71,4 @@ public class Luck {
     public void setLuckCard(String luckCard) {
         this.luckCard = luckCard;
     }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", luckName='" + luckName + '\'' +
-                ", luckMoney=" + luckMoney +
-                ", luckTime=" + luckTime +
-                ", luckTrustNeeded=" + luckTrustNeeded +
-                ", luckWorkForce=" + luckWorkForce +
-                ", isCompleted=" + isCompleted +
-                ", owner=" + (owner != null ? owner.getName() : "none") +
-                ", newPosition=" + (newPosition != -1 ? newPosition : "No Position Change") +
-                '}';
-    }
 }

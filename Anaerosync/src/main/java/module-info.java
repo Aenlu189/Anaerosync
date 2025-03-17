@@ -11,6 +11,7 @@ module aureo.anaerosync {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires annotations;
 
     opens aureo.anaerosync to javafx.fxml;
     exports aureo.anaerosync;
