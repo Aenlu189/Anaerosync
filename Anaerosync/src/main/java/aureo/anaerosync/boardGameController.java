@@ -35,6 +35,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import javafx.scene.layout.AnchorPane;
+
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,6 +78,7 @@ public class boardGameController {
     @FXML private ImageView esCardImage;
     @FXML private Button Ok1;
     @FXML private VBox esInfoBox;
+    @FXML private TextField messageBox;
 
     private int moneyToGive = 0;
     private int timeToGive = 0;
@@ -979,6 +982,7 @@ public class boardGameController {
      */
     private void hideLuckDialog() {
         luckInfoBox.setVisible(false);
+        messageBox.clear();
     }
 
     private void showTaskDialog(Task task) {
@@ -996,6 +1000,8 @@ public class boardGameController {
         taskDescLabel.setText("Description: " + task.getTaskObjective());
         taskBonusLabel.setText("Trust Bonus: " + task.getTaskBonus());
         taskCostLabel.setText(String.format("Cost: $%d, Trust %d", task.getTaskMoney(), task.getTaskTrustNeeded()));
+
+        messageBox.setText(task.getClaimMessage());
 
         // Set task image
         String imagePath = task.getTaskCard();
