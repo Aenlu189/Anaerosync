@@ -121,7 +121,7 @@ public class boardGameController {
         new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
-    private PositionManager positionManager;
+    private PositionManager positionManager = new PositionManager();
 
     // ArrayList containing all tasks in the game
     private final ArrayList<Task> tasks = new ArrayList<Task>();
