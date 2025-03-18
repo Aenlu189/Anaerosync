@@ -80,7 +80,7 @@ public class boardGameController {
     @FXML private VBox landInfoBox;
     @FXML private ImageView landCardImage;
     @FXML private Label landNameLabel, landDescLabel, landBonusLabel, landCostLabel, landOwnerLabel;
-    @FXML private Button okLandButton;
+    @FXML private Button okLandButton, declineLandButton;
 
     private int moneyToGive = 0;
     private int timeToGive = 0;
@@ -889,7 +889,7 @@ public class boardGameController {
         landDescLabel.setText(task.getFeeMessage());
         landBonusLabel.setText(String.format("Fee Required: %d money and %d time", feeMoney, feeTime));
         landCostLabel.setText("This task is owned by: " + owner.getName());
-        landOwnerLabel.setText("Click OK to pay the fee");
+        landOwnerLabel.setText("Click Contribute to pay the fee or Decline to skip");
 
         // Set up the OK button action
         okLandButton.setOnAction(event -> {
@@ -916,6 +916,17 @@ public class boardGameController {
 
             // Update display
             setupPlayerInfo();
+            endTurnButton.setDisable(false);
+        });
+
+        // Set up the Decline button action
+        declineLandButton.setOnAction(event -> {
+            showErrorDialog.setText("Declined to pay the fee to " + owner.getName());
+            
+            // Hide the landing info box
+            landInfoBox.setVisible(false);
+            
+            // Enable end turn button
             endTurnButton.setDisable(false);
         });
 
@@ -2210,5 +2221,4 @@ public class boardGameController {
     private void hideEventSquareDialog() {
         esInfoBox.setVisible(false);
     }
-
 }
