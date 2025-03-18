@@ -38,6 +38,9 @@ import javafx.scene.layout.AnchorPane;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Getter;
+
+@Getter
 public class boardGameController {
     @FXML public Button completeTaskButton, rollDiceButton, acceptTaskButton, declineTaskButton, endTurnButton;
     @FXML public Button offerTaskButton, confirmOfferButton, cancelOfferButton;
