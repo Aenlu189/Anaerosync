@@ -12,7 +12,7 @@ public class PositionManager {
     // ArrayList with all squares in the game's board
     private final ArrayList<Square> positions = new ArrayList<Square>();
 
-    public static void initializeSquares(ArrayList<Task> tasks){
+    public void initializeSquares(ArrayList<Task> tasks){
         // Initialize squares
         positions.clear();
         positions.add(new CornerSquare(0, "Home")); // Starting position
@@ -50,7 +50,7 @@ public class PositionManager {
         }
     }
 
-    public static Square getSquareAtPosition(int position) {
+    public Square getSquareAtPosition(int position) {
         if (position >= 0 && position < positions.size()) {
             return positions.get(position);
         }
