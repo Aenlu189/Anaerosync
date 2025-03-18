@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -812,11 +813,6 @@
                   </HBox>
                </children>
             </GridPane>
-            <Label fx:id="showErrorDialog" layoutX="996.0" layoutY="20.0" prefWidth="317.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
             <VBox fx:id="luckInfoBox" alignment="CENTER" layoutX="210.0" layoutY="155.0" maxWidth="801.0" prefHeight="547.0" prefWidth="463.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #cccccc; -fx-border-width: 2; -fx-border-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" visible="false">
                <children>
                   <ImageView fx:id="luckCardImage" fitWidth="200.0" preserveRatio="true" />
@@ -954,6 +950,12 @@
                   <Button fx:id="quitGame" onAction="#quitGame" prefHeight="31.0" prefWidth="123.0" style="-fx-font-size: 16px;" text="Quit" />
                </children>
             </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="61.0" layoutX="105.0" layoutY="887.0" stroke="BLACK" strokeType="INSIDE" width="1225.0" />
+            <Label fx:id="showErrorDialog" alignment="CENTER" layoutX="118.0" layoutY="901.0" prefHeight="29.0" prefWidth="1187.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS" size="17.0" />
+               </font>
+            </Label>
 
             <!-- Add the offer response modal -->
             <VBox fx:id="offerResponseModal" alignment="CENTER" layoutX="-6.0" prefHeight="958.0" prefWidth="1446.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-width: 1;" visible="false">

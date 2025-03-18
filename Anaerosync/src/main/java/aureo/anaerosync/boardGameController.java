@@ -1271,12 +1271,26 @@ public class boardGameController {
             offeringPlayer.getName(), task.getTaskName()));
 
         offeredTaskInfo.getChildren().clear();
+
+        // Add task card image
+        try {
+            String imagePath = task.getTaskCard();
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            ImageView taskImage = new ImageView(image);
+            taskImage.setFitWidth(200);
+            taskImage.setPreserveRatio(true);
+            taskImage.setSmooth(true);
+            offeredTaskInfo.getChildren().add(taskImage);
+        } catch (Exception e) {
+            System.err.println("Error loading task card image: " + e.getMessage());
+        }
+
+        // Add task details below the image
         offeredTaskInfo.getChildren().addAll(
             new Text(String.format("Money: %d", task.getTaskMoney())),
             new Text(String.format("Time: %d", task.getTaskTime())),
             new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
         );
-
 
         acceptOfferButton.setOnAction(e -> acceptOffer(task, targetPlayer));
         declineOfferButton.setOnAction(e -> {
