@@ -532,8 +532,8 @@ public class boardGameController {
         tasks.add(new Task(8, "Implement Functions and Methods", 150, 0, 180, 30, 100, "BACK-END", "/images/8.png", 30, 36));
         tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 125, "TESTING", "/images/9.png", 38, 37));
         tasks.add(new Task(10, "Implement Testing Acceptance Plan", 230, 0, 210, 46, 125, "TESTING", "/images/10.png", 46, 42));
-        tasks.add(new Task(11, "Buy Domain SSL Certificate", 235, 250, 235, 47, 150, "CYBER-SECURITY", "/images/11.png", 47, 47));
-        tasks.add(new Task(12, "Implement Cookies System", 245, 300, 240, 49, 150, "CYBER-SECURITY", "/images/12.png", 49, 48));
+        tasks.add(new Task(11, "Implement Cookies System", 245, 300, 240, 47, 150, "CYBER-SECURITY", "/images/11.png", 49, 48));
+        tasks.add(new Task(12, "Buy Domain SSL Certificate", 235, 250, 235, 49, 150, "CYBER-SECURITY", "/images/12.png", 47, 47));
         tasks.add(new Task(13, "Sell Subscriptions to Hardware Stores", 270, 400, 265, 54, 175, "DEPLOYMENT", "/images/13.png", 54, 53));
         tasks.add(new Task(14, "Add Videos and Images", 290, 600, 285, 58, 175, "DEPLOYMENT", "/images/14.png", 58, 57));
         tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 200, "PARTNERSHIPS", "/images/15.png", 60, 60));

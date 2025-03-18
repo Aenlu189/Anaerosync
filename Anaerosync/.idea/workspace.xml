@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="JUnit tests done">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Task name fix">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -188,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742331559561</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Task name fix">
+      <option name="closed" value="true" />
+      <created>1742334095507</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742334095507</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,6 +246,7 @@
     <MESSAGE value="&quot;move by one position completely implemented&quot;" />
     <MESSAGE value="&quot;minor bug fixes&quot;" />
     <MESSAGE value="JUnit tests done" />
-    <option name="LAST_COMMIT_MESSAGE" value="JUnit tests done" />
+    <MESSAGE value="Task name fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task name fix" />
   </component>
 </project>
