@@ -5,388 +5,449 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
+<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
    <children>
-      <HBox id="Credits" fx:id="thankyou" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="thankyou">
          <children>
-            <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
+            <ImageView fitHeight="813.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/num%20of%20players.png" />
+               </image>
+            </ImageView>
+            <HBox id="Credits" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for playing! :)" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                     <font>
-                        <Font name="Chalkboard SE Regular" size="53.0" />
-                     </font>
-                  </Text>
-                  <HBox prefHeight="30.0" prefWidth="559.0">
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for playing!         :)" textAlignment="CENTER" wrappingWidth="556.8519134521484">
                            <font>
-                              <Font name="Chalkboard SE Regular" size="17.0" />
+                              <Font name="Impact" size="53.0" />
                            </font>
                         </Text>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
-         <children>
-            <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to exit?" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                     <font>
-                        <Font name="Chalkboard SE Regular" size="53.0" />
-                     </font>
-                  </Text>
-                  <HBox prefHeight="30.0" prefWidth="559.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The game data will be erased permanently." textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="17.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
-                     <children>
-                        <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" text="←">
-                           <styleClass>
-                              <String fx:value="red-button" />
-                              <String fx:value="menu-button" />
-                           </styleClass>
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Button>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
-                        <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="46.0" text="OK">
-                           <styleClass>
-                              <String fx:value="green-button" />
-                              <String fx:value="menu-button" />
-                           </styleClass>
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="25.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox id="Credits" fx:id="credits" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
-         <children>
-            <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Credits " textAlignment="CENTER" wrappingWidth="257.85191345214844">
-                     <font>
-                        <Font name="Chalkboard SE Regular" size="61.0" />
-                     </font>
-                  </Text>
-                  <HBox prefHeight="30.0" prefWidth="559.0" />
-                  <HBox alignment="CENTER" prefHeight="132.0" prefWidth="560.0">
-                     <children>
-                        <VBox minWidth="120.0" prefHeight="100.0" prefWidth="120.0" spacing="10">
+                        <HBox prefHeight="30.0" prefWidth="559.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="President" wrappingWidth="82.4229965209961">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="556.8519134521484">
                                  <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Boss Man">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pastor">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Supervisor">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dictator">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
+                                    <Font name="Chalkboard SE Regular" size="17.0" />
                                  </font>
                               </Text>
                            </children>
-                        </VBox>
-                        <VBox alignment="TOP_RIGHT" maxWidth="100.0" minWidth="120.0" prefHeight="100.0" prefWidth="100.0" spacing="10">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ahmed">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ahmed">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sebastian">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Serafy">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aleeya">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="18.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" prefWidth="520.0">
-                     <children>
-                        <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" text="←">
-                           <styleClass>
-                              <String fx:value="red-button" />
-                              <String fx:value="menu-button" />
-                           </styleClass>
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
-      <HBox fx:id="nameInput" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+      </AnchorPane>
+      <AnchorPane fx:id="exit">
          <children>
-            <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-               <padding>
-                  <Insets bottom="20" left="20" right="20" top="20" />
-               </padding>
+            <ImageView fitHeight="823.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/num%20of%20players.png" />
+               </image>
+            </ImageView>
+            <HBox id="Credits" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Names" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                     <font>
-                        <Font name="Chalkboard SE Regular" size="53.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                  <VBox fx:id="playerNameInputs" alignment="CENTER" spacing="15" />
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" spacing="20">
+                  <VBox alignment="CENTER" maxHeight="708.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="708.0" prefWidth="1026.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
                      <children>
-                        <Button fx:id="backToPlayersButton" mnemonicParsing="false" onMouseClicked="#backToPlayerSelection" prefHeight="42.0" prefWidth="46.0" text="←">
-                           <styleClass>
-                              <String fx:value="red-button" />
-                              <String fx:value="menu-button" />
-                           </styleClass>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to exit?" textAlignment="CENTER" wrappingWidth="556.8519134521484">
                            <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="startGameButton" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="42.0" prefWidth="100.0" text="Start">
-                           <styleClass>
-                              <String fx:value="green-button" />
-                              <String fx:value="menu-button" />
-                           </styleClass>
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="25.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox id="OptionsMenu" fx:id="numPlayersMenu" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
-         <children>
-            <VBox alignment="CENTER" prefHeight="800.0" prefWidth="751.0">
-               <children>
-                  <VBox prefHeight="414.0" prefWidth="517.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select number of players" textAlignment="CENTER" wrappingWidth="784.245361328125">
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="51.0" />
+                              <Font name="Impact" size="45.0" />
                            </font>
                         </Text>
-                        <VBox prefHeight="400.0" prefWidth="785.0">
+                        <HBox prefHeight="30.0" prefWidth="559.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose how many players will join the game" textAlignment="CENTER" wrappingWidth="784.245361328125">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="The game data will be deleted permanently!" textAlignment="CENTER" wrappingWidth="556.8519134521484">
                                  <font>
-                                    <Font name="Chalkboard SE Regular" size="22.0" />
+                                    <Font name="Impact" size="31.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="784.245361328125">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="22.0" />
-                                 </font>
-                              </Text>
-                              <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="785.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2 Players" textAlignment="CENTER" wrappingWidth="129.21630859375">
-                                       <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3 Players" textAlignment="CENTER" wrappingWidth="518.21630859375">
-                                       <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4 Players" textAlignment="CENTER" wrappingWidth="129.21630859375">
-                                       <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="124.0" prefWidth="785.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" onMouseClicked="#selectTwoPlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
-                                       <graphic>
-                                          <ImageView fitHeight="123.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../images/twoPlayers.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="lightgreen-button" />
-                                          <String fx:value="choice-button" />
-                                       </styleClass>
-                                    </Button>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="192.21630859375">
-                                       <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Button mnemonicParsing="false" onMouseClicked="#selectThreePlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
-                                       <graphic>
-                                          <ImageView fitHeight="123.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../images/threePlayers.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="yellow-button" />
-                                          <String fx:value="choice-button" />
-                                       </styleClass>
-                                    </Button>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="192.21630859375">
-                                       <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Button mnemonicParsing="false" onMouseClicked="#selectFourPlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
-                                       <graphic>
-                                          <ImageView fitHeight="123.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../images/fourPlayers.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="lightblue-button" />
-                                          <String fx:value="player-choice" />
-                                       </styleClass>
-                                    </Button>
-                                 </children>
-                              </HBox>
                            </children>
-                        </VBox>
-                        <HBox alignment="CENTER" prefHeight="222.0" prefWidth="517.0">
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
                            <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" stylesheets="@stylesheet.css" text="←">
+                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="93.0" text="Back">
                                  <styleClass>
                                     <String fx:value="red-button" />
                                     <String fx:value="menu-button" />
                                  </styleClass>
                                  <font>
-                                    <Font size="26.0" />
+                                    <Font name="Impact" size="25.0" />
                                  </font>
                               </Button>
-                           </children></HBox>
-                        <VBox prefHeight="198.0" prefWidth="553.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
+                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="101.0" text="Confirm" textFill="WHITE">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
-      <HBox id="OptionsMenu" fx:id="optionsMenu" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+      </AnchorPane>
+      <AnchorPane fx:id="credits">
          <children>
-            <VBox alignment="CENTER" prefHeight="628.0" prefWidth="550.0">
+            <ImageView fitHeight="823.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/num%20of%20players.png" />
+               </image>
+            </ImageView>
+            <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
                <children>
-                  <VBox prefHeight="414.0" prefWidth="517.0">
+                  <VBox alignment="CENTER" maxHeight="474.0" maxWidth="791.0" minHeight="400.0" minWidth="560.0" prefHeight="474.0" prefWidth="791.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Anaerosync" textAlignment="CENTER" wrappingWidth="552.245361328125">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" Credits " textAlignment="CENTER" wrappingWidth="788.8519134521484">
                            <font>
-                              <Font name="Chalkboard SE Regular" size="76.0" />
+                              <Font name="Impact" size="61.0" />
                            </font>
                         </Text>
-                        <VBox prefHeight="269.0" prefWidth="553.0" />
-                        <HBox alignment="CENTER" prefHeight="222.0" prefWidth="517.0">
+                        <HBox prefHeight="30.0" prefWidth="559.0" />
+                        <HBox alignment="CENTER" prefHeight="216.0" prefWidth="989.0">
                            <children>
-                              <VBox alignment="CENTER" prefHeight="222.0" prefWidth="230.0" spacing="15">
+                              <VBox minWidth="120.0" prefHeight="216.0" prefWidth="157.0" spacing="10">
                                  <children>
-                                    <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#startButtonOnAction" prefHeight="25.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Start">
+                                    <Text fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="Group Leader:" wrappingWidth="122.4229965209961">
                                        <font>
-                                          <Font name="Chalkboard" size="21.0" />
+                                          <Font name="Impact" size="18.0" />
                                        </font>
-                                       <styleClass>
-                                          <String fx:value="menu-button" />
-                                          <String fx:value="green-button" />
-                                       </styleClass>
-                                    </Button>
-                                    <Button fx:id="creditsButton" mnemonicParsing="false" onMouseClicked="#creditsButtonOnAction" prefHeight="42.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Credits">
-                                       <styleClass>
-                                          <String fx:value="menu-button" />
-                                          <String fx:value="blue-button" />
-                                       </styleClass>
+                                    </Text>
+                                    <Text fill="#fff600" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Developer:" wrappingWidth="156.802734375">
                                        <font>
-                                          <Font name="Chalkboard SE Regular" size="19.0" />
+                                          <Font name="Impact" size="18.0" />
                                        </font>
-                                    </Button>
-                                    <Button fx:id="quitButton" mnemonicParsing="false" onMouseClicked="#quitButtonOnAction" prefHeight="42.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Quit">
-                                       <styleClass>
-                                          <String fx:value="menu-button" />
-                                          <String fx:value="red-button" />
-                                       </styleClass>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Developer: " wrappingWidth="160.505859375">
                                        <font>
-                                          <Font name="Chalkboard SE Regular" size="18.0" />
+                                          <Font name="Impact" size="18.0" />
                                        </font>
-                                    </Button>
+                                    </Text>
+                                    <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Graphic Designer:">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Tester:">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Story Writer:" wrappingWidth="160.505859375">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_RIGHT" maxWidth="344.0" minWidth="120.0" prefHeight="216.0" prefWidth="344.0" spacing="10">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ahmed" wrappingWidth="335.3134765625">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aen" wrappingWidth="335.2099609375">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ahmed Aleeya, Ignacio, Sebasatian &amp; Serafy" wrappingWidth="336.1572265625">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ahmed" wrappingWidth="334.7353515625">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Aleeya, Ignacio &amp; Sebastian" wrappingWidth="334.6640625">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Serafy" wrappingWidth="335.6640625">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
-                        <VBox prefHeight="198.0" prefWidth="553.0" />
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" prefWidth="520.0">
+                           <children>
+                              <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="101.0" text="Back">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
+      </AnchorPane>
+      <AnchorPane fx:id="nameInput">
+         <children>
+            <ImageView fitHeight="823.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/num%20of%20players.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER" prefHeight="813.0" prefWidth="1200.0">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="629.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="629.0" prefWidth="899.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Names" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                           <font>
+                              <Font name="Impact" size="53.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <VBox fx:id="playerNameInputs" alignment="CENTER" spacing="15" />
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" spacing="20">
+                           <children>
+                              <Button fx:id="backToPlayersButton" mnemonicParsing="false" onMouseClicked="#backToPlayerSelection" prefHeight="42.0" prefWidth="103.0" text="Back">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="startGameButton" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="42.0" prefWidth="100.0" text="Start">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="numPlayersMenu">
+         <children>
+            <ImageView fitHeight="813.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/num%20of%20players.png" />
+               </image>
+            </ImageView>
+            <HBox id="OptionsMenu" alignment="CENTER" prefHeight="813.0" prefWidth="1200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="813.0" prefWidth="629.0">
+                     <children>
+                        <VBox prefHeight="463.0" prefWidth="797.0">
+                           <children>
+                              <Text fill="WHITE" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECT NUMBER OF PLAYERS" textAlignment="CENTER" wrappingWidth="795.245361328125">
+                                 <font>
+                                    <Font name="Impact" size="69.0" />
+                                 </font>
+                              </Text>
+                              <VBox prefHeight="202.0" prefWidth="1048.0">
+                                 <children>
+                                    <Text fill="#20ff00" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="796.245361328125">
+                                       <font>
+                                          <Font name="Chalkboard SE Regular" size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="785.0">
+                                       <children>
+                                          <Text fill="WHITE" stroke="#20ff00" strokeWidth="0.0" text="2 Players" textAlignment="CENTER" wrappingWidth="187.21630859375">
+                                             <font>
+                                                <Font name="Impact" size="26.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="WHITE" stroke="BLACK" strokeWidth="0.0" text="3 Players" textAlignment="CENTER" wrappingWidth="415.21630859375">
+                                             <font>
+                                                <Font name="Impact" size="26.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fill="#f8f8f8" stroke="WHITE" strokeWidth="0.0" text="4 Players" textAlignment="CENTER" wrappingWidth="192.21630859375">
+                                             <font>
+                                                <Font name="Impact" size="26.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="410.0" prefWidth="797.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onMouseClicked="#selectTwoPlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
+                                             <graphic>
+                                                <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../images/twoPlayers.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <styleClass>
+                                                <String fx:value="lightgreen-button" />
+                                                <String fx:value="choice-button" />
+                                             </styleClass>
+                                          </Button>
+                                          <Text fill="#20ff00" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.0">
+                                             <font>
+                                                <Font name="Chalkboard SE Regular" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Button mnemonicParsing="false" onMouseClicked="#selectThreePlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
+                                             <graphic>
+                                                <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../images/threePlayers.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <styleClass>
+                                                <String fx:value="yellow-button" />
+                                                <String fx:value="choice-button" />
+                                             </styleClass>
+                                          </Button>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="119.0">
+                                             <font>
+                                                <Font name="Chalkboard SE Regular" size="18.0" />
+                                             </font>
+                                          </Text>
+                                          <Button mnemonicParsing="false" onMouseClicked="#selectFourPlayers" prefHeight="118.0" prefWidth="131.0" stylesheets="@stylesheet.css">
+                                             <graphic>
+                                                <ImageView fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../images/fourPlayers.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <styleClass>
+                                                <String fx:value="lightblue-button" />
+                                                <String fx:value="player-choice" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="337.0" prefWidth="797.0">
+                                 <children>
+                                    <Button graphicTextGap="0.0" minHeight="34.0" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="55.0" prefWidth="125.0" stylesheets="@stylesheet.css" text="Back" textFill="WHITE">
+                                       <styleClass>
+                                          <String fx:value="red-button" />
+                                          <String fx:value="menu-button" />
+                                       </styleClass>
+                                       <font>
+                                          <Font name="Impact" size="26.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="198.0" prefWidth="553.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="optionsMenu">
+         <children>
+            <ImageView fitHeight="823.0" fitWidth="1200.0">
+               <image>
+                  <Image url="@../../images/Main%20Menu.png" />
+               </image>
+            </ImageView>
+            <HBox id="OptionsMenu" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="628.0" prefWidth="550.0">
+                     <children>
+                        <VBox prefHeight="414.0" prefWidth="517.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="552.245361328125">
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="76.0" />
+                                 </font>
+                              </Text>
+                              <VBox prefHeight="269.0" prefWidth="553.0" />
+                              <HBox alignment="CENTER" prefHeight="222.0" prefWidth="517.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="222.0" prefWidth="230.0" spacing="15">
+                                       <children>
+                                          <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#startButtonOnAction" prefHeight="25.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Start">
+                                             <font>
+                                                <Font name="Impact" size="21.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="menu-button" />
+                                                <String fx:value="green-button" />
+                                             </styleClass>
+                                          </Button>
+                                          <Button fx:id="creditsButton" mnemonicParsing="false" onMouseClicked="#creditsButtonOnAction" prefHeight="42.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Credits">
+                                             <styleClass>
+                                                <String fx:value="menu-button" />
+                                                <String fx:value="blue-button" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="Impact" size="21.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="quitButton" mnemonicParsing="false" onMouseClicked="#quitButtonOnAction" prefHeight="42.0" prefWidth="230.0" stylesheets="@stylesheet.css" text="Quit">
+                                             <styleClass>
+                                                <String fx:value="menu-button" />
+                                                <String fx:value="red-button" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="Impact" size="21.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="198.0" prefWidth="553.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
    </children>
 </StackPane>

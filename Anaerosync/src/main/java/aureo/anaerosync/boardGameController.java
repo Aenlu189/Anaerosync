@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 import java.io.InputStream;
 
@@ -30,8 +31,10 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-
+import org.jetbrains.annotations.NotNull;
+import javafx.scene.layout.AnchorPane;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -99,16 +102,16 @@ public class boardGameController {
      * Initialize players with proper resources
      */
     private Player[] players = {
-        new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
+            new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
     // ArrayList containing all tasks in the game
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
     private static final ArrayList<Objective> objectives = new ArrayList<Objective>();
-    private static final ArrayList<Corner> corners = new ArrayList<>();
+    private static final ArrayList<Corner> eventSquares = new ArrayList<Corner>();
     private HashMap<Player, ArrayList<Task>> completedTasks = new HashMap<>();
     private static final ArrayList<Luck> lucks = new ArrayList<Luck>();
 
@@ -134,26 +137,14 @@ public class boardGameController {
         exit.setVisible(false);
         thankyou.setVisible(false);
 
-        // Initialize task and square objects
-        initializeTasks();
-        
-        // Initialize luck cards
-        initializeLucks();
-        
-        // Initialize event squares
-        initializeEventSquares();
-        
-        // Initialize the board with both tasks and luck cards
-        PositionManager.initializeSquares(tasks, lucks);
-        
-        // Initialize objectives
-        initializeObjectives();
+        // Initialize the game
+        initializeGame();
 
         // Initialize game state
         hideAllCirclesExceptStart();
         updateCurrentPlayerDisplay();
         setupPlayerInfo();
-        
+
         // Initialize progress bar
         initializeProgressBar();
 
@@ -165,11 +156,44 @@ public class boardGameController {
             rollDiceButton.setDisable(false);
             System.out.println("Roll button ready");
         }
-        
+
         if (endTurnButton != null) {
             endTurnButton.setDisable(true);
             System.out.println("End turn button ready");
         }
+    }
+
+    private void initializeGame() {
+        // Clear existing data
+        tasks.clear();
+        objectives.clear();
+        eventSquares.clear();
+        lucks.clear();
+
+        // Initialize game components
+        initializeTasks();
+        initializeObjectives();
+        initializeLucks();
+        initializeEventSquares();
+
+        // Initialize the board with tasks and luck cards
+        PositionManager.initializeSquares(tasks, lucks);
+
+        // Hide all player pieces initially
+        hideAllPlayers();
+
+        // Set up player information display
+        setupPlayerInfo();
+
+        // Initialize the progress bar
+        initializeProgressBar();
+
+        // Set up objectives panel
+        setupObjectivesPanel();
+
+        // Hide exit and thank you screens
+        exit.setVisible(false);
+        thankyou.setVisible(false);
     }
 
     // Update setGameData to initialize players with resources
@@ -177,39 +201,18 @@ public class boardGameController {
         this.numPlayers = playerNames.length;
         for (int i = 0; i < numPlayers; i++) {
             players[i].setName(playerNames[i]);
-            players[i].setPosition(0); // to reset the position but not sure if it is required but its working
+            players[i].setPosition(0); // Reset position to start
         }
 
         // Initialize the game with the correct number of players
         initializeGame();
-        setupPlayerInfo();
-    }
 
-    private void initializeGame() {
-        // Initialize tasks, objectives, luck cards, and event squares
-        initializeTasks();
-        initializeObjectives();
-        initializeLucks();
-        initializeEventSquares();
-        
-        // Initialize the board with tasks and luck cards
-        PositionManager.initializeSquares(tasks, lucks);
-        
-        // Hide all player pieces initially
-        hideAllPlayers();
-        
-        // Set up player information display
+        // Explicitly hide all circles and show starting positions
+        hideAllCirclesExceptStart();
+
+        // Update the display
         setupPlayerInfo();
-        
-        // Initialize the progress bar
-        initializeProgressBar();
-        
-        // Set up objectives panel
-        setupObjectivesPanel();
-        
-        // Hide exit and thank you screens
-        exit.setVisible(false);
-        thankyou.setVisible(false);
+        updateCurrentPlayerDisplay();
     }
 
     // helper method to hide all the players at the start
@@ -270,9 +273,19 @@ public class boardGameController {
         viewTaskField.setText(player.getName() + "'s Owned Tasks");
 
         // Get owned tasks for this player
-        List<Task> playerOwnedTasks = player.getOwnedTasks();
+        List<Task> playerOwnedTasks = new ArrayList<>(player.getOwnedTasks());
 
-        // Update task count
+        // Get completed tasks for this player
+        List<Task> playerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
+
+        // Remove any completed tasks from the owned tasks view
+        playerOwnedTasks.removeIf(task ->
+                playerCompletedTasks.stream().anyMatch(completedTask ->
+                        completedTask.getId() == task.getId()
+                )
+        );
+
+        // Update task count to show only non-completed owned tasks
         taskCountLabel.setText(String.valueOf(playerOwnedTasks.size()));
 
         // Add each owned task to the display
@@ -369,19 +382,20 @@ public class boardGameController {
 
     // to initialize the start of the game and the player positions
     private void hideAllCirclesExceptStart() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < numPlayers; i++) {
             Circle[] circles = getPlayerCircles(i);
-            // deleted hider methods since this is more efficient
             if (circles != null) {
-                for (int j = 1; j < circles.length; j++) {
-                    if (circles[j] != null) {
-                        circles[j].setVisible(false);
+                // First make all circles visible
+                for (Circle circle : circles) {
+                    if (circle != null) {
+                        circle.setVisible(false);
                     }
                 }
-                // Make start position visible
+                // Then make only the start position (position 0) visible
                 if (circles[0] != null) {
                     circles[0].setVisible(true);
                 }
+                System.out.println("Set starting position visible for player " + i);
             }
         }
     }
@@ -391,10 +405,10 @@ public class boardGameController {
         // Roll the dice
         int roll = random.nextInt(6) + 1;
         System.out.println("Player " + currentPlayer + " rolled: " + roll);
-        
+
         // Update display
         diceResult.setText("Dice: " + roll);
-        
+
         // Move player
         movePlayer(currentPlayer, roll);
         setupPlayerInfo();
@@ -413,7 +427,46 @@ public class boardGameController {
 
         showErrorDialog.setText("");
         currentPlayer = (currentPlayer + 1) % numPlayers;
-        
+
+        // Check if there's an active DDOS Attack
+        boolean ddosFound = false;
+        for (Corner eventSquare : eventSquares) {
+            if (eventSquare.isActive() && eventSquare.getEventName().equals("DDOS Attack")) {
+                ddosFound = true;
+                // Find the index of the player who activated the DDOS Attack
+                Player activatingPlayer = eventSquare.getActivatedBy();
+                int activatingPlayerIndex = -1;
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i] == activatingPlayer) {
+                        activatingPlayerIndex = i;
+                        break;
+                    }
+                }
+
+                // Check if we've completed a full round (back to the player who activated it)
+                if (currentPlayer == activatingPlayerIndex) {
+                    // Deactivate the DDOS Attack
+                    eventSquare.setActive(false);
+                    eventSquare.setActivatedBy(null);
+
+                    // Re-enable buttons for all players
+                    completeTaskButton.setDisable(false);
+                    tradeButton.setDisable(false);
+                    offerTaskButton.setDisable(false);
+
+                    showErrorDialog.setText("The DDOS Attack has ended. Players can now complete tasks, offer tasks, and trade again.");
+                }
+                break;
+            }
+        }
+
+        // If no active DDOS attack was found, ensure buttons are enabled
+        if (!ddosFound) {
+            completeTaskButton.setDisable(false);
+            tradeButton.setDisable(false);
+            offerTaskButton.setDisable(false);
+        }
+
         updateCurrentPlayerDisplay();
         setupPlayerInfo();
     }
@@ -422,7 +475,7 @@ public class boardGameController {
     private void movePlayer(int playerIndex, int spaces) {
         try {
             System.out.println("Moving player " + playerIndex + " by " + spaces + " spaces");
-            
+
             int currentPosition = players[playerIndex].getPosition() % 28;
             int newPosition = (currentPosition + spaces) % 28;
 
@@ -440,11 +493,11 @@ public class boardGameController {
             System.out.println("New position: " + newPosition);
 
             Circle[] playerCircle = getPlayerCircles(playerIndex);
-            
+
             playerCircle[currentPosition].setVisible(false);
             playerCircle[newPosition].setVisible(true);
             players[playerIndex].setPosition(newPosition);
-                
+
             System.out.println("Player moved successfully");
             checkPosition(newPosition);
         } catch (Exception e) {
@@ -542,6 +595,10 @@ public class boardGameController {
 
     // Initialization using Ignacio's Objectives
     private void initializeObjectives() {
+        // Clear existing objectives first
+        objectives.clear();
+
+        // Add each objective only once
         objectives.add(new Objective(1, "RESEARCH", 50, 50, 25, tasks.get(0), tasks.get(1)));
         objectives.add(new Objective(2, "SKETCHING", 100, 100, 50, tasks.get(2), tasks.get(3)));
         objectives.add(new Objective(3, "FRONT-END", 150, 150, 75, tasks.get(4), tasks.get(5)));
@@ -552,6 +609,8 @@ public class boardGameController {
         objectives.add(new Objective(8, "PARTNERSHIPS", 400, 400, 200, tasks.get(14), tasks.get(15)));
         objectives.add(new Objective(9, "MARKETING", 450, 450, 225, tasks.get(16), tasks.get(17)));
         objectives.add(new Objective(10, "SUSTAINABILITY", 500, 500, 250, tasks.get(18), tasks.get(19)));
+
+        System.out.println("Initialized " + objectives.size() + " objectives");
     }
 
     // Initialization using Ignacio's lucks
@@ -578,11 +637,11 @@ public class boardGameController {
 
     // Initialize event squares
     private static void initializeEventSquares() {
-        corners.clear();
-        corners.add(new Corner(7, "DDOS Attack", 0, 0, -300, "/images/EventDDOS.png"));    // Position 7
-        corners.add(new Corner(14, "Donate Money", 0, 0, 200, "/images/EventDM.png"));     // Position 14
-        corners.add(new Corner(21, "Home", 100, 100, 0, "/images/EventHome.png"));         // Position 21
-        corners.add(new Corner(28, "Receive Funds", 50, 50, 0, "/images/EventRF.png"));    // Position 28
+        eventSquares.clear();
+        eventSquares.add(new Corner(1, "DDOS Attack", 0, 0, -300, "/images/EventDDOS.png"));
+        eventSquares.add(new Corner(2, "Donate Money", 0, 0, 200, "/images/EventDM.png"));
+        eventSquares.add(new Corner(3, "Home", 100, 100, 0, "/images/EventHome.png"));
+        eventSquares.add(new Corner(4, "Receive Funds", 50, 50, 0, "/images/EventRF.png"));
     }
 
     // Create a box for an objective with tasks listed below
@@ -723,6 +782,32 @@ public class boardGameController {
             TaskSquare taskSquare = (TaskSquare) square;
             Task task = taskSquare.getTask();
             if (task != null) {
+                // Check if the task is completed by any player
+                boolean isCompleted = false;
+                for (ArrayList<Task> playerTasks : completedTasks.values()) {
+                    if (playerTasks.stream().anyMatch(t -> t.getId() == task.getId())) {
+                        isCompleted = true;
+                        break;
+                    }
+                }
+
+                if (isCompleted) {
+                    // Task is completed, move player forward one position
+                    System.out.println("Task already completed, moving player forward");
+                    int newPosition = (position + 1) % 28;
+
+                    // Get current position's circle and make it invisible
+                    Circle[] playerCircles = getPlayerCircles(currentPlayer);
+                    playerCircles[position].setVisible(false);
+
+                    // Update player position and make new circle visible
+                    players[currentPlayer].setPosition(newPosition);
+                    playerCircles[newPosition].setVisible(true);
+
+                    // Recursively check the new position
+                    checkPosition(newPosition);
+                    return;
+                }
                 showTaskDialog(task);
             }
         } else if (square instanceof LuckSquare) {
@@ -732,126 +817,27 @@ public class boardGameController {
                 showLuckDialog(luck);
             }
         } else if (square instanceof CornerSquare) {
-            // Corner squares are event squares
-            System.out.println("Landed on corner square at position: " + position);
-            
-            // Find the corresponding corner for this position
-            Corner corner = corners.stream().filter(c -> c.getId() == position).findFirst().orElse(null);
+            CornerSquare cornerSquare = (CornerSquare) square;
+            String cornerType = cornerSquare.getCornerType();
 
-            if (corner != null) {
-                System.out.println("Found corner: " + corner.getEventName());
-                // Disable buttons until event is handled
+            // Find the corresponding event square
+            Corner eventSquare = null;
+            for (Corner es : eventSquares) {
+                if (es.getEventName().equals(cornerType) ||
+                        (cornerType.equals("DDOS") && es.getEventName().equals("DDOS Attack"))) {
+                    eventSquare = es;
+                    break;
+                }
+            }
+
+            if (eventSquare != null) {
+                // Disable end turn button until event is handled
                 endTurnButton.setDisable(true);
-                rollDiceButton.setDisable(true);
-                
-                // Show the event square dialog
-                esNameLabel.setText(corner.getEventName());
-                esDescLabel.setText("Effect: " + getEventDescription(corner));
-                esBonusLabel.setText("Bonus: " + getEventBonus(corner));
-                esCostLabel.setText("Cost: " + getEventCost(corner));
-                
-                // Set the image
-                try {
-                    Image image = new Image(getClass().getResourceAsStream(corner.getEventCard()));
-                    esCardImage.setImage(image);
-                } catch (Exception e) {
-                    System.out.println("Error loading event card image: " + e.getMessage());
-                }
-                
-                // Show the dialog
-                esInfoBox.setVisible(true);
-                
-                // Set up the OK button action
-                Ok1.setOnAction(event -> {
-                    applyCornerEffect(corner);
-                    esInfoBox.setVisible(false);
-                    endTurnButton.setDisable(false);
-                    rollDiceButton.setDisable(false);
-                });
+                showEventSquareDialog(eventSquare);
             } else {
-                System.out.println("No corner found for position: " + position);
+                System.out.println("Warning: No event square found for corner type: " + cornerType);
+                endTurnButton.setDisable(false);
             }
-        }
-    }
-
-    private String getEventDescription(Corner corner) {
-        switch (corner.getEventName()) {
-            case "DDOS Attack":
-                return "Lose 300 Shared Trust";
-            case "Donate Money":
-                return "Gain 200 Shared Trust and roll dice for penalty";
-            case "Home":
-                return "Gain 100 money and 100 time";
-            case "Receive Funds":
-                return "Roll dice for bonus money";
-            default:
-                return "";
-        }
-    }
-
-    private String getEventBonus(Corner corner) {
-        if (corner.getEventMoney() > 0 || corner.getEventTime() > 0) {
-            StringBuilder bonus = new StringBuilder();
-            if (corner.getEventMoney() > 0) {
-                bonus.append("+").append(corner.getEventMoney()).append(" Money");
-            }
-            if (corner.getEventTime() > 0) {
-                if (bonus.length() > 0) bonus.append(", ");
-                bonus.append("+").append(corner.getEventTime()).append(" Time");
-            }
-            return bonus.toString();
-        }
-        return "None";
-    }
-
-    private String getEventCost(Corner corner) {
-        if (corner.getEventMoney() < 0 || corner.getEventTime() < 0 || corner.getEventTrust() < 0) {
-            StringBuilder cost = new StringBuilder();
-            if (corner.getEventMoney() < 0) {
-                cost.append(corner.getEventMoney()).append(" Money");
-            }
-            if (corner.getEventTime() < 0) {
-                if (cost.length() > 0) cost.append(", ");
-                cost.append(corner.getEventTime()).append(" Time");
-            }
-            if (corner.getEventTrust() < 0) {
-                if (cost.length() > 0) cost.append(", ");
-                cost.append(corner.getEventTrust()).append(" Trust");
-            }
-            return cost.toString();
-        }
-        return "None";
-    }
-
-    private void applyCornerEffect(Corner corner) {
-        Player player = players[currentPlayer];
-        
-        // Apply the effects
-        if (corner.getEventMoney() != 0) {
-            player.addMoney(corner.getEventMoney());
-        }
-        if (corner.getEventTime() != 0) {
-            player.addTime(corner.getEventTime());
-        }
-        if (corner.getEventTrust() != 0) {
-            SHARED_TRUST += corner.getEventTrust();
-        }
-        
-        // Handle special cases
-        switch (corner.getEventName()) {
-            case "DDOS Attack":
-                corner.setActive(true);
-                corner.setActivatedBy(player);
-                break;
-            case "Donate Money":
-            case "Receive Funds":
-                int roll = random.nextInt(6) + 1;
-                if (corner.getEventName().equals("Donate Money")) {
-                    player.addMoney(-50 * roll);
-                } else {
-                    player.addMoney(50 * roll);
-                }
-                break;
         }
     }
 
@@ -864,32 +850,32 @@ public class boardGameController {
         String imagePath = luck.getLuckCard();
         Image image = new Image(getClass().getResourceAsStream(imagePath));
         luckCardImage.setImage(image);
-        
+
         // Create a description based on the luck card effects
         StringBuilder description = new StringBuilder();
-        
+
         if (luck.getLuckMoney() > 0) {
             description.append("Gain ").append(luck.getLuckMoney()).append(" money. ");
         } else if (luck.getLuckMoney() < 0) {
             description.append("Lose ").append(Math.abs(luck.getLuckMoney())).append(" money. ");
         }
-        
+
         if (luck.getLuckTime() > 0) {
             description.append("Gain ").append(luck.getLuckTime()).append(" time. ");
         } else if (luck.getLuckTime() < 0) {
             description.append("Lose ").append(Math.abs(luck.getLuckTime())).append(" time. ");
         }
-        
+
         if (luck.getLuckTrustNeeded() > 0) {
             description.append("Requires ").append(luck.getLuckTrustNeeded()).append(" trust. ");
         }
-        
+
         if (luck.getNewPosition() != -1) {
             description.append("Move to position ").append(luck.getNewPosition()).append(".");
         }
-        
+
         luckDescLabel.setText(description.toString());
-        
+
         // Set bonus information if applicable
         if (luck.getLuckMoney() != 0 || luck.getLuckTime() != 0) {
             StringBuilder bonusText = new StringBuilder("Effect: ");
@@ -908,7 +894,7 @@ public class boardGameController {
         } else {
             luckBonusLabel.setText("");
         }
-        
+
         // Set cost information if applicable
         if (luck.getLuckTrustNeeded() != 0) {
             StringBuilder costText = new StringBuilder("Required: ");
@@ -920,10 +906,10 @@ public class boardGameController {
         } else {
             luckCostLabel.setText("");
         }
-        
+
         // Set owner information (not applicable for luck cards)
         luckOwnerLabel.setText("");
-        
+
         // Set up the OK button action - Apply effects immediately when OK is clicked
         Ok.setOnAction(event -> {
             // First apply the effect immediately
@@ -933,7 +919,7 @@ public class boardGameController {
             // Make sure the end turn button is enabled
             endTurnButton.setDisable(false);
         });
-        
+
         // Show the luck info box
         luckInfoBox.setVisible(true);
     }
@@ -942,7 +928,7 @@ public class boardGameController {
     private void applyLuckEffect(Luck luck) {
         Player player = players[currentPlayer];
         StringBuilder effectMessage = new StringBuilder();
-        
+
         // Apply money effects
         if (luck.getLuckMoney() > 0) {
             player.setMoneyResource(player.getMoneyResource() + luck.getLuckMoney());
@@ -951,7 +937,7 @@ public class boardGameController {
             player.setMoneyResource(player.getMoneyResource() - Math.abs(luck.getLuckMoney()));
             effectMessage.append("You lost ").append(Math.abs(luck.getLuckMoney())).append(" money! ");
         }
-        
+
         // Apply time effects
         if (luck.getLuckTime() > 0) {
             player.setTimeResource(player.getTimeResource() + luck.getLuckTime());
@@ -960,22 +946,28 @@ public class boardGameController {
             player.setTimeResource(player.getTimeResource() - Math.abs(luck.getLuckTime()));
             effectMessage.append("You lost ").append(Math.abs(luck.getLuckTime())).append(" time! ");
         }
-        
+
         // Apply position change if applicable
         if (luck.getNewPosition() != -1) {
             effectMessage.append("You moved to position ").append(luck.getNewPosition()).append("! ");
-            
+
+            // Get current position's circle and make it invisible
+            Circle[] playerCircles = getPlayerCircles(currentPlayer);
+            int currentPosition = player.getPosition() % 28;
+            playerCircles[currentPosition].setVisible(false);
+
             // Move the player to the new position
             player.setPosition(luck.getNewPosition());
-            movePlayer(currentPlayer, 0); // Update the visual position without adding spaces
-            
+            int newPosition = luck.getNewPosition() % 28;
+            playerCircles[newPosition].setVisible(true);
+
             // Check the new position for any effects
             checkPosition(luck.getNewPosition());
         }
-        
+
         // Display the effect message
         showErrorDialog.setText(effectMessage.toString());
-        
+
         // Update the player display
         updateCurrentPlayerDisplay();
         endTurnButton.setDisable(false);
@@ -998,7 +990,7 @@ public class boardGameController {
                 break;
             }
         }
-        
+
         // Set task details
         taskNameLabel.setText(task.getTaskName());
         taskDescLabel.setText("Description: " + task.getTaskObjective());
@@ -1009,15 +1001,15 @@ public class boardGameController {
         String imagePath = task.getTaskCard();
         Image image = new Image(getClass().getResourceAsStream(imagePath));
         taskCardImage.setImage(image);
-        
+
         // Disable End Turn button until player makes a decision
         endTurnButton.setDisable(true);
-        
+
         // Show or hide owner information
         if (owner != null) {
             taskOwnerLabel.setText("Owned by: " + owner.getName());
             taskOwnerLabel.setVisible(true);
-            
+
             // Only show decline button
             acceptTaskButton.setVisible(false);
             offerTaskButton.setVisible(false);
@@ -1030,7 +1022,7 @@ public class boardGameController {
             declineTaskButton.setVisible(true);
             offerTaskButton.setVisible(true);
         }
-        
+
         // Set button actions
         acceptTaskButton.setOnAction(e -> {
             acceptTask(task);
@@ -1058,12 +1050,15 @@ public class boardGameController {
 
     private void hideTaskDialog() {
         cardInfoBox.setVisible(false);
+
+        // Don't clear the children, just hide the box
+        // This preserves the FXML-defined elements
     }
 
     // to accept the task for yourself
     private void acceptTask(Task task) {
         Player currentPlayerObj = players[currentPlayer];
-        
+
         // Check if task is already owned
         for (Player player : players) {
             if (player.ownsTask(task)) {
@@ -1071,21 +1066,21 @@ public class boardGameController {
                 return;
             }
         }
-        
+
         // Check if player has enough resources
         if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() &&
-            SHARED_TRUST >= task.getTaskTrustNeeded()) {
-            
+                SHARED_TRUST >= task.getTaskTrustNeeded()) {
+
             // Deduct resources
             currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
             SHARED_TRUST -= task.getTaskTrustNeeded();
-            
+
             // Add task to player's owned tasks
             currentPlayerObj.addTask(task);
             task.setOwner(currentPlayerObj);
 
             SHARED_TRUST += task.getTaskBonus();
-            
+
             // Update display
             setupPlayerInfo();
             hideTaskDialog();
@@ -1097,7 +1092,6 @@ public class boardGameController {
             }
         }
     }
-
     // getting the circles which represent each player's positions
     private Circle[] getPlayerCircles(int playerIndex) {
         switch(playerIndex) {
@@ -1123,9 +1117,9 @@ public class boardGameController {
     private void showOfferModal(Task task) {
         currentOfferedTask = task;
         offeringPlayer = players[currentPlayer];
-        
+
         playerChoiceBox.getChildren().clear();
-        
+
         // Add radio buttons for each player except current player
         ToggleGroup group = new ToggleGroup();
         for (int i = 0; i < numPlayers; i++) {
@@ -1136,7 +1130,7 @@ public class boardGameController {
                 playerChoiceBox.getChildren().add(rb);
             }
         }
-        
+
         confirmOfferButton.setOnAction(e -> {
             RadioButton selected = (RadioButton) group.getSelectedToggle();
             if (selected != null) {
@@ -1145,25 +1139,25 @@ public class boardGameController {
                 offerModal.setVisible(false);
             }
         });
-        
+
         cancelOfferButton.setOnAction(e -> offerModal.setVisible(false));
-        
+
         offerModal.setVisible(true);
     }
 
     // to show the offer to the another player
     private void showOfferToPlayer(Task task, Player targetPlayer) {
-        offerMessage.setText(String.format("%s is offering you: %s", 
-            offeringPlayer.getName(), task.getTaskName()));
-            
+        offerMessage.setText(String.format("%s is offering you: %s",
+                offeringPlayer.getName(), task.getTaskName()));
+
         offeredTaskInfo.getChildren().clear();
         offeredTaskInfo.getChildren().addAll(
-            new Text(String.format("Money: %d", task.getTaskMoney())),
-            new Text(String.format("Time: %d", task.getTaskTime())),
-            new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
+                new Text(String.format("Money: %d", task.getTaskMoney())),
+                new Text(String.format("Time: %d", task.getTaskTime())),
+                new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
         );
-        
-        
+
+
         acceptOfferButton.setOnAction(e -> acceptOffer(task, targetPlayer));
         declineOfferButton.setOnAction(e -> {
             offerResponseModal.setVisible(false);
@@ -1171,25 +1165,25 @@ public class boardGameController {
             // Enable End Turn button after offer is declined
             endTurnButton.setDisable(false);
         });
-        
+
         offerResponseModal.setVisible(true);
     }
 
     // accept offer functionality
     private void acceptOffer(Task task, Player player) {
-        if (player.getMoneyResource() >= task.getTaskMoney() && 
-            player.getTimeResource() >= task.getTaskTime() &&
-            SHARED_TRUST >= task.getTaskTrustNeeded()) {
-            
+        if (player.getMoneyResource() >= task.getTaskMoney() &&
+                player.getTimeResource() >= task.getTaskTime() &&
+                SHARED_TRUST >= task.getTaskTrustNeeded()) {
+
             // Deduct resources
             player.setMoneyResource(player.getMoneyResource() - task.getTaskMoney());
             player.setTimeResource(player.getTimeResource() - task.getTaskTime());
             SHARED_TRUST -= task.getTaskTrustNeeded();
-            
+
             // Add task to player's owned tasks
             player.addTask(task);
             task.setOwner(player);
-            
+
             // Update display
             setupPlayerInfo();
             offerResponseModal.setVisible(false);
@@ -1209,7 +1203,7 @@ public class boardGameController {
     @FXML
     public void showTradeModal() {
         tradePlayerChoiceBox.getChildren().clear();
-        
+
         // Add radio buttons for each player except current player
         ToggleGroup group = new ToggleGroup();
         for (int i = 0; i < numPlayers; i++) {
@@ -1220,7 +1214,7 @@ public class boardGameController {
                 tradePlayerChoiceBox.getChildren().add(rb);
             }
         }
-        
+
         // Only show trade modal if there are players to trade with
         if (!tradePlayerChoiceBox.getChildren().isEmpty()) {
             tradePlayerModal.setVisible(true);
@@ -1232,7 +1226,7 @@ public class boardGameController {
     private void showTradeCardsModal(Player player) {
         tradePlayer = player;
         tradePlayerLabel.setText(player.getName() + "'s Cards");
-        
+
         // Reset all trade values
         selectedCardToTrade = null;
         selectedCardToReceive = null;
@@ -1246,39 +1240,39 @@ public class boardGameController {
         // Create main container with horizontal layout
         HBox mainContainer = new HBox(20);
         mainContainer.setAlignment(Pos.CENTER);
-        
+
         // Current player's section
         VBox currentPlayerSection = new VBox(5);
         currentPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
         Text currentPlayerTitle = new Text("Your Offer");
         currentPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        
+
         // Resource inputs for current player
         HBox currentResourceInputs = new HBox(10);
-        VBox moneyInputBox = createResourceInput("Money to give:", 
-            players[currentPlayer].getMoneyResource());
-        VBox timeInputBox = createResourceInput("Time to give:", 
-            players[currentPlayer].getTimeResource());
+        VBox moneyInputBox = createResourceInput("Money to give:",
+                players[currentPlayer].getMoneyResource());
+        VBox timeInputBox = createResourceInput("Time to give:",
+                players[currentPlayer].getTimeResource());
         currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
-        
+
         // Cards section for current player
         Text currentPlayerCardsText = new Text("Your Cards to Trade:");
         currentPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-        
+
         // Container for current player's cards - Ignacio can change this according to what he wants
         currentPlayerCards = new FlowPane();
         currentPlayerCards.setHgap(10);
         currentPlayerCards.setVgap(10);
         currentPlayerCards.setPrefWrapLength(330);
         currentPlayerCards.setStyle("-fx-padding: 5;");
-        
+
         currentPlayerSection.getChildren().addAll(
-            currentPlayerTitle,
-            currentResourceInputs,
-            currentPlayerCardsText,
-            currentPlayerCards
+                currentPlayerTitle,
+                currentResourceInputs,
+                currentPlayerCardsText,
+                currentPlayerCards
         );
-        
+
         // Add current player's cards
         for (Task task: players[currentPlayer].getOwnedTasks()){
             VBox cardBox = createTaskCardForTrade(task, true);
@@ -1288,18 +1282,18 @@ public class boardGameController {
         // Center section with trade controls
         VBox centerControls = new VBox(10);
         centerControls.setAlignment(Pos.CENTER);
-        
+
         // Trade direction indicator
         Text tradeArrow = new Text("⇄");
         tradeArrow.setStyle("-fx-font-size: 24px;");
-        
+
         // Trade buttons
         confirmTradeButton = new Button("Confirm Trade");
         cancelTradeButton = new Button("Cancel");
-        
+
         confirmTradeButton.setOnAction(e -> confirmTrade());
         cancelTradeButton.setOnAction(e -> cancelTrade());
-        
+
         centerControls.getChildren().addAll(tradeArrow, confirmTradeButton, cancelTradeButton);
 
         // Selected player's section
@@ -1307,33 +1301,33 @@ public class boardGameController {
         selectedPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
         Text selectedPlayerTitle = new Text(player.getName() + "'s Offer");
         selectedPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        
+
         // Resource inputs for selected player
         HBox selectedResourceInputs = new HBox(10);
-        VBox moneyReceiveBox = createResourceInput("Money to receive:", 
-            player.getMoneyResource());
-        VBox timeReceiveBox = createResourceInput("Time to receive:", 
-            player.getTimeResource());
+        VBox moneyReceiveBox = createResourceInput("Money to receive:",
+                player.getMoneyResource());
+        VBox timeReceiveBox = createResourceInput("Time to receive:",
+                player.getTimeResource());
         selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
-        
+
         // Cards section for selected player
         Text selectedPlayerCardsText = new Text("Their Cards to Trade:");
         selectedPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-        
+
         // Container for selected player's cards
         selectedPlayerCards = new FlowPane();
         selectedPlayerCards.setHgap(10);
         selectedPlayerCards.setVgap(10);
         selectedPlayerCards.setPrefWrapLength(330); // Width for 3 cards (100px) + gaps
         selectedPlayerCards.setStyle("-fx-padding: 5;");
-        
+
         selectedPlayerSection.getChildren().addAll(
-            selectedPlayerTitle,
-            selectedResourceInputs,
-            selectedPlayerCardsText,
-            selectedPlayerCards
+                selectedPlayerTitle,
+                selectedResourceInputs,
+                selectedPlayerCardsText,
+                selectedPlayerCards
         );
-        
+
         // Add selected player's cards
         for (Task task: player.getOwnedTasks()) {
             VBox cardBox = createTaskCardForTrade(task, false);
@@ -1353,11 +1347,11 @@ public class boardGameController {
         VBox container = new VBox(5);
         Text labelText = new Text(label);
         labelText.setStyle("-fx-font-size: 12px;");
-        
+
         // Create text field for input
         TextField inputField = new TextField("0");
         inputField.setPrefWidth(80);
-        
+
         // This one I got it from ChatGPT no idea how to implement in JavaFX
         inputField.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*")) {
@@ -1365,7 +1359,7 @@ public class boardGameController {
             }
             return null;
         }));
-        
+
         // Add listener for value changes
         inputField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -1376,7 +1370,7 @@ public class boardGameController {
                         inputField.setText(String.valueOf(maxValue));
                         value = maxValue;
                     }
-                    
+
                     // Update the appropriate resource value based on the label
                     if (label.contains("Money to give")) {
                         moneyToGive = value;
@@ -1387,13 +1381,13 @@ public class boardGameController {
                     } else if (label.contains("Time to receive")) {
                         timeToReceive = value;
                     }
-                    
+
                     // Enable trade button if any resources are selected
-                    boolean hasResources = moneyToGive > 0 || timeToGive > 0 || 
-                                        moneyToReceive > 0 || timeToReceive > 0;
+                    boolean hasResources = moneyToGive > 0 || timeToGive > 0 ||
+                            moneyToReceive > 0 || timeToReceive > 0;
                     boolean hasCards = !selectedCardsToGive.isEmpty() || !selectedCardsToReceive.isEmpty();
                     confirmTradeButton.setDisable(!(hasResources || hasCards));
-                    
+
                 } catch (NumberFormatException e) {
                     inputField.setText("0");
                 }
@@ -1401,11 +1395,11 @@ public class boardGameController {
                 inputField.setText("0");
             }
         });
-        
+
         // Add max value indicator
         Text maxValueText = new Text("(Max: " + maxValue + ")");
         maxValueText.setStyle("-fx-font-size: 10px; -fx-fill: #666666;");
-        
+
         container.getChildren().addAll(labelText, inputField, maxValueText);
         return container;
     }
@@ -1420,7 +1414,7 @@ public class boardGameController {
 
         // Process resources first
         if (players[currentPlayer].getMoneyResource() >= moneyToGive &&
-            players[currentPlayer].getTimeResource() >= timeToGive) {
+                players[currentPlayer].getTimeResource() >= timeToGive) {
             players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() - moneyToGive);
             players[currentPlayer].setTimeResource(players[currentPlayer].getTimeResource() - timeToGive);
             tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() + moneyToGive);
@@ -1432,7 +1426,7 @@ public class boardGameController {
 
         if (moneyToReceive > 0 || timeToReceive > 0) {
             if (tradePlayer.getMoneyResource() >= moneyToReceive &&
-                tradePlayer.getTimeResource() >= timeToReceive) {
+                    tradePlayer.getTimeResource() >= timeToReceive) {
                 tradePlayer.setMoneyResource(tradePlayer.getMoneyResource() - moneyToReceive);
                 tradePlayer.setTimeResource(tradePlayer.getTimeResource() - timeToReceive);
                 players[currentPlayer].setMoneyResource(players[currentPlayer].getMoneyResource() + moneyToReceive);
@@ -1556,7 +1550,7 @@ public class boardGameController {
                 cardBox.setStyle("-fx-border-color: #dddddd; -fx-border-width: 2; -fx-border-radius: 5;");
             }
         });
-        
+
         cardBox.setOnMouseExited(e -> {
             if (!selectedCardsToGive.contains(task) && !selectedCardsToReceive.contains(task)) {
                 cardBox.setStyle("-fx-border-color: transparent; -fx-border-width: 2;");
@@ -1577,54 +1571,75 @@ public class boardGameController {
     // Completing Task
     @FXML
     public void showCompleteTaskModal() {
-        // Clear any previously selected task
+        // Initialize completed tasks list for current player if not exist
+        completedTasks.putIfAbsent(players[currentPlayer], new ArrayList<>());
+
+        // Clear previous selections
         selectedTaskToComplete = null;
-        
-        // Clear the container before adding new cards
+        confirmCompleteButton.setDisable(true);
+
+        // Show available time
+        availableTimeLabel.setText(String.valueOf(players[currentPlayer].getTimeResource()));
+
+        // Clear the task cards container
         completableTaskCards.getChildren().clear();
-        
-        Player currentPlayerObj = players[currentPlayer];
-        int availableTime = currentPlayerObj.getTimeResource();
-        availableTimeLabel.setText(String.valueOf(availableTime));
-        
-        // Get owned tasks that are not completed
-        List<Task> ownedTasks = currentPlayerObj.getOwnedTasks();
-        
-        // Check if player has any tasks
-        if (ownedTasks.isEmpty()) {
-            showErrorDialog.setText("You don't have any tasks to complete!");
+
+        // Get the current player's owned tasks
+        List<Task> playerOwnedTasks = players[currentPlayer].getOwnedTasks();
+
+        // Get the current player's completed tasks
+        ArrayList<Task> playerCompletedTasks = completedTasks.getOrDefault(players[currentPlayer], new ArrayList<>());
+
+        // If player has no tasks, show a message
+        if (playerOwnedTasks.isEmpty()) {
+            showErrorDialog.setText("No tasks to complete!");
+            showErrorDialog.setStyle("-fx-text-fill: red;");
             return;
         }
-        
-        // Filter for completable tasks (those that require less time than available)
-        boolean hasCompletableTasks = false;
-        
-        // Use a Set to track tasks we've already added to prevent duplicates
-        Set<Integer> addedTaskIds = new HashSet<>();
-        
-        for (Task task : ownedTasks) {
-            // Skip if we've already added this task
-            if (addedTaskIds.contains(task.getId())) {
-                continue;
+
+        // Use a Set to prevent duplicate tasks
+        Set<Task> completableTasks = new HashSet<>();
+
+        for (Objective objective : objectives) {
+            Task task1 = objective.getTask1();
+            Task task2 = objective.getTask2();
+
+            // Check if player owns task1 and either owns or has completed task2
+            if (playerOwnedTasks.stream().anyMatch(t -> t.getId() == task1.getId())) {
+                boolean hasTask2 = playerOwnedTasks.stream().anyMatch(t -> t.getId() == task2.getId()) ||
+                        playerCompletedTasks.stream().anyMatch(t -> t.getId() == task2.getId());
+                if (hasTask2) {
+                    completableTasks.add(task1);
+                }
             }
-            
-            // Only show tasks that can be completed with available time
-            if (task.getTaskTime() <= availableTime && !task.isCompleted()) {
-                VBox taskCard = createTaskCardForCompletion(task);
-                completableTaskCards.getChildren().add(taskCard);
-                hasCompletableTasks = true;
-                
-                // Mark this task as added
-                addedTaskIds.add(task.getId());
+
+            // Check if player owns task2 and either owns or has completed task1
+            if (playerOwnedTasks.stream().anyMatch(t -> t.getId() == task2.getId())) {
+                boolean hasTask1 = playerOwnedTasks.stream().anyMatch(t -> t.getId() == task1.getId()) ||
+                        playerCompletedTasks.stream().anyMatch(t -> t.getId() == task1.getId());
+                if (hasTask1) {
+                    completableTasks.add(task2);
+                }
             }
         }
-        
-        if (!hasCompletableTasks) {
-            showErrorDialog.setText("You don't have enough time to complete any tasks!");
+
+        // Remove tasks that are already completed
+        completableTasks.removeIf(task ->
+                playerCompletedTasks.stream().anyMatch(t -> t.getId() == task.getId()));
+
+        // If no completable tasks, show a message
+        if (completableTasks.isEmpty()) {
+            showErrorDialog.setText("You need both tasks of an objective!");
+            showErrorDialog.setStyle("-fx-text-fill: orange;");
             return;
         }
-        
-        // Show the modal
+
+        // Show completable tasks
+        for (Task task : completableTasks) {
+            VBox taskCard = createTaskCardForCompletion(task);
+            completableTaskCards.getChildren().add(taskCard);
+        }
+
         completeTaskModal.setVisible(true);
     }
 
@@ -1637,12 +1652,19 @@ public class boardGameController {
             int timeRequired = selectedTaskToComplete.getTaskTime();
 
             if (currentPlayerObj.getTimeResource() >= timeRequired) {
+                // Debug log before removal
+                System.out.println("Before completion - Owned tasks: " + currentPlayerObj.getOwnedTasks().size());
+
                 // Deduct time for the task
                 currentPlayerObj.setTimeResource(
-                    currentPlayerObj.getTimeResource() - timeRequired);
+                        currentPlayerObj.getTimeResource() - timeRequired);
 
-                // Remove task from owned tasks
-                currentPlayerObj.getOwnedTasks().remove(selectedTaskToComplete);
+                // Remove task from owned tasks - ensure it's removed
+                boolean removed = currentPlayerObj.getOwnedTasks().remove(selectedTaskToComplete);
+                System.out.println("Task removed from owned tasks: " + removed);
+
+                // Debug log after removal
+                System.out.println("After completion - Owned tasks: " + currentPlayerObj.getOwnedTasks().size());
 
                 // Add task to completed tasks
                 completedTasks.putIfAbsent(currentPlayerObj, new ArrayList<>());
@@ -1668,6 +1690,11 @@ public class boardGameController {
 
                 // Hide modal
                 completeTaskModal.setVisible(false);
+
+                // If the view tasks modal is visible, refresh it
+                if (viewTasksModal.isVisible()) {
+                    showPlayerOwnedTasks(currentPlayerObj);
+                }
             } else {
                 showErrorDialog.setText("Not enough time to complete this task!");
                 showErrorDialog.setStyle("-fx-text-fill: red;");
@@ -1718,9 +1745,9 @@ public class boardGameController {
 
                     // Show a message about the rewards
                     showErrorDialog.setText("Objective completed! Received: $" +
-                        objective.getObjectiveMoney() + ", " +
-                        objective.getObjectiveTime() + " time, and " +
-                        objective.getObjectiveTrust() + " trust.");
+                            objective.getObjectiveMoney() + ", " +
+                            objective.getObjectiveTime() + " time, and " +
+                            objective.getObjectiveTrust() + " trust.");
                     showErrorDialog.setStyle("-fx-text-fill: green;");
 
                     // No need to check other objectives since a task can only be part of one objective
@@ -1818,9 +1845,9 @@ public class boardGameController {
 
         // Find which objective this task belongs to (for display purposes only)
         Objective taskObjective = objectives.stream()
-            .filter(objective -> objective.getTask1().getId() == task.getId() ||
-                               objective.getTask2().getId() == task.getId())
-            .findFirst().orElse(null);
+                .filter(objective -> objective.getTask1().getId() == task.getId() ||
+                        objective.getTask2().getId() == task.getId())
+                .findFirst().orElse(null);
 
         try {
             String imagePath = task.getTaskCard();
@@ -1857,15 +1884,16 @@ public class boardGameController {
         container.setOnMouseClicked(event -> {
             // Deselect previously selected card
             completableTaskCards.getChildren().forEach(node ->
-                node.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;"));
+                    node.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;"));
 
             selectedTaskToComplete = task;
             container.setStyle("-fx-padding: 10; -fx-border-color: #4CAF50; -fx-border-width: 2;");
 
             // Enable confirm button if player has enough time for the task
             confirmCompleteButton.setDisable(
-                players[currentPlayer].getTimeResource() < task.getTaskTime());
+                    players[currentPlayer].getTimeResource() < task.getTaskTime());
         });
+
         return container;
     }
 
@@ -1889,7 +1917,169 @@ public class boardGameController {
         pause.play();
     }
 
+    /**
+     * Shows the event square dialog with the given event square information
+     * @param eventSquare The event square to display
+     */
+    private void showEventSquareDialog(Corner eventSquare) {
+        // Set the event square information
+        esNameLabel.setText(eventSquare.getEventName());
+
+        // Create a description based on the event square type
+        StringBuilder description = new StringBuilder();
+
+        switch (eventSquare.getEventName()) {
+            case "DDOS Attack":
+                description.append("Until it's your turn again, no player can complete tasks, offer tasks, or trade. ");
+                description.append("The community loses 300 Trust.");
+                break;
+            case "Donate Money":
+                description.append("You gain 200 Trust for the community. ");
+                description.append("Roll the dice again. If you roll 5, move 5 spaces and lose (roll × 100) money.");
+                break;
+            case "Home":
+                description.append("Welcome home! You receive 100 money and 100 time.");
+                break;
+            case "Receive Funds":
+                description.append("Roll the dice again. You will receive 50 × (dice roll) money.");
+                break;
+        }
+
+        esDescLabel.setText(description.toString());
+
+        // Set bonus information if applicable
+        if (eventSquare.getEventTime() != 0 || eventSquare.getEventTime() != 0) {
+            StringBuilder bonusText = new StringBuilder("Bonus: ");
+            if (eventSquare.getEventMoney() != 0) {
+                bonusText.append(eventSquare.getEventMoney() > 0 ? "+" : "")
+                        .append(eventSquare.getEventMoney())
+                        .append(" Money");
+            }
+            if (eventSquare.getEventTime() != 0) {
+                if (eventSquare.getEventMoney() != 0) bonusText.append(", ");
+                bonusText.append(eventSquare.getEventTime() > 0 ? "+" : "")
+                        .append(eventSquare.getEventTime())
+                        .append(" Time");
+            }
+            esBonusLabel.setText(bonusText.toString());
+        } else {
+            esBonusLabel.setText("");
+        }
+
+        // Set trust information if applicable
+        if (eventSquare.getEventTrust() != 0) {
+            StringBuilder trustText = new StringBuilder("Trust Effect: ");
+            trustText.append(eventSquare.getEventTrust() > 0 ? "+" : "")
+                    .append(eventSquare.getEventTrust())
+                    .append(" Trust");
+            esCostLabel.setText(trustText.toString());
+        } else {
+            esCostLabel.setText("");
+        }
+
+        // Set owner information (not applicable for event squares)
+        esOwnerLabel.setText("");
+
+        // Set the image if available
+        if (eventSquare.getEventCard() != null && !eventSquare.getEventCard().isEmpty()) {
+            try {
+                Image image = new Image(getClass().getResourceAsStream(eventSquare.getEventCard()));
+                esCardImage.setImage(image);
+            } catch (Exception e) {
+                System.err.println("Error loading event square image: " + e.getMessage());
+                esCardImage.setImage(null);
+            }
+        } else {
+            esCardImage.setImage(null);
+        }
+
+        // Set up the OK button action
+        Ok1.setOnAction(event -> {
+            hideEventSquareDialog();
+            applyEventSquareEffect(eventSquare);
+        });
+
+        // Show the event square info box
+        esInfoBox.setVisible(true);
+    }
+
+    /**
+     * Applies the effect of the event square to the current player
+     * @param eventSquare The event square to apply
+     */
+    private void applyEventSquareEffect(Corner eventSquare) {
+        Player player = players[currentPlayer];
+        StringBuilder effectMessage = new StringBuilder();
+
+        switch (eventSquare.getEventName()) {
+            case "DDOS Attack":
+                // Apply DDOS Attack effect
+                SHARED_TRUST -= 300;
+                if (SHARED_TRUST < 0) SHARED_TRUST = 0;
+
+                // Set the event as active and store the player who activated it
+                eventSquare.setActive(true);
+                eventSquare.setActivatedBy(player);
+
+                // Disable buttons for all players
+                completeTaskButton.setDisable(true);
+                tradeButton.setDisable(true);
+                offerTaskButton.setDisable(true);
+
+                effectMessage.append("DDOS Attack! The community lost 300 Trust. ");
+                effectMessage.append("No player can complete tasks, offer tasks, or trade until the end of the round.");
+                break;
+
+            case "Donate Money":
+                // Apply Donate Money effect
+                SHARED_TRUST += 200;
+                effectMessage.append("You donated to the community! The community gained 200 Trust. ");
+
+                // Roll the dice again
+                int roll = random.nextInt(6) + 1;
+                effectMessage.append("You rolled a " + roll + ". ");
+
+                // Calculate money to lose (roll × 100)
+                int moneyToLose = roll * 100;
+
+                player.setMoneyResource(player.getMoneyResource() - moneyToLose);
+                effectMessage.append("You lost " + moneyToLose + " money.");
+
+                break;
+
+            case "Home":
+                // Apply Home effect
+                player.addMoney(100);
+                player.addTime(100);
+                effectMessage.append("Welcome home! You received 100 money and 100 time.");
+                break;
+
+            case "Receive Funds":
+                // Apply Receive Funds effect
+                // Roll the dice again
+                int fundRoll = random.nextInt(6) + 1;
+                int moneyGained = 50 * fundRoll;
+                player.addMoney(moneyGained);
+                effectMessage.append("You rolled a " + fundRoll + " and received " + moneyGained + " money.");
+                break;
+        }
+
+        // Display the effect message
+        showErrorDialog.setText(effectMessage.toString());
+
+        // Update the player display
+        updateCurrentPlayerDisplay();
+        setupPlayerInfo();
+
+        // Enable the end turn button
+        endTurnButton.setDisable(false);
+    }
+
+    /**
+     * Hides the event square dialog
+     */
     private void hideEventSquareDialog() {
         esInfoBox.setVisible(false);
     }
+
 }
