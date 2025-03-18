@@ -522,7 +522,7 @@ public class boardGameController {
 
     // Initialization using Ignacio's tasks
     private void initializeTasks() {
-        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 25, "RESEARCH", "/images/1.png", 10, 10));
+        tasks.add(new Task(1, "Research on Anaerobic Digestion", 50, 0, 50, 10, 25, "RESEARCH", "/images/1.png", 10, 10));
         tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 25, "RESEARCH", "/images/2.png", 12, 13));
         tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 50, "SKETCHING", "/images/3.png", 16, 16));
         tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 50, "SKETCHING", "/images/4.png", 17, 20));
