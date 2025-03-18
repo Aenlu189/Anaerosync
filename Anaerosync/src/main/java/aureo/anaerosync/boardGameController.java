@@ -121,8 +121,6 @@ public class boardGameController {
         new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
-    private PositionManager positionManager = new PositionManager();
-
     // ArrayList containing all tasks in the game
     private final ArrayList<Task> tasks = new ArrayList<Task>();
     private final ArrayList<Objective> objectives = new ArrayList<Objective>();
@@ -192,7 +190,7 @@ public class boardGameController {
         initializeEventSquares();
 
         // Initialize the board with tasks and luck cards
-        positionManager.initializeSquares(tasks);
+        PositionManager.initializeSquares(tasks);
 
         // Hide all player pieces initially
         hideAllPlayers();
@@ -791,7 +789,7 @@ public class boardGameController {
 
     // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
-        Square square = positionManager.getSquareAtPosition(position);
+        Square square = PositionManager.getSquareAtPosition(position);
         System.out.println("Player landed on " + square.getType() + " at position " + position);
 
         if (square instanceof TaskSquare) {

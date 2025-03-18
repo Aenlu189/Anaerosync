@@ -1,7 +1,9 @@
 module aureo.anaerosync {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
+    requires javafx.graphics;
+    requires javafx.base;
+    requires static lombok;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -12,7 +14,6 @@ module aureo.anaerosync {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires annotations;
-    requires static lombok;
 
     opens aureo.anaerosync to javafx.fxml;
     exports aureo.anaerosync;

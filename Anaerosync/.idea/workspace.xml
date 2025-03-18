@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;move by one position completely implemented&quot;">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;minor bug fixes&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/PositionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/PositionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AnaerosyncApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AnaerosyncApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PositionManagerTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/boardGameControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/boardGameControllerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +72,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742320905349</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="&quot;minor bug fixes&quot;">
+      <option name="closed" value="true" />
+      <created>1742321056758</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742321056758</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -108,6 +124,7 @@
     <MESSAGE value="&quot;added contribution and decline&quot;" />
     <MESSAGE value="&quot;added better dialog box&quot;" />
     <MESSAGE value="&quot;move by one position completely implemented&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;move by one position completely implemented&quot;" />
+    <MESSAGE value="&quot;minor bug fixes&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;minor bug fixes&quot;" />
   </component>
 </project>
