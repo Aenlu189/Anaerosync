@@ -15,22 +15,22 @@ public class Task {
     private String claimMessage;
     private String feeMessage;
     private String completeTask;
-    private int feeReward;
+    private int feeMoney;
+    private int feeTime;
 
 
     public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
-                int taskWorkforce, int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeReward) {
+                 int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeMoney, int feeTime) {
         this.id = id;
         this.taskName = taskName;
         this.taskMoney = taskMoney;
         this.taskTime = taskTime;
         this.taskTrustNeeded = taskTrustNeeded;
-        this.taskWorkforce = taskWorkforce;
         this.taskBonus = taskBonus;
         this.taskObjective = taskObjective;
         this.taskCard = taskCard;
         this.isCompleted = false;
-        this.feeReward = feeReward;
+        this.feeMoney = feeMoney;
     }
 
     public int getId() {
@@ -55,18 +55,6 @@ public class Task {
 
     public int getTaskTrustNeeded() {
         return taskTrustNeeded;
-    }
-
-    public int getTaskWorkforce() {
-        return taskWorkforce;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
     }
 
     public Player getOwner() {
@@ -100,6 +88,24 @@ public class Task {
     public String getCompleteTask() { return completeTask; }
 
     public void setCompleteTask(String completeTask) {this.completeTask = completeTask; }
+
+    public int getFeeMoney() {
+        return feeMoney;
+    }
+
+    public void setFeeMoney(int feeMoney) {
+        this.feeMoney = feeMoney;
+    }
+
+    public int getFeeTime() {
+        return feeTime;
+    }
+
+    public void setFeeTime(int feeTime) {
+        this.feeTime = feeTime;
+    }
+
+
 
     @Override
     public String toString() {

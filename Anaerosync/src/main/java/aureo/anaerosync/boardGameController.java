@@ -107,10 +107,10 @@ public class boardGameController {
      * Initialize players with proper resources
      */
     private Player[] players = {
-            new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-            new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-            new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-            new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
+        new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+        new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+        new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+        new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
     // ArrayList containing all tasks in the game
@@ -425,8 +425,8 @@ public class boardGameController {
 
     @FXML
     public void endTurn() {
-        System.out.println("End turn called");
         hideTaskDialog();
+        System.out.println("End turn called");
         endTurnButton.setDisable(true);
         rollDiceButton.setDisable(false);
         hasMoved = false;
@@ -505,10 +505,7 @@ public class boardGameController {
             players[playerIndex].setPosition(newPosition);
 
             System.out.println("Player moved successfully");
-
-            // Check the new position and apply effects
             checkPosition(newPosition);
-
         } catch (Exception e) {
             System.out.println("Error in movePlayer: " + e.getMessage());
             e.printStackTrace();
@@ -782,6 +779,7 @@ public class boardGameController {
         setupObjectivesPanel();
     }
 
+    // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
         Square square = PositionManager.getSquareAtPosition(position);
         System.out.println("Player landed on " + square.getType() + " at position " + position);
@@ -860,6 +858,7 @@ public class boardGameController {
             }
 
             if (eventSquare != null) {
+                // Disable end turn button until event is handled
                 endTurnButton.setDisable(true);
                 showEventSquareDialog(eventSquare);
             } else {
@@ -1258,13 +1257,13 @@ public class boardGameController {
     // to show the offer to the another player
     private void showOfferToPlayer(Task task, Player targetPlayer) {
         offerMessage.setText(String.format("%s is offering you: %s",
-                offeringPlayer.getName(), task.getTaskName()));
+            offeringPlayer.getName(), task.getTaskName()));
 
         offeredTaskInfo.getChildren().clear();
         offeredTaskInfo.getChildren().addAll(
-                new Text(String.format("Money: %d", task.getTaskMoney())),
-                new Text(String.format("Time: %d", task.getTaskTime())),
-                new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
+            new Text(String.format("Money: %d", task.getTaskMoney())),
+            new Text(String.format("Time: %d", task.getTaskTime())),
+            new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
         );
 
 
@@ -1282,8 +1281,8 @@ public class boardGameController {
     // accept offer functionality
     private void acceptOffer(Task task, Player player) {
         if (player.getMoneyResource() >= task.getTaskMoney() &&
-                player.getTimeResource() >= task.getTaskTime() &&
-                SHARED_TRUST >= task.getTaskTrustNeeded()) {
+            player.getTimeResource() >= task.getTaskTime() &&
+            SHARED_TRUST >= task.getTaskTrustNeeded()) {
 
             // Deduct resources
             player.setMoneyResource(player.getMoneyResource() - task.getTaskMoney());
@@ -1360,9 +1359,9 @@ public class boardGameController {
         // Resource inputs for current player
         HBox currentResourceInputs = new HBox(10);
         VBox moneyInputBox = createResourceInput("Money to give:",
-                players[currentPlayer].getMoneyResource());
+            players[currentPlayer].getMoneyResource());
         VBox timeInputBox = createResourceInput("Time to give:",
-                players[currentPlayer].getTimeResource());
+            players[currentPlayer].getTimeResource());
         currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
 
         // Cards section for current player
@@ -1377,19 +1376,19 @@ public class boardGameController {
         currentPlayerCards.setStyle("-fx-padding: 5;");
 
         currentPlayerSection.getChildren().addAll(
-                currentPlayerTitle,
-                currentResourceInputs,
-                currentPlayerCardsText,
-                currentPlayerCards
+            currentPlayerTitle,
+            currentResourceInputs,
+            currentPlayerCardsText,
+            currentPlayerCards
         );
 
         // Get current player's owned but not completed tasks
         List<Task> currentPlayerTasks = new ArrayList<>(players[currentPlayer].getOwnedTasks());
         List<Task> currentPlayerCompletedTasks = completedTasks.getOrDefault(players[currentPlayer], new ArrayList<>());
         currentPlayerTasks.removeIf(task ->
-                currentPlayerCompletedTasks.stream().anyMatch(completedTask ->
-                        completedTask.getId() == task.getId()
-                )
+            currentPlayerCompletedTasks.stream().anyMatch(completedTask ->
+                completedTask.getId() == task.getId()
+            )
         );
 
         // Add current player's tradeable tasks
@@ -1424,9 +1423,9 @@ public class boardGameController {
         // Resource inputs for selected player
         HBox selectedResourceInputs = new HBox(10);
         VBox moneyReceiveBox = createResourceInput("Money to receive:",
-                player.getMoneyResource());
+            player.getMoneyResource());
         VBox timeReceiveBox = createResourceInput("Time to receive:",
-                player.getTimeResource());
+            player.getTimeResource());
         selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
 
         // Cards section for selected player
@@ -1437,7 +1436,7 @@ public class boardGameController {
         selectedPlayerCards = new FlowPane();
         selectedPlayerCards.setHgap(10);
         selectedPlayerCards.setVgap(10);
-        selectedPlayerCards.setPrefWrapLength(330);
+        selectedPlayerCards.setPrefWrapLength(330); // Width for 3 cards (100px) + gaps
         selectedPlayerCards.setStyle("-fx-padding: 5;");
 
         selectedPlayerSection.getChildren().addAll(
@@ -1873,9 +1872,9 @@ public class boardGameController {
 
                     // Show a message about the rewards
                     showErrorDialog.setText("Objective completed! Received: $" +
-                            objective.getObjectiveMoney() + ", " +
-                            objective.getObjectiveTime() + " time, and " +
-                            objective.getObjectiveTrust() + " trust.");
+                        objective.getObjectiveMoney() + ", " +
+                        objective.getObjectiveTime() + " time, and " +
+                        objective.getObjectiveTrust() + " trust.");
                     showErrorDialog.setStyle("-fx-text-fill: green;");
 
                     // No need to check other objectives since a task can only be part of one objective
@@ -1973,9 +1972,9 @@ public class boardGameController {
 
         // Find which objective this task belongs to (for display purposes only)
         Objective taskObjective = objectives.stream()
-                .filter(objective -> objective.getTask1().getId() == task.getId() ||
-                        objective.getTask2().getId() == task.getId())
-                .findFirst().orElse(null);
+            .filter(objective -> objective.getTask1().getId() == task.getId() ||
+                               objective.getTask2().getId() == task.getId())
+            .findFirst().orElse(null);
 
         try {
             String imagePath = task.getTaskCard();

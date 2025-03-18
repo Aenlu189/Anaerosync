@@ -4,7 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,12 +17,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class IndexController {
-    @FXML private AnchorPane optionsMenu;
-    @FXML private AnchorPane credits;
-    @FXML private AnchorPane exit;
-    @FXML private AnchorPane thankyou;
-    @FXML private AnchorPane numPlayersMenu;
-    @FXML private AnchorPane nameInput;
+    @FXML private HBox optionsMenu;
+    @FXML private HBox credits;
+    @FXML private HBox exit;
+    @FXML private HBox thankyou;
+    @FXML private HBox numPlayersMenu;
+    @FXML private HBox nameInput;
     @FXML private VBox playerNameInputs;
     @FXML private Button startButton;
 
@@ -40,24 +39,24 @@ public class IndexController {
 
     private void setupPlayerNameInputs(int numPlayers) {
         playerNameInputs.getChildren().clear();
-
+        
         for (int i = 1; i <= numPlayers; i++) {
             HBox playerRow = new HBox(20);
             playerRow.setAlignment(javafx.geometry.Pos.CENTER);
-
+            
             Label playerLabel = new Label("Player " + i);
             playerLabel.getStyleClass().add("player-label");
             playerLabel.setPrefWidth(100);
-
+            
             TextField nameField = new TextField();
             nameField.setPromptText("Enter name");
             nameField.setPrefWidth(300);
             nameField.getStyleClass().add("name-input");
-
+            
             playerRow.getChildren().addAll(playerLabel, nameField);
             playerNameInputs.getChildren().add(playerRow);
         }
-
+        
         showPane(nameInput);
     }
 
@@ -86,21 +85,21 @@ public class IndexController {
         try {
             // Get player names from text fields
             String[] playerNames = getPlayerNames();
-
+            
             // Load the board game FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/board-game.fxml"));
             Scene boardGameScene = new Scene(loader.load());
-
+            
             // Get the controller and set the player data
             boardGameController controller = loader.getController();
             controller.setGameData(playerNames);
-
+            
             // Switch to the board game scene
             Stage stage = (Stage) nameInput.getScene().getWindow();
             stage.setScene(boardGameScene);
             stage.setFullScreen(true);
             stage.show();
-
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,13 +107,13 @@ public class IndexController {
 
     private String[] getPlayerNames() {
         return playerNameInputs.getChildren().stream()
-                .map(node -> (HBox) node)
-                .map(hbox -> {
-                    TextField nameField = (TextField) hbox.getChildren().get(1);
-                    String name = nameField.getText().trim();
-                    return name.isEmpty() ? "Player " + (playerNameInputs.getChildren().indexOf(hbox) + 1) : name;
-                })
-                .toArray(String[]::new);
+            .map(node -> (HBox) node)
+            .map(hbox -> {
+                TextField nameField = (TextField) hbox.getChildren().get(1);
+                String name = nameField.getText().trim();
+                return name.isEmpty() ? "Player " + (playerNameInputs.getChildren().indexOf(hbox) + 1) : name;
+            })
+            .toArray(String[]::new);
     }
 
     @FXML

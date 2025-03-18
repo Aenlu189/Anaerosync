@@ -63,21 +63,21 @@ public class Objective {
     public void setObjectiveTrust(int objectiveTrust) {
         this.objectiveTrust = objectiveTrust;
     }
-
+    
     public Task getTask1() {
-        return task1;
+    	return task1;
     }
-
+    
     public void setTask1(Task task1) {
-        this.task1 = task1;
+    	this.task1 = task1;
     }
-
+    
     public Task getTask2() {
-        return task2;
+    	return task2;
     }
-
+    
     public void setTask2(Task task2) {
-        this.task2 = task2;
+    	this.task2 = task2;
     }
 
     public boolean isCompleted() {
@@ -87,7 +87,7 @@ public class Objective {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
-
+    
     public String getCompleteObjectiveMessage() {
         return completeObjectiveMessage;
     }
@@ -109,5 +109,5 @@ public class Objective {
     	}
     }
      */
-
+    
 }

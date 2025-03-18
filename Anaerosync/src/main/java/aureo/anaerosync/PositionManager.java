@@ -39,15 +39,15 @@ public class PositionManager {
         positions.add(new LuckSquare(25));
         positions.add(new TaskSquare(26, tasks.get(18)));
         positions.add(new TaskSquare(27, tasks.get(19)));
-
+        
         System.out.println("Board initialized with " + positions.size() + " squares");
         for (int i = 0; i < positions.size(); i++) {
             System.out.println("Position " + i + ": " + positions.get(i).getType());
         }
     }
-
+    
     // Keep the old method for backward compatibility
-    static void initializeSquares(ArrayList<Task> tasks){
+    static void initializeSquares(ArrayList<Task> tasks){ 
         initializeSquares(tasks, new ArrayList<Luck>());
     }
 
