@@ -12,6 +12,7 @@ module aureo.anaerosync {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires annotations;
+    requires static lombok;
 
     opens aureo.anaerosync to javafx.fxml;
     exports aureo.anaerosync;

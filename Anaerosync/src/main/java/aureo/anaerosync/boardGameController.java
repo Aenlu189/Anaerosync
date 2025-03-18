@@ -38,6 +38,9 @@ import javafx.scene.layout.AnchorPane;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Getter;
+
+@Getter
 public class boardGameController {
     @FXML public Button completeTaskButton, rollDiceButton, acceptTaskButton, declineTaskButton, endTurnButton;
     @FXML public Button offerTaskButton, confirmOfferButton, cancelOfferButton;
@@ -114,11 +117,11 @@ public class boardGameController {
     };
 
     // ArrayList containing all tasks in the game
-    private static final ArrayList<Task> tasks = new ArrayList<Task>();
-    private static final ArrayList<Objective> objectives = new ArrayList<Objective>();
-    private static final ArrayList<Corner> eventSquares = new ArrayList<Corner>();
+    private final ArrayList<Task> tasks = new ArrayList<Task>();
+    private final ArrayList<Objective> objectives = new ArrayList<Objective>();
+    private final ArrayList<Corner> eventSquares = new ArrayList<Corner>();
     private HashMap<Player, ArrayList<Task>> completedTasks = new HashMap<>();
-    private static final ArrayList<Luck> lucks = new ArrayList<Luck>();
+    private final ArrayList<Luck> lucks = new ArrayList<Luck>();
 
     private boolean hasMoved = false;
 
@@ -513,7 +516,7 @@ public class boardGameController {
     }
 
     // Initialization using Ignacio's tasks
-    private static void initializeTasks() {
+    private void initializeTasks() {
         tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 25, "RESEARCH", "/images/1.png", 10, 10));
         tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 25, "RESEARCH", "/images/2.png", 12, 13));
         tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 50, "SKETCHING", "/images/3.png", 16, 16));
@@ -620,7 +623,7 @@ public class boardGameController {
     }
 
     // Initialization using Ignacio's lucks
-    private static void initializeLucks() {
+    private void initializeLucks() {
         lucks.add(new Luck(1, "You deserve a day off!\nHave 100 units of Time!", 0, 100, 0, 0, "/images/LuckCard1.png", -1));
         lucks.add(new Luck(2, "You got a new hardware store subscription!\nHave 100 units of Money!", 100, 0, 0, 0, "/images/LuckCard2.png", -1));
         lucks.add(new Luck(3, "You deserve two days off!\nHave 200 units of Time!", 0, 200, 0, 0, "/images/LuckCard3.png", -1));
@@ -642,7 +645,7 @@ public class boardGameController {
     }
 
     // Initialize event squares
-    private static void initializeEventSquares() {
+    private void initializeEventSquares() {
         eventSquares.clear();
         eventSquares.add(new Corner(1, "DDOS Attack", 0, 0, -300, "/images/EventDDOS.png"));
         eventSquares.add(new Corner(2, "Donate Money", 0, 0, 200, "/images/EventDM.png"));
