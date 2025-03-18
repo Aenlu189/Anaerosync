@@ -77,6 +77,11 @@ public class boardGameController {
     @FXML private Button Ok1;
     @FXML private VBox esInfoBox;
 
+    @FXML private VBox landInfoBox;
+    @FXML private ImageView landCardImage;
+    @FXML private Label landNameLabel, landDescLabel, landBonusLabel, landCostLabel, landOwnerLabel;
+    @FXML private Button okLandButton;
+
     private int moneyToGive = 0;
     private int timeToGive = 0;
     private int moneyToReceive = 0;
@@ -421,6 +426,7 @@ public class boardGameController {
     @FXML
     public void endTurn() {
         System.out.println("End turn called");
+        hideTaskDialog();
         endTurnButton.setDisable(true);
         rollDiceButton.setDisable(false);
         hasMoved = false;
@@ -479,9 +485,9 @@ public class boardGameController {
             int currentPosition = players[playerIndex].getPosition() % 28;
             int newPosition = (currentPosition + spaces) % 28;
 
-            // Check if player passed or landed on home (position 0)
-            // We check if currentPosition > newPosition because that means we crossed position 0
-            if (currentPosition > newPosition) {
+            // Check if player passed home (position 0)
+            // Only give passing home bonus if not landing on home
+            if (currentPosition > newPosition && newPosition != 0) {
                 // give player resources for passing home
                 players[playerIndex].addMoney(100);
                 players[playerIndex].addTime(100);
@@ -499,7 +505,10 @@ public class boardGameController {
             players[playerIndex].setPosition(newPosition);
 
             System.out.println("Player moved successfully");
+
+            // Check the new position and apply effects
             checkPosition(newPosition);
+
         } catch (Exception e) {
             System.out.println("Error in movePlayer: " + e.getMessage());
             e.printStackTrace();
@@ -508,26 +517,26 @@ public class boardGameController {
 
     // Initialization using Ignacio's tasks
     private static void initializeTasks() {
-        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 10, 25, "RESEARCH", "/images/1.png", 10));
-        tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 13, 25, "RESEARCH", "/images/2.png", 10));
-        tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 16, 50, "SKETCHING", "/images/3.png", 20));
-        tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 20, 50, "SKETCHING", "/images/4.png", 20));
-        tasks.add(new Task(5, "Develop Visual Design", 105, 0, 120, 21, 24, 75, "FRONT-END", "/images/5.png", 30));
-        tasks.add(new Task(6, "Start JavaScript Development", 120, 0, 135, 24, 27, 75, "FRONT-END", "/images/6.png", 30));
-        tasks.add(new Task(7, "Develop Classes", 135, 0, 155, 27, 31, 100, "BACK-END", "/images/7.png", 40));
-        tasks.add(new Task(8, "Implement Functions", 150, 0, 180, 30, 36, 100, "BACK-END", "/images/8.png", 40));
-        tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 37, 125, "TESTING", "/images/9.png", 50));
-        tasks.add(new Task(10, "Testing Plan", 230, 0, 210, 46, 42, 125, "TESTING", "/images/10.png", 50));
-        tasks.add(new Task(11, "SSL Certificate", 235, 250, 235, 47, 47, 150, "SECURITY", "/images/11.png", 60));
-        tasks.add(new Task(12, "Cookies System", 245, 300, 240, 49, 48, 150, "SECURITY", "/images/12.png", 60));
-        tasks.add(new Task(13, "Sell Subscriptions", 270, 400, 265, 54, 53, 175, "DEPLOYMENT", "/images/13.png", 70));
-        tasks.add(new Task(14, "Add Media", 290, 600, 285, 58, 57, 175, "DEPLOYMENT", "/images/14.png", 70));
-        tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 60, 200, "PARTNERS", "/images/15.png", 80));
-        tasks.add(new Task(16, "Hardware Store Partners", 315, 1000, 320, 63, 64, 200, "PARTNERS", "/images/16.png", 80));
-        tasks.add(new Task(17, "Market Research", 330, 1500, 340, 70, 68, 225, "MARKETING", "/images/17.png", 90));
-        tasks.add(new Task(18, "Content Development", 375, 2000, 355, 75, 71, 225, "MARKETING", "/images/18.png", 90));
-        tasks.add(new Task(19, "Maintain System", 395, 3000, 375, 79, 75, 250, "MAINTAIN", "/images/19.png", 100));
-        tasks.add(new Task(20, "Update System", 400, 4000, 400, 80, 80, 250, "MAINTAIN", "/images/20.png", 100));
+        tasks.add(new Task(1, "Research on Anaerobic Digesters", 50, 0, 50, 10, 25, "RESEARCH", "/images/1.png", 10, 10));
+        tasks.add(new Task(2, "Research on Makers Valley", 60, 0, 65, 12, 25, "RESEARCH", "/images/2.png", 12, 13));
+        tasks.add(new Task(3, "Design Use Cases", 80, 0, 80, 16, 50, "SKETCHING", "/images/3.png", 16, 16));
+        tasks.add(new Task(4, "Design UML Diagram", 85, 0, 100, 17, 50, "SKETCHING", "/images/4.png", 17, 20));
+        tasks.add(new Task(5, "Develop Visual Design on Figma", 105, 0, 120, 21, 75, "FRONT-END", "/images/5.png", 21, 24));
+        tasks.add(new Task(6, "Start Developing in JavaScript", 120, 0, 135, 24, 75, "FRONT-END", "/images/6.png", 24, 27));
+        tasks.add(new Task(7, "Develop Classes", 135, 0, 155, 27, 100, "BACK-END", "/images/7.png", 27, 31));
+        tasks.add(new Task(8, "Implement Functions and Methods", 150, 0, 180, 30, 100, "BACK-END", "/images/8.png", 30, 36));
+        tasks.add(new Task(9, "Design Test Cases", 190, 0, 185, 38, 125, "TESTING", "/images/9.png", 38, 37));
+        tasks.add(new Task(10, "Implement Testing Acceptance Plan", 230, 0, 210, 46, 125, "TESTING", "/images/10.png", 46, 42));
+        tasks.add(new Task(11, "Buy Domain SSL Certificate", 235, 250, 235, 47, 150, "CYBER-SECURITY", "/images/11.png", 47, 47));
+        tasks.add(new Task(12, "Implement Cookies System", 245, 300, 240, 49, 150, "CYBER-SECURITY", "/images/12.png", 49, 48));
+        tasks.add(new Task(13, "Sell Subscriptions to Hardware Stores", 270, 400, 265, 54, 175, "DEPLOYMENT", "/images/13.png", 54, 53));
+        tasks.add(new Task(14, "Add Videos and Images", 290, 600, 285, 58, 175, "DEPLOYMENT", "/images/14.png", 58, 57));
+        tasks.add(new Task(15, "Partner with Lock", 300, 800, 300, 60, 200, "PARTNERSHIPS", "/images/15.png", 60, 60));
+        tasks.add(new Task(16, "Partner with Hardware Stores", 315, 1000, 320, 63, 200, "PARTNERSHIPS", "/images/16.png", 63, 64));
+        tasks.add(new Task(17, "Market Research", 350, 1500, 340, 70, 225, "MARKETING", "/images/17.png", 70, 68));
+        tasks.add(new Task(18, "Content Development", 375, 2000, 355, 75, 225, "MARKETING", "/images/18.png", 75, 71));
+        tasks.add(new Task(19, "Maintaining AnaeroSync", 395, 3000, 375, 79, 250, "SUSTAINABILITY", "/images/19.png", 79, 75));
+        tasks.add(new Task(20, "Updating AnaeroSync", 400, 4000, 400, 80, 250, "SUSTAINABILITY", "/images/20.png", 80, 80));
 
         tasks.getFirst().setClaimMessage("Research is the foundation of AnaeroSync. Investigate the economic, environmental, and social factors of anaerobic digestion. Invest 50 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 25 Community Trust units as a reward for claiming this task.");
         tasks.get(1).setClaimMessage("Understanding the local environment is key for AnaeroSync's success. Investigate the waste management situation in Makers Valley and potential opportunities. Invest 60 units of Money to claim this Task. You are not required any Community Trust units for this task, however, receive 25 Community Trust units as a reward for claiming this task.");
@@ -773,7 +782,6 @@ public class boardGameController {
         setupObjectivesPanel();
     }
 
-    // Check if the player is on Task Square or Other squares like corners and luck card
     private void checkPosition(int position) {
         Square square = PositionManager.getSquareAtPosition(position);
         System.out.println("Player landed on " + square.getType() + " at position " + position);
@@ -782,45 +790,66 @@ public class boardGameController {
             TaskSquare taskSquare = (TaskSquare) square;
             Task task = taskSquare.getTask();
             if (task != null) {
-                // Check if the task is completed by any player
-                boolean isCompleted = false;
+                // First check if the task is completed by any player
+                boolean isTaskCompleted = false;
                 for (ArrayList<Task> playerTasks : completedTasks.values()) {
-                    if (playerTasks.stream().anyMatch(t -> t.getId() == task.getId())) {
-                        isCompleted = true;
-                        break;
+                    for (Task completedTask : playerTasks) {
+                        if (completedTask.getId() == task.getId()) {
+                            isTaskCompleted = true;
+                            break;
+                        }
                     }
+                    if (isTaskCompleted) break;
                 }
 
-                if (isCompleted) {
-                    // Task is completed, move player forward one position
-                    System.out.println("Task already completed, moving player forward");
+                if (isTaskCompleted) {
+                    // Move player forward one position if task is completed
+                    showErrorDialog.setText("Moving past completed task...");
                     int newPosition = (position + 1) % 28;
-
-                    // Get current position's circle and make it invisible
-                    Circle[] playerCircles = getPlayerCircles(currentPlayer);
-                    playerCircles[position].setVisible(false);
-
-                    // Update player position and make new circle visible
+                    Circle[] playerCircle = getPlayerCircles(currentPlayer);
+                    playerCircle[position].setVisible(false);
+                    playerCircle[newPosition].setVisible(true);
                     players[currentPlayer].setPosition(newPosition);
-                    playerCircles[newPosition].setVisible(true);
 
                     // Recursively check the new position
                     checkPosition(newPosition);
                     return;
                 }
-                showTaskDialog(task);
+
+                // If task is not completed, handle normal task logic
+                Player owner = task.getOwner();
+                if (owner != null && owner != players[currentPlayer]) {
+                    // Task is owned by another player - handle fee payment
+                    handleTaskFee(task, owner);
+                } else if (owner == null) {
+                    // Task is unowned - show task dialog
+                    showTaskDialog(task);
+                } else {
+                    // Player owns this task but it's not completed
+                    showTaskDialog(task);
+                }
             }
         } else if (square instanceof LuckSquare) {
-            // Show a random luck card when landing on a luck square
+            // Disable end turn button until luck effect is applied
+            endTurnButton.setDisable(true);
+
+            // Draw a random luck card
             if (!lucks.isEmpty()) {
-                Luck luck = lucks.get(random.nextInt(lucks.size()));
+                int randomIndex = random.nextInt(lucks.size());
+                Luck luck = lucks.get(randomIndex);
+                System.out.println("Drew luck card: " + luck.getLuckName());
+
+                // Show the luck dialog and apply effects
                 showLuckDialog(luck);
+            } else {
+                System.err.println("No luck cards available!");
+                endTurnButton.setDisable(false);
             }
         } else if (square instanceof CornerSquare) {
+            // Existing corner square logic
             CornerSquare cornerSquare = (CornerSquare) square;
             String cornerType = cornerSquare.getCornerType();
 
-            // Find the corresponding event square
             Corner eventSquare = null;
             for (Corner es : eventSquares) {
                 if (es.getEventName().equals(cornerType) ||
@@ -831,7 +860,6 @@ public class boardGameController {
             }
 
             if (eventSquare != null) {
-                // Disable end turn button until event is handled
                 endTurnButton.setDisable(true);
                 showEventSquareDialog(eventSquare);
             } else {
@@ -839,6 +867,61 @@ public class boardGameController {
                 endTurnButton.setDisable(false);
             }
         }
+    }
+
+    private void handleTaskFee(Task task, Player owner) {
+        Player currentPlayerObj = players[currentPlayer];
+        int feeMoney = task.getFeeMoney();
+        int feeTime = task.getFeeTime();
+
+        // Set the task card image
+        try {
+            String imagePath = task.getTaskCard();
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            landCardImage.setImage(image);
+            landCardImage.setFitWidth(200);
+            landCardImage.setPreserveRatio(true);
+        } catch (Exception e) {
+            System.err.println("Error loading task card image: " + e.getMessage());
+        }
+
+        // Set the landing info details
+        landNameLabel.setText(task.getTaskName());
+        landDescLabel.setText(task.getFeeMessage());
+        landBonusLabel.setText(String.format("Fee Required: %d money and %d time", feeMoney, feeTime));
+        landCostLabel.setText("This task is owned by: " + owner.getName());
+        landOwnerLabel.setText("Click OK to pay the fee");
+
+        // Set up the OK button action
+        okLandButton.setOnAction(event -> {
+            // Check if current player has enough resources to pay
+            if (currentPlayerObj.getMoneyResource() >= feeMoney &&
+                    currentPlayerObj.getTimeResource() >= feeTime) {
+
+                // Deduct resources from current player
+                currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - feeMoney);
+                currentPlayerObj.setTimeResource(currentPlayerObj.getTimeResource() - feeTime);
+
+                // Add resources to task owner
+                owner.setMoneyResource(owner.getMoneyResource() + feeMoney);
+                owner.setTimeResource(owner.getTimeResource() + feeTime);
+
+                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time",
+                        owner.getName(), feeMoney, feeTime));
+            } else {
+                showErrorDialog.setText("Not enough resources to pay the fee!");
+            }
+
+            // Hide the landing info box
+            landInfoBox.setVisible(false);
+
+            // Update display
+            setupPlayerInfo();
+            endTurnButton.setDisable(false);
+        });
+
+        // Show the landing info box
+        landInfoBox.setVisible(true);
     }
 
     private void showLuckDialog(Luck luck) {
@@ -909,6 +992,10 @@ public class boardGameController {
 
         // Set owner information (not applicable for luck cards)
         luckOwnerLabel.setText("");
+
+        // Make sure the OK button is visible and enabled
+        Ok.setVisible(true);
+        Ok.setDisable(false);
 
         // Set up the OK button action - Apply effects immediately when OK is clicked
         Ok.setOnAction(event -> {
@@ -982,67 +1069,90 @@ public class boardGameController {
     }
 
     private void showTaskDialog(Task task) {
-        // Check if task is already owned
-        Player owner = null;
-        for (Player player : players) {
-            if (player.ownsTask(task)) {
-                owner = player;
-                break;
-            }
-        }
-
         // Set task details
         taskNameLabel.setText(task.getTaskName());
         taskDescLabel.setText("Description: " + task.getTaskObjective());
-        taskBonusLabel.setText("Trust Bonus: " + task.getTaskBonus());
-        taskCostLabel.setText(String.format("Cost: $%d, Trust %d", task.getTaskMoney(), task.getTaskTrustNeeded()));
 
-        // Set task image
-        String imagePath = task.getTaskCard();
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
-        taskCardImage.setImage(image);
+        // Load and set the task image first
+        try {
+            String imagePath = task.getTaskCard();
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
+            if (imageStream != null) {
+                Image image = new Image(imageStream);
+                taskCardImage.setImage(image);
+                taskCardImage.setFitWidth(200);
+                taskCardImage.setPreserveRatio(true);
+                taskCardImage.setSmooth(true);
+            } else {
+                System.err.println("Could not find image at path: " + imagePath);
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading task card image: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        // Disable End Turn button until player makes a decision
-        endTurnButton.setDisable(true);
+        Player owner = task.getOwner();
+        if (owner != null && owner != players[currentPlayer]) {
+            // Show fee information if owned by another player
+            taskBonusLabel.setText(String.format("Fee Required: %d money and %d time",
+                    task.getFeeMoney(), task.getFeeTime()));
+            taskCostLabel.setText("This task is owned by: " + owner.getName());
+            taskOwnerLabel.setText("Click OK to pay the fee");
 
-        // Show or hide owner information
-        if (owner != null) {
-            taskOwnerLabel.setText("Owned by: " + owner.getName());
-            taskOwnerLabel.setVisible(true);
-
-            // Only show decline button
+            // Only show OK button for fee payment
             acceptTaskButton.setVisible(false);
+            declineTaskButton.setVisible(false);
             offerTaskButton.setVisible(false);
-            declineTaskButton.setVisible(true);
-        } else {
-            taskOwnerLabel.setVisible(false);
+            Ok.setVisible(true);
 
-            // Show all buttons
+            // Set up OK button action for fee payment
+            Ok.setOnAction(e -> {
+                handleTaskFee(task, owner);
+                hideTaskDialog();
+            });
+
+        } else if (owner == null) {
+            // Show normal task information for unclaimed task
+            taskBonusLabel.setText("Trust Bonus: " + task.getTaskBonus());
+            taskCostLabel.setText(String.format("Cost: $%d, Trust %d", task.getTaskMoney(), task.getTaskTrustNeeded()));
+            taskOwnerLabel.setText("");
+
+            // Show normal buttons for unclaimed task
             acceptTaskButton.setVisible(true);
             declineTaskButton.setVisible(true);
             offerTaskButton.setVisible(true);
+            Ok.setVisible(false);
+
+            // Set normal button actions
+            acceptTaskButton.setOnAction(e -> {
+                acceptTask(task);
+                hideTaskDialog();
+                endTurnButton.setDisable(false);
+            });
+
+            declineTaskButton.setOnAction(e -> {
+                hideTaskDialog();
+                endTurnButton.setDisable(false);
+            });
+
+            offerTaskButton.setOnAction(e -> {
+                showOfferModal(task);
+                hideTaskDialog();
+            });
+
+        } else {
+            // Player owns this task
+            taskBonusLabel.setText("You own this task!");
+            taskCostLabel.setText("");
+            taskOwnerLabel.setText("");
+
+            acceptTaskButton.setVisible(false);
+            declineTaskButton.setVisible(false);
+            offerTaskButton.setVisible(false);
+
+            endTurnButton.setDisable(false);
+
         }
-
-        // Set button actions
-        acceptTaskButton.setOnAction(e -> {
-            acceptTask(task);
-            hideTaskDialog();
-            // Enable End Turn button after decision
-            endTurnButton.setDisable(false);
-        });
-
-        declineTaskButton.setOnAction(e -> {
-            hideTaskDialog();
-            // Enable End Turn button after decision
-            endTurnButton.setDisable(false);
-        });
-
-        offerTaskButton.setOnAction(e -> {
-            showOfferModal(task);
-            hideTaskDialog();
-            // Enable End Turn button after decision
-            endTurnButton.setDisable(false);
-        });
 
         // Show the task card box
         cardInfoBox.setVisible(true);
@@ -1259,7 +1369,7 @@ public class boardGameController {
         Text currentPlayerCardsText = new Text("Your Cards to Trade:");
         currentPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
 
-        // Container for current player's cards - Ignacio can change this according to what he wants
+        // Container for current player's cards
         currentPlayerCards = new FlowPane();
         currentPlayerCards.setHgap(10);
         currentPlayerCards.setVgap(10);
@@ -1273,8 +1383,17 @@ public class boardGameController {
                 currentPlayerCards
         );
 
-        // Add current player's cards
-        for (Task task: players[currentPlayer].getOwnedTasks()){
+        // Get current player's owned but not completed tasks
+        List<Task> currentPlayerTasks = new ArrayList<>(players[currentPlayer].getOwnedTasks());
+        List<Task> currentPlayerCompletedTasks = completedTasks.getOrDefault(players[currentPlayer], new ArrayList<>());
+        currentPlayerTasks.removeIf(task ->
+                currentPlayerCompletedTasks.stream().anyMatch(completedTask ->
+                        completedTask.getId() == task.getId()
+                )
+        );
+
+        // Add current player's tradeable tasks
+        for (Task task: currentPlayerTasks) {
             VBox cardBox = createTaskCardForTrade(task, true);
             currentPlayerCards.getChildren().add(cardBox);
         }
@@ -1318,7 +1437,7 @@ public class boardGameController {
         selectedPlayerCards = new FlowPane();
         selectedPlayerCards.setHgap(10);
         selectedPlayerCards.setVgap(10);
-        selectedPlayerCards.setPrefWrapLength(330); // Width for 3 cards (100px) + gaps
+        selectedPlayerCards.setPrefWrapLength(330);
         selectedPlayerCards.setStyle("-fx-padding: 5;");
 
         selectedPlayerSection.getChildren().addAll(
@@ -1328,8 +1447,17 @@ public class boardGameController {
                 selectedPlayerCards
         );
 
-        // Add selected player's cards
-        for (Task task: player.getOwnedTasks()) {
+        // Get selected player's owned but not completed tasks
+        List<Task> selectedPlayerTasks = new ArrayList<>(player.getOwnedTasks());
+        List<Task> selectedPlayerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
+        selectedPlayerTasks.removeIf(task ->
+                selectedPlayerCompletedTasks.stream().anyMatch(completedTask ->
+                        completedTask.getId() == task.getId()
+                )
+        );
+
+        // Add selected player's tradeable tasks
+        for (Task task: selectedPlayerTasks) {
             VBox cardBox = createTaskCardForTrade(task, false);
             selectedPlayerCards.getChildren().add(cardBox);
         }
@@ -2059,8 +2187,10 @@ public class boardGameController {
                 // Roll the dice again
                 int fundRoll = random.nextInt(6) + 1;
                 int moneyGained = 50 * fundRoll;
+                int timeGained = 50 * fundRoll;
                 player.addMoney(moneyGained);
-                effectMessage.append("You rolled a " + fundRoll + " and received " + moneyGained + " money.");
+                player.addTime(timeGained);
+                effectMessage.append("You rolled a " + fundRoll + " and received " + moneyGained + " money and time.");
                 break;
         }
 

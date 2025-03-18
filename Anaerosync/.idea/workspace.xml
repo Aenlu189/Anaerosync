@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45ee96d9-4e19-49e1-88a3-7e6f0127f9b3" name="Changes" comment="Indexing and GUI implementation for the main menu (while considering user with visual disability" />
+    <list default="true" id="45ee96d9-4e19-49e1-88a3-7e6f0127f9b3" name="Changes" comment="Indexing and GUI implementation for the main menu (while considering user with visual disability">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,7 +101,9 @@
       <workItem from="1741323982166" duration="2000" />
       <workItem from="1742226611228" duration="8703000" />
       <workItem from="1742251468506" duration="635000" />
-      <workItem from="1742261364639" duration="6907000" />
+      <workItem from="1742261364639" duration="7876000" />
+      <workItem from="1742274193174" duration="874000" />
+      <workItem from="1742310435849" duration="543000" />
     </task>
     <task id="LOCAL-00001" summary="Progress bar implemented and visually pleasing">
       <option name="closed" value="true" />
@@ -116,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742273027023</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Indexing and GUI implementation for the main menu (while considering user with visual disability">
+      <option name="closed" value="true" />
+      <created>1742273287542</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742273287542</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
