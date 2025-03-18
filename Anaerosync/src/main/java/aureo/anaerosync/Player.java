@@ -70,7 +70,7 @@ public class Player {
     }
 
     public void addTask(Task task) {
-        if (task != null) {
+        if (task != null && !ownedTasks.contains(task)) {
             ownedTasks.add(task);
         }
     }

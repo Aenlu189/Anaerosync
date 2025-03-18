@@ -182,7 +182,7 @@ public class boardGameController {
         initializeEventSquares();
 
         // Initialize the board with tasks and luck cards
-        PositionManager.initializeSquares(tasks, lucks);
+        PositionManager.initializeSquares(tasks);
 
         // Hide all player pieces initially
         hideAllPlayers();
