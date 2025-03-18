@@ -85,6 +85,11 @@ public class boardGameController {
     @FXML private Label landNameLabel, landDescLabel, landBonusLabel, landCostLabel, landOwnerLabel;
     @FXML private Button okLandButton, declineLandButton;
 
+    @FXML private ImageView completeCardImage;
+    @FXML private Label completeNameLabel, completeDescLabel, completeBonusLabel, completeCostLabel, completeOwnerLabel;
+    @FXML private Button completeOkButton;
+    @FXML private VBox completeInfoBox;
+
     private int moneyToGive = 0;
     private int timeToGive = 0;
     private int moneyToReceive = 0;
@@ -793,10 +798,12 @@ public class boardGameController {
             if (task != null) {
                 // First check if the task is completed by any player
                 boolean isTaskCompleted = false;
-                for (ArrayList<Task> playerTasks : completedTasks.values()) {
-                    for (Task completedTask : playerTasks) {
+                Player completedBy = null;
+                for (Map.Entry<Player, ArrayList<Task>> entry : completedTasks.entrySet()) {
+                    for (Task completedTask : entry.getValue()) {
                         if (completedTask.getId() == task.getId()) {
                             isTaskCompleted = true;
+                            completedBy = entry.getKey();
                             break;
                         }
                     }
@@ -804,16 +811,8 @@ public class boardGameController {
                 }
 
                 if (isTaskCompleted) {
-                    // Move player forward one position if task is completed
-                    showErrorDialog.setText("Moving past completed task...");
-                    int newPosition = (position + 1) % 28;
-                    Circle[] playerCircle = getPlayerCircles(currentPlayer);
-                    playerCircle[position].setVisible(false);
-                    playerCircle[newPosition].setVisible(true);
-                    players[currentPlayer].setPosition(newPosition);
-
-                    // Recursively check the new position
-                    checkPosition(newPosition);
+                    // Show completion info box
+                    showCompletionInfo(task, completedBy);
                     return;
                 }
 
@@ -856,9 +855,9 @@ public class boardGameController {
                 if (es.getEventName().equals(cornerType) ||
                         (cornerType.equals("DDOS") && es.getEventName().equals("DDOS Attack"))) {
                     eventSquare = es;
-                    break;
-                }
-            }
+                            break;
+                        }
+                    }
 
             if (eventSquare != null) {
                 // Disable end turn button until event is handled
@@ -1017,7 +1016,7 @@ public class boardGameController {
             // Then hide the dialog
             hideLuckDialog();
             // Make sure the end turn button is enabled
-            endTurnButton.setDisable(false);
+                    endTurnButton.setDisable(false);
         });
 
         // Show the luck info box
@@ -1096,7 +1095,7 @@ public class boardGameController {
                 taskCardImage.setFitWidth(200);
                 taskCardImage.setPreserveRatio(true);
                 taskCardImage.setSmooth(true);
-            } else {
+                } else {
                 System.err.println("Could not find image at path: " + imagePath);
             }
         } catch (Exception e) {
@@ -1120,7 +1119,7 @@ public class boardGameController {
 
             // Set up OK button action for fee payment
             Ok.setOnAction(e -> {
-                handleTaskFee(task, owner);
+                    handleTaskFee(task, owner);
                 hideTaskDialog();
             });
 
@@ -1277,8 +1276,8 @@ public class boardGameController {
 
         // Add task card image
         try {
-            String imagePath = task.getTaskCard();
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
+        String imagePath = task.getTaskCard();
+        Image image = new Image(getClass().getResourceAsStream(imagePath));
             ImageView taskImage = new ImageView(image);
             taskImage.setFitWidth(200);
             taskImage.setPreserveRatio(true);
@@ -2237,5 +2236,72 @@ public class boardGameController {
      */
     private void hideEventSquareDialog() {
         esInfoBox.setVisible(false);
+    }
+
+    private void showCompletionInfo(Task task, Player completedBy) {
+        try {
+            System.out.println("Showing completion info for task: " + task.getTaskName());
+            
+            // Verify FXML elements are properly initialized
+            if (completeInfoBox == null || completeNameLabel == null || completeDescLabel == null ||
+                completeBonusLabel == null || completeCostLabel == null || completeOwnerLabel == null ||
+                completeCardImage == null || completeOkButton == null) {
+                System.err.println("Error: One or more completion info FXML elements are null");
+                // Fall back to moving the player forward
+                movePlayerForward();
+                return;
+            }
+
+            // Disable end turn button until OK is pressed
+            endTurnButton.setDisable(true);
+
+            // Set the task card image
+            try {
+                String imagePath = task.getTaskCard();
+                Image image = new Image(getClass().getResourceAsStream(imagePath));
+                completeCardImage.setImage(image);
+                completeCardImage.setFitWidth(200);
+                completeCardImage.setPreserveRatio(true);
+            } catch (Exception e) {
+                System.err.println("Error loading task card image: " + e.getMessage());
+            }
+
+            // Set the completion info details
+            completeNameLabel.setText(task.getTaskName());
+            completeDescLabel.setText("This task has been completed!");
+            completeBonusLabel.setText("");
+            completeCostLabel.setText("Completed by: " + completedBy.getName());
+            completeOwnerLabel.setText("Press ok to move by one position.");
+
+            // Set up the OK button action
+            completeOkButton.setOnAction(event -> {
+                completeInfoBox.setVisible(false);
+                movePlayerForward();
+            });
+
+            // Show the completion info box
+            completeInfoBox.setVisible(true);
+            
+        } catch (Exception e) {
+            System.err.println("Error showing completion info: " + e.getMessage());
+            e.printStackTrace();
+            // Fall back to moving the player forward
+            movePlayerForward();
+        }
+    }
+
+    private void movePlayerForward() {
+        // Move player forward one position
+        int currentPos = players[currentPlayer].getPosition();
+        int newPosition = (currentPos + 1) % 28;
+        
+        // Update player position
+        Circle[] playerCircle = getPlayerCircles(currentPlayer);
+        playerCircle[currentPos].setVisible(false);
+        playerCircle[newPosition].setVisible(true);
+        players[currentPlayer].setPosition(newPosition);
+        
+        // Check the new position
+        checkPosition(newPosition);
     }
 }
