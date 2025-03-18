@@ -4,6 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,12 +18,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class IndexController {
-    @FXML private HBox optionsMenu;
-    @FXML private HBox credits;
-    @FXML private HBox exit;
-    @FXML private HBox thankyou;
-    @FXML private HBox numPlayersMenu;
-    @FXML private HBox nameInput;
+    @FXML private AnchorPane optionsMenu;
+    @FXML private AnchorPane credits;
+    @FXML private AnchorPane exit;
+    @FXML private AnchorPane thankyou;
+    @FXML private AnchorPane numPlayersMenu;
+    @FXML private AnchorPane nameInput;
     @FXML private VBox playerNameInputs;
     @FXML private Button startButton;
 
