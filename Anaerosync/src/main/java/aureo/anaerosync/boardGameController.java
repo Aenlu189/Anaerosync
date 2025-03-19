@@ -1199,7 +1199,7 @@ public class boardGameController {
             // Set normal button actions
             acceptTaskButton.setOnAction(e -> {
                 acceptTask(task);
-                showErrorDialog.setText("You accepted this task for " + task.getTaskMoney() + " money and received " + task.getTaskBonus() + " community trust.");
+                // removed this redundant set message
                 hideTaskDialog();
                 endTurnButton.setDisable(false);
             });
