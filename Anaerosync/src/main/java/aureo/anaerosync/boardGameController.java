@@ -651,7 +651,7 @@ public class boardGameController {
         lucks.add(new Luck(5, "A new intern just arrived and wants to help!\nReceive 400 units of Time!", 0, 400, 0, 0, "/images/LuckCard5.png", -1));
         lucks.add(new Luck(6, "South Africa's Government appreciates you!\nThey want to help you.\nReceive 400 units of Money.", 400, 0, 0, 0, "/images/LuckCard6.png", -1));
         lucks.add(new Luck(7, "Congratulations!\nYou are doing everything very well.\nReceive 200 units of Money and Time as a reward.", 200, 200, 0, 0, "/images/LuckCard7.png", -1));
-        lucks.add(new Luck(8, "Advance to\nUpdating AnaeroSync Task square", 0, 0, 0, 0, "/images/LuckCard8.png", 1));
+        lucks.add(new Luck(8, "Advance to\nUpdating AnaeroSync Task square", 0, 0, 0, 0, "/images/LuckCard8.png", 27));
         lucks.add(new Luck(9, "Advance to\nReceive funds Event Square", 0, 0, 0, 0, "/images/LuckCard9.png", 14));
         lucks.add(new Luck(10, "The other Software Engineer is sick!\nYou have to work twice as much.\nLose 100 units of time", 0, -100, 0, 0, "/images/LuckCard11.png", -1));
         lucks.add(new Luck(11, "Buy the necessary materials\nto build the DIY Anaerobic Digester\nfor the video instructions.\nLose 100 units of Money", -100, 0, 0, 0, "/images/LuckCard12.png", -1));
