@@ -5,7 +5,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -14,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
@@ -25,12 +24,8 @@ import java.io.InputStream;
 
 import java.util.Random;
 
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.RadioButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
@@ -56,6 +51,7 @@ public class boardGameController {
     @FXML private VBox playerInfoContainer, cardInfoBox, offerModal, playerChoiceBox, offerResponseModal, offeredTaskInfo;
     @FXML private VBox tradePlayerModal, tradePlayerChoiceBox, completeTaskModal, viewTasksModal;
     @FXML private VBox objectivesPanel, objectivesContainer;
+    @FXML private Label completeMessageBox;
 
     @FXML private HBox tradeCardsModal, progressBarContainer;
 
@@ -89,6 +85,8 @@ public class boardGameController {
     @FXML private Label completeNameLabel, completeDescLabel, completeBonusLabel, completeCostLabel, completeOwnerLabel;
     @FXML private Button completeOkButton;
     @FXML private VBox completeInfoBox;
+
+    @FXML private TextArea messageBox;
 
     private int moneyToGive = 0;
     private int timeToGive = 0;
@@ -434,6 +432,7 @@ public class boardGameController {
     @FXML
     public void endTurn() {
         hideTaskDialog();
+        messageBox.setText("");
         System.out.println("End turn called");
         endTurnButton.setDisable(true);
         rollDiceButton.setDisable(false);
@@ -468,7 +467,7 @@ public class boardGameController {
                     tradeButton.setDisable(false);
                     offerTaskButton.setDisable(false);
 
-                    showErrorDialog.setText("The DDOS Attack has ended. Players can now complete tasks, offer tasks, and trade again.");
+                    showErrorDialog.setText("The DDOS Attack has ended.\n Players can now complete tasks, offer tasks, and trade again.");
                 }
                 break;
             }
@@ -564,26 +563,26 @@ public class boardGameController {
         tasks.get(18).setClaimMessage("Optimize performance and security for AnaeroSync. Invest 395 units of Money to claim this Task. You are required 300 Community Trust units to claim this task. Receive 250 Community Trust units as a reward for claiming this task.");
         tasks.get(19).setClaimMessage("Finalize and deploy AnaeroSync for public access. Invest 400 units of Money to claim this Task. You are required 4000 Community Trust units to claim this task. Receive 250 Community Trust units as a reward for claiming this task.");
 
-        tasks.getFirst().setFeeMessage("You have landed on an already claimed task! You can offer to help investigate the sustainability of anaerobic digesters by investing 10 units of Money and 10 units of Time. Receive 10 Community Trust units as a reward.");
+        tasks.getFirst().setFeeMessage("You have landed on an already claimed task! You can offer to help investigate the sustainability of anaerobic digesters by investing 10 units of Money and 10 units of Time.");
         tasks.get(1).setFeeMessage("You have landed on an already claimed task! Support ongoing research by contributing 12 units of Money and 13 units of Time. Receive 10 Community Trust units as a reward.");
-        tasks.get(2).setFeeMessage("You have landed on an already claimed task! Assist in structuring use case scenarios by investing 16 units of Money and 16 units of Time. Receive 20 Community Trust units as a reward.");
-        tasks.get(3).setFeeMessage("You have landed on an already claimed task! Help refine the UML diagram by investing 17 units of Money and 20 units of Time. Receive 20 Community Trust units as a reward.");
-        tasks.get(4).setFeeMessage("You have landed on an already claimed task! Support the design process by suggesting improvements. Invest 21 units of Money and 24 units of Time. Receive 30 Community Trust units as a reward.");
-        tasks.get(5).setFeeMessage("You have landed on an already claimed task! Contribute to the coding process by assisting in JavaScript development. Invest 24 units of Money and 27 units of Time. Receive 30 Community Trust units as a reward.");
-        tasks.get(6).setFeeMessage("You have landed on an already claimed task! Help refine and optimize class structures. Invest 27 units of Money and 31 units of Time. Receive 40 Community Trust units as a reward.");
-        tasks.get(7).setFeeMessage("You have landed on an already claimed task! Assist by debugging and refining the implemented functions. Invest 30 units of Money and 36 units of Time.Receive 40 Community Trust units as a reward.");
-        tasks.get(8).setFeeMessage("You have landed on an already claimed task! Contribute to test planning by reviewing and suggesting improvements. Invest 38 units of Money and 37 units of Time. Receive 50 Community Trust units as a reward.");
-        tasks.get(9).setFeeMessage("You have landed on an already claimed task! Help refine and validate integration strategies. Invest 46 units of Money and 42 units of Time. Receive 50 Community Trust units as a reward.");
-        tasks.get(10).setFeeMessage("You have landed on an already claimed task! Contribute to the security enhancement by reviewing options. Invest 47 units of Money and 47 units of Time. Receive 60 Community Trust units as a reward.");
-        tasks.get(11).setFeeMessage("You have landed on an already claimed task! Assist in designing and testing the cookies system. Invest 49 units of Money and 48 units of Time.Receive 60 Community Trust units as a reward.");
-        tasks.get(12).setFeeMessage("You have landed on an already claimed task! Contribute by suggesting or testing updates. Invest 54 units of Money and 53 units of Time. Receive 70 Community Trust units as a reward.");
-        tasks.get(13).setFeeMessage("You have landed on an already claimed task! Assist in monitoring the system for issues. Invest 58 units of Money and 57 units of Time. Receive 70 Community Trust units as a reward.");
-        tasks.get(14).setFeeMessage("You have landed on an already claimed task! Help by contributing articles, videos, or images. Invest 60 units of Money and 60 units of Time. Receive 80 Community Trust units as a reward.");
-        tasks.get(15).setFeeMessage("You have landed on an already claimed task! Support marketing efforts with ideas or content creation. Invest 63 units of Money and 64 units of Time. Receive 80 Community Trust units as a reward.");
-        tasks.get(16).setFeeMessage("You have landed on an already claimed task! Help establish connections by reaching out to potential partners. Invest 70 units of Money and 68 units of Time. Receive 90 Community Trust units as a reward.");
-        tasks.get(17).setFeeMessage("You have landed on an already claimed task! Assist in developing a sustainability plan. Invest 75 units of Money and 71 units of Time. Receive 90 Community Trust units as a reward.");
-        tasks.get(18).setFeeMessage("You have landed on an already claimed task! Contribute to performance optimization and security measures. Invest 79 units of Money and 75 units of Time. Receive 100 Community Trust units as a reward.");
-        tasks.get(19).setFeeMessage("You have landed on an already claimed task! Support the deployment process by reviewing final steps. Invest 80 units of Money and 80 units of Time. Receive 100 Community Trust units as a reward.");
+        tasks.get(2).setFeeMessage("You have landed on an already claimed task! Assist in structuring use case scenarios by investing 16 units of Money and 16 units of Time.");
+        tasks.get(3).setFeeMessage("You have landed on an already claimed task! Help refine the UML diagram by investing 17 units of Money and 20 units of Time.");
+        tasks.get(4).setFeeMessage("You have landed on an already claimed task! Support the design process by suggesting improvements.");
+        tasks.get(5).setFeeMessage("You have landed on an already claimed task! Contribute to the coding process by assisting in JavaScript development. Invest 24 units of Money and 27 units of Time.");
+        tasks.get(6).setFeeMessage("You have landed on an already claimed task! Help refine and optimize class structures. Invest 27 units of Money and 31 units of Time.");
+        tasks.get(7).setFeeMessage("You have landed on an already claimed task! Assist by debugging and refining the implemented functions. Invest 30 units of Money and 36 units of Time.");
+        tasks.get(8).setFeeMessage("You have landed on an already claimed task! Contribute to test planning by reviewing and suggesting improvements. Invest 38 units of Money and 37 units of Time. ");
+        tasks.get(9).setFeeMessage("You have landed on an already claimed task! Help refine and validate integration strategies. Invest 46 units of Money and 42 units of Time. ");
+        tasks.get(10).setFeeMessage("You have landed on an already claimed task! Contribute to the security enhancement by reviewing options. Invest 47 units of Money and 47 units of Time. ");
+        tasks.get(11).setFeeMessage("You have landed on an already claimed task! Assist in designing and testing the cookies system. Invest 49 units of Money and 48 units of Time.");
+        tasks.get(12).setFeeMessage("You have landed on an already claimed task! Contribute by suggesting or testing updates. Invest 54 units of Money and 53 units of Time. ");
+        tasks.get(13).setFeeMessage("You have landed on an already claimed task! Assist in monitoring the system for issues. Invest 58 units of Money and 57 units of Time.");
+        tasks.get(14).setFeeMessage("You have landed on an already claimed task! Help by contributing articles, videos, or images. Invest 60 units of Money and 60 units of Time.");
+        tasks.get(15).setFeeMessage("You have landed on an already claimed task! Support marketing efforts with ideas or content creation. Invest 63 units of Money and 64 units of Time.");
+        tasks.get(16).setFeeMessage("You have landed on an already claimed task! Help establish connections by reaching out to potential partners. Invest 70 units of Money and 68 units of Time.");
+        tasks.get(17).setFeeMessage("You have landed on an already claimed task! Assist in developing a sustainability plan. Invest 75 units of Money and 71 units of Time.");
+        tasks.get(18).setFeeMessage("You have landed on an already claimed task! Contribute to performance optimization and security measures. Invest 79 units of Money and 75 units of Time. ");
+        tasks.get(19).setFeeMessage("You have landed on an already claimed task! Support the deployment process by reviewing final steps. Invest 80 units of Money and 80 units of Time. ");
 
         tasks.getFirst().setCompleteTask("In order to complete this research stage, you must spend time reading news, scientific articles, and surfing the web. Invest 50 units of Time to complete this Task.");
         tasks.get(1).setCompleteTask("Conduct interviews, collect data, and explore case studies on waste management in Makers Valley. Invest 60 units of Time to complete this Task.");
@@ -888,10 +887,12 @@ public class boardGameController {
 
         // Set the landing info details
         landNameLabel.setText(task.getTaskName());
-        landDescLabel.setText(task.getFeeMessage());
+        landDescLabel.setText("");
         landBonusLabel.setText(String.format("Fee Required: %d money and %d time", feeMoney, feeTime));
         landCostLabel.setText("This task is owned by: " + owner.getName());
         landOwnerLabel.setText("Click Contribute to pay the fee or Decline to skip");
+
+        messageBox.setText(task.getFeeMessage());
 
         // Set up the OK button action
         okLandButton.setOnAction(event -> {
@@ -1133,17 +1134,24 @@ public class boardGameController {
             acceptTaskButton.setVisible(true);
             declineTaskButton.setVisible(true);
             offerTaskButton.setVisible(true);
+
+            // Format the claim message with line breaks
+            String formattedMessage = task.getClaimMessage().replace(". ", ".\n");
+            messageBox.setText(formattedMessage);
+
             Ok.setVisible(false);
 
             // Set normal button actions
             acceptTaskButton.setOnAction(e -> {
                 acceptTask(task);
+                showErrorDialog.setText("You accepted the task!");
                 hideTaskDialog();
                 endTurnButton.setDisable(false);
             });
 
             declineTaskButton.setOnAction(e -> {
                 hideTaskDialog();
+                showErrorDialog.setText("You declined the task!");
                 endTurnButton.setDisable(false);
             });
 
@@ -1163,7 +1171,6 @@ public class boardGameController {
             offerTaskButton.setVisible(false);
 
             endTurnButton.setDisable(false);
-
         }
 
         // Show the task card box
@@ -1214,6 +1221,7 @@ public class boardGameController {
             }
         }
     }
+
     // getting the circles which represent each player's positions
     private Circle[] getPlayerCircles(int playerIndex) {
         switch(playerIndex) {
@@ -1747,7 +1755,6 @@ public class boardGameController {
         // If player has no tasks, show a message
         if (playerOwnedTasks.isEmpty()) {
             showErrorDialog.setText("No tasks to complete!");
-            showErrorDialog.setStyle("-fx-text-fill: red;");
             return;
         }
 
@@ -1784,7 +1791,6 @@ public class boardGameController {
         // If no completable tasks, show a message
         if (completableTasks.isEmpty()) {
             showErrorDialog.setText("You need both tasks of an objective!");
-            showErrorDialog.setStyle("-fx-text-fill: orange;");
             return;
         }
 
@@ -1902,7 +1908,6 @@ public class boardGameController {
                         objective.getObjectiveMoney() + ", " +
                         objective.getObjectiveTime() + " time, and " +
                         objective.getObjectiveTrust() + " trust.");
-                    showErrorDialog.setStyle("-fx-text-fill: green;");
 
                     // No need to check other objectives since a task can only be part of one objective
                     break;
@@ -1914,6 +1919,70 @@ public class boardGameController {
     @FXML
     private void cancelCompleteTask() {
         completeTaskModal.setVisible(false);
+        completeMessageBox.setText("");
+    }
+
+    // Fix the createTaskCardForCompletion method
+    private VBox createTaskCardForCompletion(Task task) {
+        VBox container = new VBox(5);
+        container.setAlignment(Pos.CENTER);
+        container.setPrefWidth(200);
+        container.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;");
+
+        // Find which objective this task belongs to (for display purposes only)
+        Objective taskObjective = objectives.stream()
+                .filter(objective -> objective.getTask1().getId() == task.getId() ||
+                        objective.getTask2().getId() == task.getId())
+                .findFirst().orElse(null);
+
+        try {
+            String imagePath = task.getTaskCard();
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
+            if (imageStream != null) {
+                Image image = new Image(imageStream);
+                ImageView taskImage = new ImageView(image);
+                taskImage.setFitWidth(180);
+                taskImage.setPreserveRatio(true);
+                taskImage.setSmooth(true);
+                container.getChildren().add(taskImage);
+            }
+        } catch (Exception e) {
+            // If image loading fails, show task name instead
+            Text taskName = new Text(task.getTaskName());
+            taskName.setWrappingWidth(180);
+            taskName.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+            container.getChildren().add(taskName);
+        }
+
+        // Add objective name (for information only)
+        if (taskObjective != null) {
+            Text objectiveText = new Text("Objective: " + taskObjective.getObjectiveName());
+            objectiveText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #1976D2;");
+            container.getChildren().add(objectiveText);
+        }
+
+        // Add required time
+        Text timeRequired = new Text("Time Required: " + task.getTaskTime());
+        timeRequired.setStyle("-fx-font-size: 12px;");
+        container.getChildren().add(timeRequired);
+
+        // Add click handler
+        container.setOnMouseClicked(event -> {
+            // Deselect previously selected card
+            completableTaskCards.getChildren().forEach(node ->
+                    node.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;"));
+
+            selectedTaskToComplete = task;
+            container.setStyle("-fx-padding: 10; -fx-border-color: #4CAF50; -fx-border-width: 2;");
+
+            completeMessageBox.setText(task.getCompleteTask());
+
+            // Enable confirm button if player has enough time for the task
+            confirmCompleteButton.setDisable(
+                    players[currentPlayer].getTimeResource() < task.getTaskTime());
+        });
+
+        return container;
     }
 
     // Progress Bar
@@ -1988,67 +2057,6 @@ public class boardGameController {
                 (int) (color.getRed() * 255),
                 (int) (color.getGreen() * 255),
                 (int) (color.getBlue() * 255));
-    }
-
-    // Fix the createTaskCardForCompletion method
-    private VBox createTaskCardForCompletion(Task task) {
-        VBox container = new VBox(5);
-        container.setAlignment(Pos.CENTER);
-        container.setPrefWidth(200);
-        container.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;");
-
-        // Find which objective this task belongs to (for display purposes only)
-        Objective taskObjective = objectives.stream()
-            .filter(objective -> objective.getTask1().getId() == task.getId() ||
-                               objective.getTask2().getId() == task.getId())
-            .findFirst().orElse(null);
-
-        try {
-            String imagePath = task.getTaskCard();
-            InputStream imageStream = getClass().getResourceAsStream(imagePath);
-            if (imageStream != null) {
-                Image image = new Image(imageStream);
-                ImageView taskImage = new ImageView(image);
-                taskImage.setFitWidth(180);
-                taskImage.setPreserveRatio(true);
-                taskImage.setSmooth(true);
-                container.getChildren().add(taskImage);
-            }
-        } catch (Exception e) {
-            // If image loading fails, show task name instead
-            Text taskName = new Text(task.getTaskName());
-            taskName.setWrappingWidth(180);
-            taskName.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-            container.getChildren().add(taskName);
-        }
-
-        // Add objective name (for information only)
-        if (taskObjective != null) {
-            Text objectiveText = new Text("Objective: " + taskObjective.getObjectiveName());
-            objectiveText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #1976D2;");
-            container.getChildren().add(objectiveText);
-        }
-
-        // Add required time
-        Text timeRequired = new Text("Time Required: " + task.getTaskTime());
-        timeRequired.setStyle("-fx-font-size: 12px;");
-        container.getChildren().add(timeRequired);
-
-        // Add click handler
-        container.setOnMouseClicked(event -> {
-            // Deselect previously selected card
-            completableTaskCards.getChildren().forEach(node ->
-                    node.setStyle("-fx-padding: 10; -fx-border-color: transparent; -fx-border-width: 2;"));
-
-            selectedTaskToComplete = task;
-            container.setStyle("-fx-padding: 10; -fx-border-color: #4CAF50; -fx-border-width: 2;");
-
-            // Enable confirm button if player has enough time for the task
-            confirmCompleteButton.setDisable(
-                    players[currentPlayer].getTimeResource() < task.getTaskTime());
-        });
-
-        return container;
     }
 
     @FXML
@@ -2180,18 +2188,18 @@ public class boardGameController {
                 tradeButton.setDisable(true);
                 offerTaskButton.setDisable(true);
 
-                effectMessage.append("DDOS Attack! The community lost 300 Trust. ");
+                effectMessage.append("DDOS Attack! The community lost 300 Trust.\n");
                 effectMessage.append("No player can complete tasks, offer tasks, or trade until the end of the round.");
                 break;
 
             case "Donate Money":
                 // Apply Donate Money effect
                 SHARED_TRUST += 200;
-                effectMessage.append("You donated to the community! The community gained 200 Trust. ");
+                effectMessage.append("You donated to the community! The community gained 200 Trust.\n");
 
                 // Roll the dice again
                 int roll = random.nextInt(6) + 1;
-                effectMessage.append("You rolled a " + roll + ". ");
+                effectMessage.append("You rolled a " + roll + ".\n");
 
                 // Calculate money to lose (roll × 100)
                 int moneyToLose = roll * 100;
@@ -2205,7 +2213,7 @@ public class boardGameController {
                 // Apply Home effect
                 player.addMoney(100);
                 player.addTime(100);
-                effectMessage.append("Welcome home! You received 100 money and 100 time.");
+                effectMessage.append("Welcome home!\nYou received 100 money and 100 time.");
                 break;
 
             case "Receive Funds":
@@ -2216,7 +2224,7 @@ public class boardGameController {
                 int timeGained = 50 * fundRoll;
                 player.addMoney(moneyGained);
                 player.addTime(timeGained);
-                effectMessage.append("You rolled a " + fundRoll + " and received " + moneyGained + " money and time.");
+                effectMessage.append("You rolled a " + fundRoll + ".\nYou received " + moneyGained + " money and time.");
                 break;
         }
 

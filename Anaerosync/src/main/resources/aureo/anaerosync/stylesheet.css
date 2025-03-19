@@ -102,3 +102,42 @@ choice-button:pressed {
     -fx-background-color: white;
     -fx-border-color: #4CAF50;
 }
+
+/* Hide scrollbars but maintain scroll functionality */
+.no-scroll-bars .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.no-scroll-bars .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.no-scroll-bars .viewport {
+    -fx-background-color: transparent;
+}
+
+.no-scroll-bars {
+    -fx-background-color: transparent;
+}
+
+.no-scroll-bars .content {
+    -fx-background-color: transparent;
+}
+
+/* Complete task message styling */
+#completeMessageBox {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-max-width: 400;
+    -fx-min-height: 50;
+    -fx-alignment: center;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-wrap-text: true;
+}
