@@ -193,9 +193,9 @@
             </ImageView>
             <VBox alignment="TOP_CENTER" layoutX="921.0" layoutY="122.0" prefHeight="215.0" prefWidth="173.0" spacing="10.0">
                <children>
-                  <Label prefHeight="5.0" prefWidth="124.0" style="-fx-font-size: 20px;" text="Current Player:">
+                  <Label prefHeight="26.0" prefWidth="132.0" text="Current Player:">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="Impact" size="21.0" />
                      </font></Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="173.0">
                      <children>
@@ -1024,7 +1024,10 @@
                      <!-- Progress bar will be added here programmatically -->
                   </HBox>
                   <Label style="-fx-font-size: 12px; -fx-font-style: italic;" text="Completed Tasks" />
-                  <Button fx:id="viewObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-font-size: 14px;" text="View Objectives" />
+                  <Button fx:id="viewObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-background-color: orange;" text="View Objectives" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="17.0" />
+                     </font></Button>
                </children>
             </VBox>
 
@@ -1051,7 +1054,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="1168.0" layoutY="331.0" prefHeight="318.0" prefWidth="248.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc;">
+            <VBox alignment="TOP_CENTER" layoutX="1168.0" layoutY="331.0" prefHeight="322.0" prefWidth="248.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc;">
                <children>
                   <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
                   <Label />
@@ -1063,23 +1066,33 @@
                   <Label />
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="171.0">
                      <children>
-                        <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" styleClass="blue-button" stylesheets="@stylesheet.css" text=" Roll Dice" textFill="WHITE">
+                        <Button fx:id="rollDiceButton" onAction="#rollDice" styleClass="blue-button" stylesheets="@stylesheet.css" text=" Roll Dice" textFill="WHITE">
                            <font>
-                              <Font name="Comic Sans MS" size="13.0" />
+                              <Font name="Impact" size="16.0" />
                            </font></Button>
+                        <Label prefHeight="17.0" prefWidth="10.0" />
                         <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#endTurn" prefHeight="32.0" prefWidth="86.0" styleClass="red-button" stylesheets="@stylesheet.css" text="End Turn" textFill="WHITE">
                            <font>
-                              <Font name="Comic Sans MS" size="15.0" />
+                              <Font name="Impact" size="15.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
                   <Label />
-                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="31.0" prefWidth="124.0" style="-fx-font-size: 16px;" styleClass="green-button" stylesheets="@stylesheet.css" text="Trade Cards" textFill="WHITE" />
+                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="33.0" prefWidth="133.0" styleClass="green-button" stylesheets="@stylesheet.css" text="Trade Cards" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="17.0" />
+                     </font></Button>
                   <Label />
-                  <Button fx:id="completeTaskButton" onAction="#showCompleteTaskModal" style="-fx-font-size: 16px;" text="Complete Task" />
+                  <Button fx:id="completeTaskButton" onAction="#showCompleteTaskModal" prefHeight="33.0" prefWidth="133.0" style="-fx-background-color: purple;" text="Complete Task" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="17.0" />
+                     </font></Button>
                   <Label />
-                  <Button fx:id="quitGame" onAction="#quitGame" prefHeight="31.0" prefWidth="123.0" style="-fx-font-size: 16px;" text="Quit" />
+                  <Button fx:id="quitGame" onAction="#quitGame" prefHeight="28.0" prefWidth="135.0" style="-fx-background-color: red;" text="Quit" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="17.0" />
+                     </font></Button>
                   <Label />
                </children>
             </VBox>
@@ -1101,18 +1114,18 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="31.0" layoutX="893.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
             <Label layoutX="900.0" layoutY="17.0" prefHeight="20.0" prefWidth="74.0" text="Game Info">
                <font>
-                  <Font name="Comic Sans MS" size="13.0" />
+                  <Font name="Impact" size="16.0" />
                </font>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="105.0" layoutX="7.0" layoutY="859.0" stroke="BLACK" strokeType="INSIDE" width="95.0" />
             <Label layoutX="23.0" layoutY="890.0" prefHeight="22.0" prefWidth="67.0" text="Additional ">
                <font>
-                  <Font name="Comic Sans MS" size="13.0" />
+                  <Font name="Impact" size="15.0" />
                </font>
             </Label>
             <Label alignment="CENTER" layoutX="23.0" layoutY="910.0" prefHeight="18.0" prefWidth="62.0" text="Info" textAlignment="CENTER">
                <font>
-                  <Font name="Comic Sans MS" size="13.0" />
+                  <Font name="Impact" size="15.0" />
                </font>
             </Label>
 
