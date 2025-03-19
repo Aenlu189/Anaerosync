@@ -1261,7 +1261,7 @@
             </HBox>
             <AnchorPane fx:id="loseCondition">
                <children>
-                  <ImageView fitHeight="1449.0" fitWidth="1726.0" layoutX="-269.0" layoutY="-140.0">
+                  <ImageView fitHeight="1007.0" fitWidth="1496.0" layoutX="-39.0" layoutY="-30.0">
                      <image>
                         <Image url="@../../images/Player_Quitting.jpg" />
                      </image>
