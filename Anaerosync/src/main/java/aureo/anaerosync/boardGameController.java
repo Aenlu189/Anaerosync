@@ -60,7 +60,8 @@ public class boardGameController {
     @FXML private HBox tradeCardsModal, progressBarContainer;
 
     @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
-    @FXML private HBox exit, backToMain, winCondition, loseCondition;
+    @FXML private HBox exit, backToMain, winCondition;
+    @FXML private AnchorPane  loseCondition;
     @FXML private Button winMainMenu, loseMainMenu;
 
     @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
@@ -2160,7 +2161,7 @@ public class boardGameController {
 
     @FXML
     public void quitDOnAction() {
-        backToMain.setVisible(true);
+        loseCondition.setVisible(true);
     }
 
     @FXML

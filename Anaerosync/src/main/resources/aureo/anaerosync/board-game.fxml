@@ -20,105 +20,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
    <children>
       <AnchorPane maxHeight="954.0" maxWidth="1667.0" minWidth="1400.0" prefHeight="954.0" prefWidth="1442.0">
          <children>
-            <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="966.0" prefWidth="1444.0">
-               <children>
-                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="728.0" minHeight="311.0" minWidth="560.0" prefHeight="311.0" prefWidth="728.0" style="-fx-background-radius: 100; -fx-background-color: white; -fx-border-width: 10; -fx-border-radius: 100; -fx-border-color: black;" stylesheets="@stylesheet.css">
-                     <padding>
-                        <Insets bottom="20" left="20" right="20" top="20" />
-                     </padding>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to Quit?" textAlignment="CENTER" wrappingWidth="649.3519134521484">
-                           <font>
-                              <Font name="Impact" size="53.0" />
-                           </font>
-                        </Text>
-                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="694.0">
-                           <children>
-                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="You will lose your current game progress!" textAlignment="CENTER" wrappingWidth="700.0">
-                                 <font>
-                                    <Font name="Impact" size="20.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="84.0" prefWidth="668.0">
-                           <children>
-                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="74.0" text="Back">
-                                 <styleClass>
-                                    <String fx:value="red-button" />
-                                    <String fx:value="menu-button" />
-                                 </styleClass>
-                                 <font>
-                                    <Font name="Impact" size="26.0" />
-                                 </font>
-                              </Button>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
-                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onAction="#quitDOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="112.0" text="Confirm">
-                                 <styleClass>
-                                    <String fx:value="green-button" />
-                                    <String fx:value="menu-button" />
-                                 </styleClass>
-                                 <font>
-                                    <Font name="Impact" size="26.0" />
-                                 </font>
-                              </Button>
-                              <AnchorPane>
-                                 <children>
-                                    <ImageView fitHeight="977.0" fitWidth="1457.0">
-                                       <image>
-                                          <Image url="@../../images/Player_Quitting.png" />
-                                       </image>
-                                    </ImageView>
-                                    <HBox id="Credits" fx:id="loseCondition" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1457.0">
-                                       <children>
-                                          <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="359.0" minWidth="560.0" prefHeight="359.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
-                                             <padding>
-                                                <Insets bottom="20" left="20" right="20" top="20" />
-                                             </padding>
-                                             <children>
-                                                <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="2.0" text="Game Over!" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                                                   <font>
-                                                      <Font name="Impact" size="57.0" />
-                                                   </font>
-                                                </Text>
-                                                <HBox prefHeight="30.0" prefWidth="559.0">
-                                                   <children>
-                                                      <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Due to you abandoning your project, this has casued Makers Valley to develop trust issues with foreign aid. Therefore, the quality of life has slowly began to decline and people started abandoning their home to migrate to neighbouring cities.  " textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                                                         <font>
-                                                            <Font name="Impact" size="18.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
-                                                   <children>
-                                                      <Button fx:id="loseMainMenu" mnemonicParsing="false" onAction="#backToMainMenuOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="247.0" text="Back to Main Menu">
-                                                         <styleClass>
-                                                            <String fx:value="red-button" />
-                                                            <String fx:value="menu-button" />
-                                                         </styleClass>
-                                                         <font>
-                                                            <Font name="Impact" size="26.0" />
-                                                         </font>
-                                                      </Button>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
             <HBox id="Credits" fx:id="winCondition" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="967.0" prefWidth="1444.0" style="-fx-background-color: white;">
                <children>
                   <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
@@ -1306,6 +1211,101 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="966.0" prefWidth="1444.0">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="728.0" minHeight="311.0" minWidth="560.0" prefHeight="311.0" prefWidth="728.0" style="-fx-background-radius: 100; -fx-background-color: white; -fx-border-width: 10; -fx-border-radius: 100; -fx-border-color: black;" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to Quit?" textAlignment="CENTER" wrappingWidth="649.3519134521484">
+                           <font>
+                              <Font name="Impact" size="53.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="694.0">
+                           <children>
+                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="You will lose your current game progress!" textAlignment="CENTER" wrappingWidth="700.0">
+                                 <font>
+                                    <Font name="Impact" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="84.0" prefWidth="668.0">
+                           <children>
+                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="74.0" text="Back">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
+                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onAction="#quitDOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="112.0" text="Confirm">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <AnchorPane fx:id="loseCondition">
+               <children>
+                  <ImageView fitHeight="977.0" fitWidth="1457.0">
+                     <image>
+                        <Image url="@../../images/Player_Quitting.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox id="Credits" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1457.0">
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="359.0" minWidth="560.0" prefHeight="359.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                           <padding>
+                              <Insets bottom="20" left="20" right="20" top="20" />
+                           </padding>
+                           <children>
+                              <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="2.0" text="Game Over!" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                 <font>
+                                    <Font name="Impact" size="57.0" />
+                                 </font>
+                              </Text>
+                              <HBox prefHeight="30.0" prefWidth="559.0">
+                                 <children>
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Due to you abandoning your project, this has casued Makers Valley to develop trust issues with foreign aid. Therefore, the quality of life has slowly began to decline and people started abandoning their home to migrate to neighbouring cities.  " textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                       <font>
+                                          <Font name="Impact" size="18.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
+                                 <children>
+                                    <Button fx:id="loseMainMenu" mnemonicParsing="false" onAction="#backToMainMenuOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="247.0" text="Back to Main Menu">
+                                       <styleClass>
+                                          <String fx:value="red-button" />
+                                          <String fx:value="menu-button" />
+                                       </styleClass>
+                                       <font>
+                                          <Font name="Impact" size="26.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

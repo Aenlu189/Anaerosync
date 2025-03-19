@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;png to jpg&quot;">
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +27,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitLabMergeRequestFiltersHistory">{
   &quot;lastFilter&quot;: {
@@ -157,7 +162,7 @@
       <updated>1742400589727</updated>
       <workItem from="1742400591640" duration="1031000" />
       <workItem from="1742402006863" duration="407000" />
-      <workItem from="1742410804487" duration="995000" />
+      <workItem from="1742410804487" duration="2549000" />
     </task>
     <task id="LOCAL-00008" summary="Fixed test after &quot;Task&quot; update">
       <option name="closed" value="true" />
@@ -199,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742410982843</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="&quot;png to jpg&quot;">
+      <option name="closed" value="true" />
+      <created>1742411878583</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742411878583</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
