@@ -21,7 +21,7 @@ public class Task {
 
 
     public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
-                 int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeMoney, int feeTime, int feeTrust) {
+                  int taskBonus, String taskObjective, String taskCard, int feeMoney, int feeTime, int feeTrust) {
         this.id = id;
         this.taskName = taskName;
         this.taskMoney = taskMoney;
