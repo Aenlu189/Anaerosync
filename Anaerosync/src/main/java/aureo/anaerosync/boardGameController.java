@@ -1509,7 +1509,10 @@ public class boardGameController {
         confirmTradeButton = new Button("Confirm Trade");
         cancelTradeButton = new Button("Cancel");
 
-        confirmTradeButton.setOnAction(e -> confirmTrade());
+        confirmTradeButton.setOnAction(e -> {
+            confirmTrade();
+            endTurnButton.setDisable(false);
+                });
         cancelTradeButton.setOnAction(e -> cancelTrade());
 
         centerControls.getChildren().addAll(tradeArrow, confirmTradeButton, cancelTradeButton);
