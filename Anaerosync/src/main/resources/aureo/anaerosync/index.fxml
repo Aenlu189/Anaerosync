@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="813.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Other_menu.jpg" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">
@@ -53,7 +53,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Other_menu.jpg" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">
@@ -110,7 +110,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Other_menu.jpg" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
@@ -221,7 +221,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Second_Dialog.png" />
+                  <Image url="@../../images/Second_Dialog.jpg" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
@@ -317,7 +317,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Other_menu.jpg" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" prefHeight="813.0" prefWidth="1200.0">
@@ -366,7 +366,7 @@
          <children>
             <ImageView fitHeight="813.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Other_menu.jpg" />
                </image>
             </ImageView>
             <HBox id="OptionsMenu" alignment="CENTER" prefHeight="813.0" prefWidth="1200.0">
@@ -487,7 +487,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Main_Menu.png" />
+                  <Image url="@../../images/Main_Menu.jpg" />
                </image>
             </ImageView>
             <HBox id="OptionsMenu" alignment="CENTER" prefHeight="823.0" prefWidth="1200.0">

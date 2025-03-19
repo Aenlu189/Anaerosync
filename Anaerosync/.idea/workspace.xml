@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Bug fix - remove deducts money when cannot afford task">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Messages added&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Main_Menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Other_menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Player_Quitting.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Second_Dialog.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +162,7 @@
       <updated>1742400589727</updated>
       <workItem from="1742400591640" duration="1031000" />
       <workItem from="1742402006863" duration="407000" />
+      <workItem from="1742410804487" duration="77000" />
     </task>
     <task id="LOCAL-00008" summary="Fixed test after &quot;Task&quot; update">
       <option name="closed" value="true" />
@@ -255,16 +261,5 @@
     <MESSAGE value="Corrected luck bug" />
     <MESSAGE value="Bug fix - remove deducts money when cannot afford task" />
     <option name="LAST_COMMIT_MESSAGE" value="Bug fix - remove deducts money when cannot afford task" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java</url>
-          <line>500</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
