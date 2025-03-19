@@ -112,7 +112,7 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 0;
+    private static final int STARTING_MONEY = 10000;
     private static final int STARTING_TIME = 10000;
     private static int SHARED_TRUST = 10000;
     private static final int TOTAL_TASKS = 20;
@@ -910,6 +910,23 @@ public class boardGameController {
         landOwnerLabel.setText("Click Contribute to pay the fee or Decline to skip");
 
         messageBox.setText(task.getFeeMessage());
+
+        declineLandButton.setDisable(false);
+
+        // Decline disabled if no uncompleted tasks owned
+        ArrayList<Task> thisPlayerTasks =  players[currentPlayer].getOwnedTasks();
+        ArrayList<Task> thisPlayerCompleted =  completedTasks.get(players[currentPlayer]);
+        boolean allCompleted = true;
+        for (Task element : thisPlayerTasks) {
+            if(thisPlayerCompleted == null || !thisPlayerCompleted.contains(element)) {
+                allCompleted = false;
+                break;
+            }
+        }
+        if (allCompleted){
+            showErrorDialog.setText("Because you have no tasks that need completing,\nyou are forced to contribute to this player's task");
+            declineLandButton.setDisable(true);
+        }
 
         // Set up the OK button action
         okLandButton.setOnAction(event -> {
