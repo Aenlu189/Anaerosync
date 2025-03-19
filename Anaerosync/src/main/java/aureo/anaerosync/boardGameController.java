@@ -1061,6 +1061,14 @@ public class boardGameController {
             int newPosition = luck.getNewPosition() % 28;
             playerCircles[newPosition].setVisible(true);
 
+            // check if "passing home" to add resources
+            if (currentPosition > newPosition && newPosition != 0) {
+                // give player resources for passing home
+                players[currentPlayer].addMoney(100);
+                players[currentPlayer].addTime(100);
+                showErrorDialog.setText("You passed home! Received 100 money and 100 time.");
+            }
+
             // Check the new position for any effects
             checkPosition(luck.getNewPosition());
         }
