@@ -17,10 +17,11 @@ public class Task {
     private String completeTask;
     private int feeMoney;
     private int feeTime;
+    private int feeTrust;
 
 
     public Task(int id, String taskName, int taskMoney, int taskTrustNeeded, int taskTime,
-                 int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeMoney, int feeTime) {
+                 int taskEnergy, int taskBonus, String taskObjective, String taskCard, int feeMoney, int feeTime, int feeTrust) {
         this.id = id;
         this.taskName = taskName;
         this.taskMoney = taskMoney;
@@ -32,6 +33,7 @@ public class Task {
         this.isCompleted = false;
         this.feeMoney = feeMoney;
         this.feeTime = feeTime;
+        this.feeTrust = feeTrust;
     }
 
     public int getId() {
@@ -105,6 +107,8 @@ public class Task {
     public void setFeeTime(int feeTime) {
         this.feeTime = feeTime;
     }
+
+    public int getFeeTrust() {return feeTrust;}
 
 
 

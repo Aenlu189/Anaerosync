@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
+<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
    <children>
       <AnchorPane fx:id="thankyou">
          <children>
@@ -221,17 +221,18 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/Second_Dialog.png" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
                <children>
-                  <VBox alignment="CENTER" maxHeight="474.0" maxWidth="791.0" minHeight="400.0" minWidth="560.0" prefHeight="474.0" prefWidth="791.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                  <VBox alignment="TOP_CENTER" maxHeight="630.0" maxWidth="791.0" minHeight="399.0" minWidth="560.0" prefHeight="450.0" prefWidth="791.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                      <padding>
                         <Insets bottom="20" left="20" right="20" top="20" />
                      </padding>
                      <children>
-                        <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" text="Dialog" textAlignment="CENTER" wrappingWidth="788.8519134521484">
+                        <Label prefHeight="32.0" prefWidth="79.0" />
+                        <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" text="Your Journey  Starts Now!" textAlignment="CENTER" wrappingWidth="788.8519134521484">
                            <font>
                               <Font name="Impact" size="61.0" />
                            </font>
@@ -239,7 +240,11 @@
                         <HBox prefHeight="30.0" prefWidth="559.0" />
                         <HBox alignment="CENTER" prefHeight="216.0" prefWidth="989.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="226.0" text="Write here" />
+                              <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="You, a group of enthusiastic pioneers are tacking this challenge head on! By incorporating DIY Anaerobic Digesters, make sure you work together and perform strategic decisions  as collaborators. Manage your resources wisely, partner up, and work with local infustructor to grow the community trust. Make sure to complete all the tasks succcessfuly to implement the AnaeroSync App. This would allow Makers Valley to kick start of their feet  and further improve their community. Good Luck!" textAlignment="JUSTIFY" wrappingWidth="742.9140625">
+                                 <font>
+                                    <Font name="Impact" size="16.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" prefWidth="520.0">
@@ -265,25 +270,28 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/Other_menu.png" />
+                  <Image url="@../../images/First_Dialog.png" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
                <children>
-                  <VBox alignment="CENTER" maxHeight="474.0" maxWidth="791.0" minHeight="400.0" minWidth="560.0" prefHeight="474.0" prefWidth="791.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                  <VBox alignment="CENTER" maxHeight="474.0" maxWidth="826.0" minHeight="400.0" minWidth="560.0" prefHeight="474.0" prefWidth="826.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                      <padding>
                         <Insets bottom="20" left="20" right="20" top="20" />
                      </padding>
                      <children>
-                        <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" text="Dialog" textAlignment="CENTER" wrappingWidth="788.8519134521484">
+                        <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" text="Welcome to Makers Valley!" textAlignment="CENTER" wrappingWidth="788.8519134521484">
                            <font>
                               <Font name="Impact" size="61.0" />
                            </font>
                         </Text>
-                        <HBox prefHeight="30.0" prefWidth="559.0" />
-                        <HBox alignment="CENTER" prefHeight="216.0" prefWidth="989.0">
+                        <HBox alignment="CENTER" prefHeight="117.0" prefWidth="786.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="226.0" text="Write here" />
+                              <Text fill="WHITE" stroke="#121212" strokeType="OUTSIDE" text="Makers Valley is a lively community that is currently facing a critical waste management crisis. Every part of  Makers Valley feels this effect as waste are thoughtlessly thrown onto the street, spreading diseases, but are also burned openly and emitting toxic smoke. As we speak, Makers Valley's landfills are reaching full capacity, further highlighting how crucial it is to tackle this problem." textAlignment="JUSTIFY" wrappingWidth="805.13671875">
+                                 <font>
+                                    <Font name="Impact" size="16.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" prefWidth="520.0">
