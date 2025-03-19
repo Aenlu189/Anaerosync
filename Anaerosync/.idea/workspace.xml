@@ -4,20 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Messages added&quot;">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Message box with claim message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/AnaerosyncApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/AnaerosyncApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Corner.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Luck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Luck.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Objective.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Objective.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/Task.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/CornerSquare.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/CornerSquare.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/LuckSquare.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/LuckSquare.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/Square.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/Square.class" afterDir="false" />
@@ -45,6 +43,8 @@
   "keyToString": {
     "Application.AnaerosyncApplication.executor": "Run",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
   }
@@ -183,17 +183,7 @@
     <MESSAGE value="&quot;move by one position completely implemented&quot;" />
     <MESSAGE value="&quot;minor bug fixes&quot;" />
     <MESSAGE value="&quot;Messages added&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Messages added&quot;" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java</url>
-          <line>500</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Message box with claim message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Message box with claim message" />
   </component>
 </project>
