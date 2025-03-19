@@ -111,9 +111,9 @@ public class boardGameController {
 
     private final Random random = new Random();
 
-    private static final int STARTING_MONEY = 100;
-    private static final int STARTING_TIME = 100;
-    private static int SHARED_TRUST = 100;
+    private static final int STARTING_MONEY = 10000;
+    private static final int STARTING_TIME = 10000;
+    private static int SHARED_TRUST = 10000;
     private static final int TOTAL_TASKS = 20;
 
     /**
@@ -1253,7 +1253,6 @@ public class boardGameController {
             currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
             showErrorDialog.setText(String.format("Not enough money! Required: %d, Current: %d",
                     task.getTaskMoney(), currentPlayerObj.getMoneyResource()));
-            checkLoseCondition();
             hideTaskDialog();
             return;
         }
@@ -1318,6 +1317,7 @@ public class boardGameController {
                 RadioButton rb = new RadioButton(players[i].getName());
                 rb.setToggleGroup(group);
                 rb.setUserData(players[i]);
+                rb.setStyle("-fx-font-family: 'Impact'; -fx-font-size: 21px;");
                 playerChoiceBox.getChildren().add(rb);
             }
         }
@@ -1416,6 +1416,7 @@ public class boardGameController {
                 RadioButton rb = new RadioButton(players[i].getName());
                 rb.setToggleGroup(group);
                 rb.setUserData(players[i]);
+                rb.setStyle("-fx-font-family: 'Impact'; -fx-font-size: 21px;");
                 tradePlayerChoiceBox.getChildren().add(rb);
             }
         }
