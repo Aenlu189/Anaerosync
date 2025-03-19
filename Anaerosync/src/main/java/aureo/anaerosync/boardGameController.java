@@ -112,7 +112,7 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 10000;
+    private static final int STARTING_MONEY = 0;
     private static final int STARTING_TIME = 10000;
     private static int SHARED_TRUST = 10000;
     private static final int TOTAL_TASKS = 20;
@@ -1253,8 +1253,7 @@ public class boardGameController {
 
         // Check if accepting the task would cause money to go negative
         if (currentPlayerObj.getMoneyResource() < task.getTaskMoney()) {
-            // Deduct the money anyway to trigger lose condition
-            currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
+            // Don't deduct money. Player is just unable to claim task
             showErrorDialog.setText(String.format("Not enough money! Required: %d, Current: %d",
                     task.getTaskMoney(), currentPlayerObj.getMoneyResource()));
             hideTaskDialog();
