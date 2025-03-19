@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.##/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1300.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.boardGameController">
    <children>
       <AnchorPane maxHeight="954.0" maxWidth="1667.0" minWidth="1400.0" prefHeight="954.0" prefWidth="1442.0">
          <children>
@@ -1261,12 +1261,12 @@
             </HBox>
             <AnchorPane fx:id="loseCondition">
                <children>
-                  <ImageView fitHeight="977.0" fitWidth="1457.0">
+                  <ImageView fitHeight="1007.0" fitWidth="1496.0" layoutX="-39.0" layoutY="-30.0">
                      <image>
                         <Image url="@../../images/Player_Quitting.jpg" />
                      </image>
                   </ImageView>
-                  <HBox id="Credits" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1457.0">
+                  <HBox id="Credits" alignment="CENTER" layoutX="-15.0" layoutY="-19.0" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1472.0">
                      <children>
                         <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="359.0" minWidth="560.0" prefHeight="359.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                            <padding>
