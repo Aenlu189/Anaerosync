@@ -24,8 +24,12 @@ public class IndexController {
     @FXML private AnchorPane thankyou;
     @FXML private AnchorPane numPlayersMenu;
     @FXML private AnchorPane nameInput;
+    @FXML private AnchorPane Dialog;
+    @FXML private AnchorPane Dialog2;
     @FXML private VBox playerNameInputs;
     @FXML private Button startButton;
+    @FXML private Button okDialogButton;
+    @FXML private Button okDialog2Button;
 
     private void showPane(Pane showPane) {
         optionsMenu.setVisible(false);
@@ -34,6 +38,8 @@ public class IndexController {
         thankyou.setVisible(false);
         numPlayersMenu.setVisible(false);
         nameInput.setVisible(false);
+        Dialog.setVisible(false);
+        Dialog2.setVisible(false);
 
         showPane.setVisible(true);
     }
@@ -83,6 +89,18 @@ public class IndexController {
 
     @FXML
     public void startGame() {
+        showPane(Dialog);
+        System.out.println("Dialog 1 through");
+    }
+
+    @FXML
+    public void okDialogButtonClicked() {
+        showPane(Dialog2);
+        System.out.println("Dialog 2 through");
+    }
+
+    @FXML
+    public void okDialog2ButtonClicked() {
         try {
             // Get player names from text fields
             String[] playerNames = getPlayerNames();
@@ -96,7 +114,7 @@ public class IndexController {
             controller.setGameData(playerNames);
             
             // Switch to the board game scene
-            Stage stage = (Stage) nameInput.getScene().getWindow();
+            Stage stage = (Stage) Dialog2.getScene().getWindow();
             stage.setScene(boardGameScene);
             stage.setFullScreen(true);
             stage.show();

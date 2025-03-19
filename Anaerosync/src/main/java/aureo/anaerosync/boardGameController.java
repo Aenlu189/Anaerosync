@@ -34,6 +34,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Getter;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 @Getter
 public class boardGameController {
@@ -43,7 +47,7 @@ public class boardGameController {
     @FXML public Button viewOwnedTasksButton, viewCompletedTasksButton, confirmCompleteButton;
     @FXML public Button tradeButton;
 
-    @FXML private Label diceResult, showErrorDialog, offerMessage, tradePlayerLabel;
+    @FXML private Label diceResult, showErrorDialog, offerMessage, tradePlayerLabel, curPlayerNameLabel;
     @FXML private Label availableTimeLabel, viewTaskField, taskCountLabel, progressPercentage;
 
     @FXML private Circle currentPlayerIndicator;
@@ -56,7 +60,7 @@ public class boardGameController {
     @FXML private HBox tradeCardsModal, progressBarContainer;
 
     @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
-    @FXML private HBox exit, thankyou;
+    @FXML private HBox exit, backToMain;
 
     @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
     @FXML private Circle G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23, G24, G25, G26, G27, G28;
@@ -87,6 +91,8 @@ public class boardGameController {
     @FXML private VBox completeInfoBox;
 
     @FXML private TextArea messageBox;
+
+    @FXML private ImageView diceImage;
 
     private int moneyToGive = 0;
     private int timeToGive = 0;
@@ -146,7 +152,7 @@ public class boardGameController {
     public void initialize() {
         System.out.println("Initializing controller...");
         exit.setVisible(false);
-        thankyou.setVisible(false);
+        backToMain.setVisible(false);
 
         // Initialize the game
         initializeGame();
@@ -204,7 +210,7 @@ public class boardGameController {
 
         // Hide exit and thank you screens
         exit.setVisible(false);
-        thankyou.setVisible(false);
+        backToMain.setVisible(false);
     }
 
     // Update setGameData to initialize players with resources
@@ -413,20 +419,22 @@ public class boardGameController {
 
     @FXML
     public void rollDice() {
-        // Roll the dice
-        int roll = random.nextInt(6) + 1;
-        System.out.println("Player " + currentPlayer + " rolled: " + roll);
-
-        // Update display
-        diceResult.setText("Dice: " + roll);
-
-        // Move player
-        movePlayer(currentPlayer, roll);
-        setupPlayerInfo();
-
-        // Update button states
-        rollDiceButton.setDisable(true);
-        hasMoved = true;
+        if (!hasMoved) {
+            int roll = random.nextInt(6) + 1;
+            diceResult.setText("Dice: " + roll);
+            
+            // Update the dice image based on the roll result
+            String diceImagePath = String.format("/images/Die%d.png", roll);
+            diceImage.setImage(new Image(String.valueOf(getClass().getResource(diceImagePath))));
+            
+            // Show roll result in error dialog
+            showErrorDialog.setText(String.format("You rolled %d", roll));
+            showErrorDialog.setStyle("-fx-text-fill: white;");
+            
+            movePlayer(currentPlayer, roll);
+            hasMoved = true;
+            rollDiceButton.setDisable(true);
+        }
     }
 
     @FXML
@@ -440,6 +448,10 @@ public class boardGameController {
 
         showErrorDialog.setText("");
         currentPlayer = (currentPlayer + 1) % numPlayers;
+        
+        // Show whose turn it is
+        showErrorDialog.setText(String.format("%s's turn. Roll the dice", players[currentPlayer].getName()));
+        showErrorDialog.setStyle("-fx-text-fill: white;");
 
         // Check if there's an active DDOS Attack
         boolean ddosFound = false;
@@ -1144,7 +1156,7 @@ public class boardGameController {
             // Set normal button actions
             acceptTaskButton.setOnAction(e -> {
                 acceptTask(task);
-                showErrorDialog.setText("You accepted the task!");
+                showErrorDialog.setText("You accepted this task for " + task.getTaskMoney() + " money and received " + task.getTaskBonus() + " community trust.");
                 hideTaskDialog();
                 endTurnButton.setDisable(false);
             });
@@ -1187,38 +1199,21 @@ public class boardGameController {
     // to accept the task for yourself
     private void acceptTask(Task task) {
         Player currentPlayerObj = players[currentPlayer];
-
-        // Check if task is already owned
-        for (Player player : players) {
-            if (player.ownsTask(task)) {
-                showErrorDialog.setText("Task already owned by " + player.getName());
-                return;
-            }
-        }
-
-        // Check if player has enough resources
-        if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() &&
-                SHARED_TRUST >= task.getTaskTrustNeeded()) {
-
-            // Deduct resources
-            currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
-            SHARED_TRUST -= task.getTaskTrustNeeded();
-
-            // Add task to player's owned tasks
-            currentPlayerObj.addTask(task);
+        if (SHARED_TRUST >= task.getTaskTrustNeeded()) {
             task.setOwner(currentPlayerObj);
-
+            hideTaskDialog();
+            
+            // Add task's trust bonus to SHARED_TRUST
             SHARED_TRUST += task.getTaskBonus();
 
-            // Update display
+            showErrorDialog.setText(String.format("You accepted this task for %d money and gained %d trust for the community!", 
+                task.getTaskMoney(), task.getTaskBonus()));
+            showErrorDialog.setStyle("-fx-text-fill: white;");
+            endTurnButton.setDisable(false);
             setupPlayerInfo();
-            hideTaskDialog();
         } else {
-            if (SHARED_TRUST < task.getTaskTrustNeeded()) {
-                showErrorDialog.setText("Not enough team trust!");
-            } else {
-                showErrorDialog.setText("Not enough personal resources!");
-            }
+            showErrorDialog.setText("Not enough community trust to accept this task!");
+            showErrorDialog.setStyle("-fx-text-fill: red;");
         }
     }
 
@@ -1241,6 +1236,7 @@ public class boardGameController {
     // to update the player's indication
     private void updateCurrentPlayerDisplay() {
         currentPlayerIndicator.setFill(playerColors[currentPlayer]);
+        curPlayerNameLabel.setText(players[currentPlayer].getName());
     }
 
     // for the player to choose which player he wants to offer to
@@ -1832,7 +1828,6 @@ public class boardGameController {
 
                 // Show success message
                 showErrorDialog.setText("Task completed successfully!");
-                showErrorDialog.setStyle("-fx-text-fill: green;");
 
                 // Check if this completes an objective
                 rewardObjective(currentPlayerObj, selectedTaskToComplete);
@@ -2071,12 +2066,26 @@ public class boardGameController {
 
     @FXML
     public void quitDOnAction() {
-        thankyou.setVisible(true);
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event -> {
-            Platform.exit();
-        });
-        pause.play();
+        backToMain.setVisible(true);
+    }
+
+    @FXML
+    public void backToMainMenuOnAction() {
+        try {
+            // Load the index.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/index.fxml"));
+            Scene indexScene = new Scene(loader.load());
+            
+            // Get the current stage from any component in the scene
+            Stage stage = (Stage) messageBox.getScene().getWindow();
+            
+            // Set the new scene
+            stage.setScene(indexScene);
+            stage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -2107,7 +2116,8 @@ public class boardGameController {
                 break;
         }
 
-        esDescLabel.setText(description.toString());
+        messageBox.setText(description.toString());
+        esDescLabel.setText("");
 
         // Set bonus information if applicable
         if (eventSquare.getEventTime() != 0 || eventSquare.getEventTime() != 0) {
@@ -2199,7 +2209,7 @@ public class boardGameController {
 
                 // Roll the dice again
                 int roll = random.nextInt(6) + 1;
-                effectMessage.append("You rolled a " + roll + ".\n");
+                effectMessage.append("You rolled a " + roll + ". ");
 
                 // Calculate money to lose (roll × 100)
                 int moneyToLose = roll * 100;

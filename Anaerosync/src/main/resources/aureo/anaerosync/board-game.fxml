@@ -24,88 +24,29 @@
    <children>
       <AnchorPane maxHeight="954.0" maxWidth="1667.0" minWidth="1400.0" prefHeight="954.0" prefWidth="1442.0">
          <children>
-            <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="957.0" prefWidth="1444.0" style="-fx-background-color: white;">
-               <children>
-                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-                     <padding>
-                        <Insets bottom="20" left="20" right="20" top="20" />
-                     </padding>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to exit?" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="53.0" />
-                           </font>
-                        </Text>
-                        <HBox prefHeight="30.0" prefWidth="559.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The game data will be erased permanently." textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="17.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
-                           <children>
-                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" text="←">
-                                 <styleClass>
-                                    <String fx:value="red-button" />
-                                    <String fx:value="menu-button" />
-                                 </styleClass>
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Button>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
-                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="46.0" text="OK">
-                                 <styleClass>
-                                    <String fx:value="green-button" />
-                                    <String fx:value="menu-button" />
-                                 </styleClass>
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="25.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox id="Credits" fx:id="thankyou" alignment="CENTER" prefHeight="966.0" prefWidth="1442.0" style="-fx-background-color: white;">
-               <children>
-                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
-                     <padding>
-                        <Insets bottom="20" left="20" right="20" top="20" />
-                     </padding>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for playing! :)" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                           <font>
-                              <Font name="Chalkboard SE Regular" size="53.0" />
-                           </font>
-                        </Text>
-                        <HBox prefHeight="30.0" prefWidth="559.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="556.8519134521484">
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="17.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
             <ImageView fitHeight="888.0" fitWidth="877.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Board.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" layoutX="921.0" layoutY="106.0" prefHeight="192.0" prefWidth="173.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" layoutX="921.0" layoutY="122.0" prefHeight="215.0" prefWidth="173.0" spacing="10.0">
                <children>
-                  <Label style="-fx-font-size: 20px;" text="Current Player:" />
-                  <Circle fx:id="currentPlayerIndicator" fill="DODGERBLUE" radius="15" />
+                  <Label prefHeight="5.0" prefWidth="124.0" style="-fx-font-size: 20px;" text="Current Player:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="173.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="16.0" text=" " />
+                        <Circle fx:id="currentPlayerIndicator" fill="DODGERBLUE" radius="15" />
+                        <Label prefHeight="17.0" prefWidth="16.0" text=" " />
+                        <Label fx:id="curPlayerNameLabel" prefHeight="25.0" prefWidth="118.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <VBox fx:id="playerInfoContainer" spacing="10">
                      <!-- Player info will be added here dynamically -->
                   </VBox>
@@ -114,7 +55,6 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
                </children>
             </VBox>
             <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="-37.0" layoutY="-6.0" prefHeight="877.0" prefWidth="964.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="-6.0">
@@ -910,7 +850,7 @@
             </VBox>
 
                         <!-- Add Progress Bar -->
-            <VBox alignment="CENTER" layoutX="1166.0" layoutY="107.0" prefHeight="192.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #f5f5f5; -fx-padding: 15; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-border-radius: 5;">
+            <VBox alignment="CENTER" layoutX="1166.0" layoutY="124.0" prefHeight="200.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #f5f5f5; -fx-padding: 15; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-border-radius: 5;">
                <children>
                   <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Task Progress" />
                   <HBox alignment="CENTER" spacing="5">
@@ -949,20 +889,31 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="1209.0" layoutY="331.0" prefHeight="210.0" prefWidth="171.0">
+            <VBox alignment="TOP_CENTER" layoutX="1168.0" layoutY="331.0" prefHeight="318.0" prefWidth="248.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc;">
                <children>
+                  <Label fx:id="diceResult" style="-fx-font-size: 18px;" text="Dice: -" />
+                  <Label />
+                  <ImageView fx:id="diceImage" fitHeight="69.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Die1.png" />
+                     </image>
+                  </ImageView>
+                  <Label />
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="171.0">
                      <children>
-                        <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" text="Roll Dice" />
-                        <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#endTurn" prefHeight="32.0" prefWidth="80.0" text="End Turn">
+                        <Button fx:id="rollDiceButton" onAction="#rollDice" style="-fx-font-size: 16px;" styleClass="blue-button" stylesheets="@stylesheet.css" text=" Roll Dice" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Comic Sans MS" size="13.0" />
+                           </font></Button>
+                        <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#endTurn" prefHeight="32.0" prefWidth="86.0" styleClass="red-button" stylesheets="@stylesheet.css" text="End Turn" textFill="WHITE">
+                           <font>
+                              <Font name="Comic Sans MS" size="15.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
                   <Label />
-                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="31.0" prefWidth="124.0" style="-fx-font-size: 16px;" text="Trade Cards" />
+                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="31.0" prefWidth="124.0" style="-fx-font-size: 16px;" styleClass="green-button" stylesheets="@stylesheet.css" text="Trade Cards" textFill="WHITE" />
                   <Label />
                   <Button fx:id="completeTaskButton" onAction="#showCompleteTaskModal" style="-fx-font-size: 16px;" text="Complete Task" />
                   <Label />
@@ -970,14 +921,14 @@
                   <Label />
                </children>
             </VBox>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="75.0" layoutX="891.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" width="531.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="67.0" layoutX="891.0" layoutY="46.0" stroke="BLACK" strokeType="INSIDE" width="531.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="105.0" layoutX="105.0" layoutY="859.0" stroke="BLACK" strokeType="INSIDE" width="1225.0" />
             <TextArea fx:id="messageBox" editable="false" layoutX="114.0" layoutY="858.0" prefHeight="105.0" prefWidth="1205.0" style="-fx-control-inner-background: #51a5f5; -fx-text-fill: white; -fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-text-box-border: transparent; -fx-padding: 5; -fx-font-family: 'Comic Sans MS'; -fx-background-insets: 0; -fx-background-radius: 0;" styleClass="no-scroll-bars" stylesheets="@stylesheet.css" text="" wrapText="true">
                <font>
                   <Font name="Comic Sans MS" size="15.0" />
                </font>
             </TextArea>
-            <Label fx:id="showErrorDialog" alignment="CENTER" layoutX="899.0" layoutY="17.0" prefHeight="52.0" prefWidth="514.0" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="showErrorDialog" alignment="CENTER" layoutX="900.0" layoutY="48.0" prefHeight="58.0" prefWidth="514.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS" size="14.0" />
                </font>
@@ -985,6 +936,12 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="99.0" layoutX="1278.0" layoutY="862.0" stroke="TRANSPARENT" strokeType="INSIDE" width="48.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="9.0" layoutX="113.0" layoutY="860.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1187.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a5f5" height="9.0" layoutX="113.0" layoutY="953.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1187.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="31.0" layoutX="893.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+            <Label layoutX="900.0" layoutY="17.0" prefHeight="20.0" prefWidth="74.0" text="Game Info">
+               <font>
+                  <Font name="Comic Sans MS" size="13.0" />
+               </font>
+            </Label>
 
             <!-- Add the offer response modal -->
             <VBox fx:id="offerResponseModal" alignment="CENTER" layoutX="-6.0" prefHeight="966.0" prefWidth="1446.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-width: 1;" visible="false">
@@ -1078,13 +1035,10 @@
                         <FlowPane fx:id="completableTaskCards" hgap="10" vgap="10" />
                      </content>
                   </ScrollPane>
-                  <Label fx:id="completeMessageBox" styleClass="complete-message" wrapText="true">
+                  <Label fx:id="completeMessageBox" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 14px; -fx-text-fill: #333333; -fx-padding: 10;" wrapText="true">
                      <font>
                         <Font name="Comic Sans MS" size="14.0" />
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
                   </Label>
                   <HBox alignment="CENTER" spacing="20">
                      <children>
@@ -1130,6 +1084,103 @@
                   </HBox>
                </children>
             </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="105.0" layoutX="7.0" layoutY="859.0" stroke="BLACK" strokeType="INSIDE" width="95.0" />
+            <Label layoutX="23.0" layoutY="890.0" prefHeight="22.0" prefWidth="67.0" text="Additional ">
+               <font>
+                  <Font name="Comic Sans MS" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="23.0" layoutY="910.0" prefHeight="18.0" prefWidth="62.0" text="Info" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="13.0" />
+               </font>
+            </Label>
+            <HBox id="Credits" fx:id="exit" alignment="CENTER" prefHeight="966.0" prefWidth="1444.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to quit?" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                           <font>
+                              <Font name="Chalkboard SE Regular" size="53.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="30.0" prefWidth="559.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The game data will be erased permanently." textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
+                           <children>
+                              <Button fx:id="backToOMButton" mnemonicParsing="false" onMouseClicked="#backButtonOnAction" prefHeight="42.0" prefWidth="46.0" text="←">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Button>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="67.21630859375" />
+                              <Button fx:id="quitToDesktopButton" mnemonicParsing="false" onAction="#quitDOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="46.0" text="Ok">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox id="Credits" fx:id="backToMain" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="957.0" prefWidth="1444.0" style="-fx-background-color: white;">
+               <children>
+                  <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="560.0" style="-fx-background-color: white;" styleClass="border-radius" stylesheets="@stylesheet.css">
+                     <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                     </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="alsdkjflasd Ahmed here" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                           <font>
+                              <Font name="Chalkboard SE Regular" size="53.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="30.0" prefWidth="559.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="asdfads" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="17.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
+                           <children>
+                              <Button fx:id="backToMainMenu" mnemonicParsing="false" onAction="#backToMainMenuOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="247.0" text="Back to main menu">
+                                 <styleClass>
+                                    <String fx:value="red-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Chalkboard SE Regular" size="25.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>
