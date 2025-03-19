@@ -31,6 +31,7 @@ public class Task {
         this.taskCard = taskCard;
         this.isCompleted = false;
         this.feeMoney = feeMoney;
+        this.feeTime = feeTime;
     }
 
     public int getId() {
