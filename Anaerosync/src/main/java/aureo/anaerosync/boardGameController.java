@@ -422,15 +422,15 @@ public class boardGameController {
         if (!hasMoved) {
             int roll = random.nextInt(6) + 1;
             diceResult.setText("Dice: " + roll);
-            
+
             // Update the dice image based on the roll result
             String diceImagePath = String.format("/images/Die%d.png", roll);
             diceImage.setImage(new Image(String.valueOf(getClass().getResource(diceImagePath))));
-            
+
             // Show roll result in error dialog
             showErrorDialog.setText(String.format("You rolled %d", roll));
             showErrorDialog.setStyle("-fx-text-fill: white;");
-            
+
             movePlayer(currentPlayer, roll);
             hasMoved = true;
             rollDiceButton.setDisable(true);
@@ -448,7 +448,7 @@ public class boardGameController {
 
         showErrorDialog.setText("");
         currentPlayer = (currentPlayer + 1) % numPlayers;
-        
+
         // Show whose turn it is
         showErrorDialog.setText(String.format("%s's turn. Roll the dice", players[currentPlayer].getName()));
         showErrorDialog.setStyle("-fx-text-fill: white;");
@@ -1073,6 +1073,14 @@ public class boardGameController {
             int newPosition = luck.getNewPosition() % 28;
             playerCircles[newPosition].setVisible(true);
 
+            // check if "passing home" to add resources
+            if (currentPosition > newPosition && newPosition != 0) {
+                // give player resources for passing home
+                players[currentPlayer].addMoney(100);
+                players[currentPlayer].addTime(100);
+                showErrorDialog.setText("You passed home! Received 100 money and 100 time.");
+            }
+
             // Check the new position for any effects
             checkPosition(luck.getNewPosition());
         }
@@ -1199,21 +1207,40 @@ public class boardGameController {
     // to accept the task for yourself
     private void acceptTask(Task task) {
         Player currentPlayerObj = players[currentPlayer];
-        if (SHARED_TRUST >= task.getTaskTrustNeeded()) {
+
+        // Check if task is already owned
+        for (Player player : players) {
+            if (player.ownsTask(task)) {
+                showErrorDialog.setText("Task already owned by " + player.getName());
+                return;
+            }
+        }
+
+        if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() && SHARED_TRUST >= task.getTaskTrustNeeded()) {
+            // Deduct resources
+            currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
+            // Shared trust should not be deducted by claim task
+
+            // Add task to player's owned tasks
+            currentPlayerObj.addTask(task);
             task.setOwner(currentPlayerObj);
+
             hideTaskDialog();
-            
+
             // Add task's trust bonus to SHARED_TRUST
             SHARED_TRUST += task.getTaskBonus();
 
-            showErrorDialog.setText(String.format("You accepted this task for %d money and gained %d trust for the community!", 
+            showErrorDialog.setText(String.format("You accepted this task for %d money and gained %d trust for the community!",
                 task.getTaskMoney(), task.getTaskBonus()));
             showErrorDialog.setStyle("-fx-text-fill: white;");
             endTurnButton.setDisable(false);
             setupPlayerInfo();
         } else {
-            showErrorDialog.setText("Not enough community trust to accept this task!");
-            showErrorDialog.setStyle("-fx-text-fill: red;");
+            if (SHARED_TRUST < task.getTaskTrustNeeded()) {
+                showErrorDialog.setText("Not enough team trust!");
+            } else {
+                showErrorDialog.setText("Not enough personal resources!");
+            }
         }
     }
 
@@ -2075,14 +2102,14 @@ public class boardGameController {
             // Load the index.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/index.fxml"));
             Scene indexScene = new Scene(loader.load());
-            
+
             // Get the current stage from any component in the scene
             Stage stage = (Stage) messageBox.getScene().getWindow();
-            
+
             // Set the new scene
             stage.setScene(indexScene);
             stage.show();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
