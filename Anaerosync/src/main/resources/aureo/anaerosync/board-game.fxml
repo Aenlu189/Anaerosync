@@ -1261,12 +1261,12 @@
             </HBox>
             <AnchorPane fx:id="loseCondition">
                <children>
-                  <ImageView fitHeight="1007.0" fitWidth="1496.0" layoutX="-39.0" layoutY="-30.0">
+                  <ImageView fitHeight="1449.0" fitWidth="1726.0" layoutX="-269.0" layoutY="-140.0">
                      <image>
                         <Image url="@../../images/Player_Quitting.jpg" />
                      </image>
                   </ImageView>
-                  <HBox id="Credits" alignment="CENTER" layoutX="-15.0" layoutY="-19.0" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1472.0">
+                  <HBox id="Credits" alignment="CENTER" layoutX="-15.0" layoutY="320.0" onDragDetected="#backToMainMenuOnAction" prefHeight="638.0" prefWidth="1205.0">
                      <children>
                         <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="359.0" minWidth="560.0" prefHeight="359.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                            <padding>

@@ -160,7 +160,7 @@
       <workItem from="1742400591640" duration="1031000" />
       <workItem from="1742402006863" duration="407000" />
       <workItem from="1742410804487" duration="2549000" />
-      <workItem from="1742413725244" duration="327000" />
+      <workItem from="1742413725244" duration="752000" />
     </task>
     <task id="LOCAL-00008" summary="Fixed test after &quot;Task&quot; update">
       <option name="closed" value="true" />
@@ -218,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742413814173</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="&quot;Quitting bug fix&quot;">
+      <option name="closed" value="true" />
+      <created>1742414060330</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1742414060330</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
