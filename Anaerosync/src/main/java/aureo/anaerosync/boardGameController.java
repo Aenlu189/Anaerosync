@@ -1202,7 +1202,7 @@ public class boardGameController {
 
             // Deduct resources
             currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
-            SHARED_TRUST -= task.getTaskTrustNeeded();
+            // Shared trust should not be deducted by claim task
 
             // Add task to player's owned tasks
             currentPlayerObj.addTask(task);

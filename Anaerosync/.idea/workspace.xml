@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;minor bug fixes&quot;">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Trust not deducted during claim task">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/stylesheet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +27,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AnaerosyncApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AnaerosyncApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="AnaerosyncApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="aureo.anaerosync.AnaerosyncApplication" />
@@ -153,6 +150,7 @@
     <MESSAGE value="&quot;added better dialog box&quot;" />
     <MESSAGE value="&quot;move by one position completely implemented&quot;" />
     <MESSAGE value="&quot;minor bug fixes&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;minor bug fixes&quot;" />
+    <MESSAGE value="Trust not deducted during claim task" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trust not deducted during claim task" />
   </component>
 </project>
