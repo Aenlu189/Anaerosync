@@ -943,7 +943,7 @@ public class boardGameController {
                 owner.setTimeResource(owner.getTimeResource() + feeTime);
                 SHARED_TRUST += feeTrust;
 
-                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time. Receive %d community trust as a reward for helping.",
+                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time.\nReceive %d community trust as a reward for helping.",
                         owner.getName(), feeMoney, feeTime, feeTrust));
 
 
