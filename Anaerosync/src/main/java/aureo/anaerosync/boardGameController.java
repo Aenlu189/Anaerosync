@@ -60,7 +60,8 @@ public class boardGameController {
     @FXML private HBox tradeCardsModal, progressBarContainer;
 
     @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
-    @FXML private HBox exit, backToMain;
+    @FXML private HBox exit, backToMain, winCondition, loseCondition;
+    @FXML private Button winMainMenu, loseMainMenu;
 
     @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
     @FXML private Circle G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23, G24, G25, G26, G27, G28;
@@ -110,19 +111,19 @@ public class boardGameController {
 
     private final Random random = new Random();
 
-    private static final int STARTING_MONEY = 100000;
-    private static final int STARTING_TIME = 10000;
-    private static int SHARED_TRUST = 10000;
+    private static final int STARTING_MONEY = 100;
+    private static final int STARTING_TIME = 100;
+    private static int SHARED_TRUST = 100;
     private static final int TOTAL_TASKS = 20;
 
     /**
      * Initialize players with proper resources
      */
     private Player[] players = {
-        new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
-        new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
+            new Player(1, "Player 1", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(2, "Player 2", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(3, "Player 3", STARTING_TIME, STARTING_MONEY, SHARED_TRUST),
+            new Player(4, "Player 4", STARTING_TIME, STARTING_MONEY, SHARED_TRUST)
     };
 
     // ArrayList containing all tasks in the game
@@ -153,6 +154,8 @@ public class boardGameController {
         System.out.println("Initializing controller...");
         exit.setVisible(false);
         backToMain.setVisible(false);
+        winCondition.setVisible(false);
+        loseCondition.setVisible(false);
 
         // Initialize the game
         initializeGame();
@@ -866,9 +869,9 @@ public class boardGameController {
                 if (es.getEventName().equals(cornerType) ||
                         (cornerType.equals("DDOS") && es.getEventName().equals("DDOS Attack"))) {
                     eventSquare = es;
-                            break;
-                        }
-                    }
+                    break;
+                }
+            }
 
             if (eventSquare != null) {
                 // Disable end turn button until event is handled
@@ -922,8 +925,14 @@ public class boardGameController {
 
                 showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time",
                         owner.getName(), feeMoney, feeTime));
+
+                // Check for lose condition after deducting resources
+                if (currentPlayerObj.getMoneyResource() <= 0 || currentPlayerObj.getTimeResource() <= 0) {
+                    checkLoseCondition();
+                }
             } else {
                 showErrorDialog.setText("Not enough resources to pay the fee!");
+                checkLoseCondition();
             }
 
             // Hide the landing info box
@@ -937,10 +946,10 @@ public class boardGameController {
         // Set up the Decline button action
         declineLandButton.setOnAction(event -> {
             showErrorDialog.setText("Declined to pay the fee to " + owner.getName());
-            
+
             // Hide the landing info box
             landInfoBox.setVisible(false);
-            
+
             // Enable end turn button
             endTurnButton.setDisable(false);
         });
@@ -1029,7 +1038,7 @@ public class boardGameController {
             // Then hide the dialog
             hideLuckDialog();
             // Make sure the end turn button is enabled
-                    endTurnButton.setDisable(false);
+            endTurnButton.setDisable(false);
         });
 
         // Show the luck info box
@@ -1041,22 +1050,44 @@ public class boardGameController {
         Player player = players[currentPlayer];
         StringBuilder effectMessage = new StringBuilder();
 
-        // Apply money effects
-        if (luck.getLuckMoney() > 0) {
-            player.setMoneyResource(player.getMoneyResource() + luck.getLuckMoney());
-            effectMessage.append("You gained ").append(luck.getLuckMoney()).append(" money! ");
-        } else if (luck.getLuckMoney() < 0) {
-            player.setMoneyResource(player.getMoneyResource() - Math.abs(luck.getLuckMoney()));
-            effectMessage.append("You lost ").append(Math.abs(luck.getLuckMoney())).append(" money! ");
+        if (SHARED_TRUST < luck.getLuckTrustNeeded()) {
+            player.setMoneyResource(0);
+            checkLoseCondition();
         }
 
-        // Apply time effects
-        if (luck.getLuckTime() > 0) {
+        // Apply money effects with checks
+        if (luck.getLuckMoney() < 0) {
+            // Check if player has enough money before deducting
+            if (player.getMoneyResource() + luck.getLuckMoney() >= 0) {
+                player.setMoneyResource(player.getMoneyResource() + luck.getLuckMoney());
+                effectMessage.append("You lost ").append(Math.abs(luck.getLuckMoney())).append(" money! ");
+            } else {
+                player.setMoneyResource(0);
+                effectMessage.append("You lost all your money!");
+                System.out.println("Lose by luck");
+                checkLoseCondition();
+                return;
+            }
+        } else if (luck.getLuckMoney() > 0) {
+            player.setMoneyResource(player.getMoneyResource() + luck.getLuckMoney());
+            effectMessage.append("You gained ").append(luck.getLuckMoney()).append(" money! ");
+        }
+
+        // Apply time effects with checks
+        if (luck.getLuckTime() < 0) {
+            // Check if player has enough time before deducting
+            if (player.getTimeResource() + luck.getLuckTime() >= 0) {
+                player.setTimeResource(player.getTimeResource() + luck.getLuckTime());
+                effectMessage.append("You lost ").append(Math.abs(luck.getLuckTime())).append(" time! ");
+            } else {
+                player.setTimeResource(0);
+                effectMessage.append("You lost all your time! ");
+                checkLoseCondition();
+                return;
+            }
+        } else if (luck.getLuckTime() > 0) {
             player.setTimeResource(player.getTimeResource() + luck.getLuckTime());
             effectMessage.append("You gained ").append(luck.getLuckTime()).append(" time! ");
-        } else if (luck.getLuckTime() < 0) {
-            player.setTimeResource(player.getTimeResource() - Math.abs(luck.getLuckTime()));
-            effectMessage.append("You lost ").append(Math.abs(luck.getLuckTime())).append(" time! ");
         }
 
         // Apply position change if applicable
@@ -1116,7 +1147,7 @@ public class boardGameController {
                 taskCardImage.setFitWidth(200);
                 taskCardImage.setPreserveRatio(true);
                 taskCardImage.setSmooth(true);
-                } else {
+            } else {
                 System.err.println("Could not find image at path: " + imagePath);
             }
         } catch (Exception e) {
@@ -1140,7 +1171,7 @@ public class boardGameController {
 
             // Set up OK button action for fee payment
             Ok.setOnAction(e -> {
-                    handleTaskFee(task, owner);
+                handleTaskFee(task, owner);
                 hideTaskDialog();
             });
 
@@ -1216,7 +1247,18 @@ public class boardGameController {
             }
         }
 
-        if (currentPlayerObj.getMoneyResource() >= task.getTaskMoney() && SHARED_TRUST >= task.getTaskTrustNeeded()) {
+        // Check if accepting the task would cause money to go negative
+        if (currentPlayerObj.getMoneyResource() < task.getTaskMoney()) {
+            // Deduct the money anyway to trigger lose condition
+            currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
+            showErrorDialog.setText(String.format("Not enough money! Required: %d, Current: %d",
+                    task.getTaskMoney(), currentPlayerObj.getMoneyResource()));
+            checkLoseCondition();
+            hideTaskDialog();
+            return;
+        }
+
+        if (SHARED_TRUST >= task.getTaskTrustNeeded()) {
             // Deduct resources
             currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
             // Shared trust should not be deducted by claim task
@@ -1231,16 +1273,12 @@ public class boardGameController {
             SHARED_TRUST += task.getTaskBonus();
 
             showErrorDialog.setText(String.format("You accepted this task for %d money and gained %d trust for the community!",
-                task.getTaskMoney(), task.getTaskBonus()));
+                    task.getTaskMoney(), task.getTaskBonus()));
             showErrorDialog.setStyle("-fx-text-fill: white;");
             endTurnButton.setDisable(false);
             setupPlayerInfo();
         } else {
-            if (SHARED_TRUST < task.getTaskTrustNeeded()) {
-                showErrorDialog.setText("Not enough team trust!");
-            } else {
-                showErrorDialog.setText("Not enough personal resources!");
-            }
+            showErrorDialog.setText("Not enough team trust!");
         }
     }
 
@@ -1301,14 +1339,14 @@ public class boardGameController {
     // to show the offer to the another player
     private void showOfferToPlayer(Task task, Player targetPlayer) {
         offerMessage.setText(String.format("%s is offering you: %s",
-            offeringPlayer.getName(), task.getTaskName()));
+                offeringPlayer.getName(), task.getTaskName()));
 
         offeredTaskInfo.getChildren().clear();
 
         // Add task card image
         try {
-        String imagePath = task.getTaskCard();
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
+            String imagePath = task.getTaskCard();
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
             ImageView taskImage = new ImageView(image);
             taskImage.setFitWidth(200);
             taskImage.setPreserveRatio(true);
@@ -1320,9 +1358,9 @@ public class boardGameController {
 
         // Add task details below the image
         offeredTaskInfo.getChildren().addAll(
-            new Text(String.format("Money: %d", task.getTaskMoney())),
-            new Text(String.format("Time: %d", task.getTaskTime())),
-            new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
+                new Text(String.format("Money: %d", task.getTaskMoney())),
+                new Text(String.format("Time: %d", task.getTaskTime())),
+                new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
         );
 
         acceptOfferButton.setOnAction(e -> acceptOffer(task, targetPlayer));
@@ -1339,8 +1377,8 @@ public class boardGameController {
     // accept offer functionality
     private void acceptOffer(Task task, Player player) {
         if (player.getMoneyResource() >= task.getTaskMoney() &&
-            player.getTimeResource() >= task.getTaskTime() &&
-            SHARED_TRUST >= task.getTaskTrustNeeded()) {
+                player.getTimeResource() >= task.getTaskTime() &&
+                SHARED_TRUST >= task.getTaskTrustNeeded()) {
 
             // Deduct resources
             player.setMoneyResource(player.getMoneyResource() - task.getTaskMoney());
@@ -1417,9 +1455,9 @@ public class boardGameController {
         // Resource inputs for current player
         HBox currentResourceInputs = new HBox(10);
         VBox moneyInputBox = createResourceInput("Money to give:",
-            players[currentPlayer].getMoneyResource());
+                players[currentPlayer].getMoneyResource());
         VBox timeInputBox = createResourceInput("Time to give:",
-            players[currentPlayer].getTimeResource());
+                players[currentPlayer].getTimeResource());
         currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
 
         // Cards section for current player
@@ -1434,19 +1472,19 @@ public class boardGameController {
         currentPlayerCards.setStyle("-fx-padding: 5;");
 
         currentPlayerSection.getChildren().addAll(
-            currentPlayerTitle,
-            currentResourceInputs,
-            currentPlayerCardsText,
-            currentPlayerCards
+                currentPlayerTitle,
+                currentResourceInputs,
+                currentPlayerCardsText,
+                currentPlayerCards
         );
 
         // Get current player's owned but not completed tasks
         List<Task> currentPlayerTasks = new ArrayList<>(players[currentPlayer].getOwnedTasks());
         List<Task> currentPlayerCompletedTasks = completedTasks.getOrDefault(players[currentPlayer], new ArrayList<>());
         currentPlayerTasks.removeIf(task ->
-            currentPlayerCompletedTasks.stream().anyMatch(completedTask ->
-                completedTask.getId() == task.getId()
-            )
+                currentPlayerCompletedTasks.stream().anyMatch(completedTask ->
+                        completedTask.getId() == task.getId()
+                )
         );
 
         // Add current player's tradeable tasks
@@ -1481,9 +1519,9 @@ public class boardGameController {
         // Resource inputs for selected player
         HBox selectedResourceInputs = new HBox(10);
         VBox moneyReceiveBox = createResourceInput("Money to receive:",
-            player.getMoneyResource());
+                player.getMoneyResource());
         VBox timeReceiveBox = createResourceInput("Time to receive:",
-            player.getTimeResource());
+                player.getTimeResource());
         selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
 
         // Cards section for selected player
@@ -1850,8 +1888,10 @@ public class boardGameController {
                 System.out.println("After completion - Owned tasks: " + currentPlayerObj.getOwnedTasks().size());
 
                 // Add task to completed tasks
-                completedTasks.putIfAbsent(currentPlayerObj, new ArrayList<>());
-                completedTasks.get(currentPlayerObj).add(selectedTaskToComplete);
+                completedTasks.computeIfAbsent(players[currentPlayer], k -> new ArrayList<>()).add(selectedTaskToComplete);
+
+                // Check for win condition
+                checkWinCondition();
 
                 // Show success message
                 showErrorDialog.setText("Task completed successfully!");
@@ -1879,7 +1919,8 @@ public class boardGameController {
                 }
             } else {
                 showErrorDialog.setText("Not enough time to complete this task!");
-                showErrorDialog.setStyle("-fx-text-fill: red;");
+                currentPlayerObj.setTimeResource(0);
+                checkLoseCondition();
             }
         }
     }
@@ -1927,9 +1968,9 @@ public class boardGameController {
 
                     // Show a message about the rewards
                     showErrorDialog.setText("Objective completed! Received: $" +
-                        objective.getObjectiveMoney() + ", " +
-                        objective.getObjectiveTime() + " time, and " +
-                        objective.getObjectiveTrust() + " trust.");
+                            objective.getObjectiveMoney() + ", " +
+                            objective.getObjectiveTime() + " time, and " +
+                            objective.getObjectiveTrust() + " trust.");
 
                     // No need to check other objectives since a task can only be part of one objective
                     break;
@@ -2099,17 +2140,11 @@ public class boardGameController {
     @FXML
     public void backToMainMenuOnAction() {
         try {
-            // Load the index.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/index.fxml"));
-            Scene indexScene = new Scene(loader.load());
-
-            // Get the current stage from any component in the scene
-            Stage stage = (Stage) messageBox.getScene().getWindow();
-
-            // Set the new scene
-            stage.setScene(indexScene);
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) (winCondition.isVisible() ? winMainMenu : loseMainMenu).getScene().getWindow();
+            stage.setScene(scene);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -2210,11 +2245,17 @@ public class boardGameController {
         Player player = players[currentPlayer];
         StringBuilder effectMessage = new StringBuilder();
 
+        if (SHARED_TRUST < eventSquare.getEventTrust()) {
+            player.setMoneyResource(0);
+            checkLoseCondition();
+        }
+
         switch (eventSquare.getEventName()) {
             case "DDOS Attack":
                 // Apply DDOS Attack effect
-                SHARED_TRUST -= 300;
-                if (SHARED_TRUST < 0) SHARED_TRUST = 0;
+                SHARED_TRUST = Math.max(0, SHARED_TRUST - 300); // Prevent negative trust
+                effectMessage.append("DDOS Attack! The community lost 300 Trust.\n");
+                effectMessage.append("No player can complete tasks, offer tasks, or trade until the end of the round.");
 
                 // Set the event as active and store the player who activated it
                 eventSquare.setActive(true);
@@ -2224,9 +2265,6 @@ public class boardGameController {
                 completeTaskButton.setDisable(true);
                 tradeButton.setDisable(true);
                 offerTaskButton.setDisable(true);
-
-                effectMessage.append("DDOS Attack! The community lost 300 Trust.\n");
-                effectMessage.append("No player can complete tasks, offer tasks, or trade until the end of the round.");
                 break;
 
             case "Donate Money":
@@ -2241,9 +2279,16 @@ public class boardGameController {
                 // Calculate money to lose (roll × 100)
                 int moneyToLose = roll * 100;
 
-                player.setMoneyResource(player.getMoneyResource() - moneyToLose);
-                effectMessage.append("You lost " + moneyToLose + " money.");
-
+                // Check if player has enough money
+                if (player.getMoneyResource() >= moneyToLose) {
+                    player.setMoneyResource(player.getMoneyResource() - moneyToLose);
+                    effectMessage.append("You lost " + moneyToLose + " money.");
+                } else {
+                    player.setMoneyResource(0);
+                    effectMessage.append("You lost all your money!");
+                    checkLoseCondition();
+                    return;
+                }
                 break;
 
             case "Home":
@@ -2286,11 +2331,11 @@ public class boardGameController {
     private void showCompletionInfo(Task task, Player completedBy) {
         try {
             System.out.println("Showing completion info for task: " + task.getTaskName());
-            
+
             // Verify FXML elements are properly initialized
             if (completeInfoBox == null || completeNameLabel == null || completeDescLabel == null ||
-                completeBonusLabel == null || completeCostLabel == null || completeOwnerLabel == null ||
-                completeCardImage == null || completeOkButton == null) {
+                    completeBonusLabel == null || completeCostLabel == null || completeOwnerLabel == null ||
+                    completeCardImage == null || completeOkButton == null) {
                 System.err.println("Error: One or more completion info FXML elements are null");
                 // Fall back to moving the player forward
                 movePlayerForward();
@@ -2326,7 +2371,7 @@ public class boardGameController {
 
             // Show the completion info box
             completeInfoBox.setVisible(true);
-            
+
         } catch (Exception e) {
             System.err.println("Error showing completion info: " + e.getMessage());
             e.printStackTrace();
@@ -2339,14 +2384,60 @@ public class boardGameController {
         // Move player forward one position
         int currentPos = players[currentPlayer].getPosition();
         int newPosition = (currentPos + 1) % 28;
-        
+
         // Update player position
         Circle[] playerCircle = getPlayerCircles(currentPlayer);
         playerCircle[currentPos].setVisible(false);
         playerCircle[newPosition].setVisible(true);
         players[currentPlayer].setPosition(newPosition);
-        
+
         // Check the new position
         checkPosition(newPosition);
+    }
+
+    private void checkWinCondition() {
+        int totalCompletedTasks = 0;
+        for (ArrayList<Task> playerTasks : completedTasks.values()) {
+            totalCompletedTasks += playerTasks.size();
+        }
+
+        if (totalCompletedTasks >= TOTAL_TASKS) {
+            winCondition.setVisible(true);
+        }
+    }
+
+    private void checkLoseCondition() {
+        for (Player player : players) {
+            if (player.getMoneyResource() <= 0 || player.getTimeResource() <= 0) {
+                // Disable all game controls
+                rollDiceButton.setDisable(true);
+                endTurnButton.setDisable(true);
+                completeTaskButton.setDisable(true);
+                tradeButton.setDisable(true);
+                offerTaskButton.setDisable(true);
+
+                // Hide any open modals
+                cardInfoBox.setVisible(false);
+                landInfoBox.setVisible(false);
+                luckInfoBox.setVisible(false);
+                esInfoBox.setVisible(false);
+                completeInfoBox.setVisible(false);
+                offerModal.setVisible(false);
+                offerResponseModal.setVisible(false);
+                tradePlayerModal.setVisible(false);
+                tradeCardsModal.setVisible(false);
+                completeTaskModal.setVisible(false);
+                viewTasksModal.setVisible(false);
+                objectivesPanel.setVisible(false);
+
+                // Show the lose condition panel
+                loseCondition.setVisible(true);
+                loseCondition.toFront(); // Ensure it's on top
+
+                // Update message to show which player triggered the loss
+                showErrorDialog.setText(player.getName() + " has run out of resources! Game Over!");
+                return;
+            }
+        }
     }
 }
