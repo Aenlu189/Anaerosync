@@ -112,7 +112,7 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 10000;
+    private static final int STARTING_MONEY = 0;
     private static final int STARTING_TIME = 10000;
     private static int SHARED_TRUST = 10000;
     private static final int TOTAL_TASKS = 20;
@@ -651,7 +651,7 @@ public class boardGameController {
         lucks.add(new Luck(5, "A new intern just arrived and wants to help!\nReceive 400 units of Time!", 0, 400, 0, 0, "/images/LuckCard5.png", -1));
         lucks.add(new Luck(6, "South Africa's Government appreciates you!\nThey want to help you.\nReceive 400 units of Money.", 400, 0, 0, 0, "/images/LuckCard6.png", -1));
         lucks.add(new Luck(7, "Congratulations!\nYou are doing everything very well.\nReceive 200 units of Money and Time as a reward.", 200, 200, 0, 0, "/images/LuckCard7.png", -1));
-        lucks.add(new Luck(8, "Advance to\nUpdating AnaeroSync Task square", 0, 0, 0, 0, "/images/LuckCard8.png", 1));
+        lucks.add(new Luck(8, "Advance to\nUpdating AnaeroSync Task square", 0, 0, 0, 0, "/images/LuckCard8.png", 27));
         lucks.add(new Luck(9, "Advance to\nReceive funds Event Square", 0, 0, 0, 0, "/images/LuckCard9.png", 14));
         lucks.add(new Luck(10, "The other Software Engineer is sick!\nYou have to work twice as much.\nLose 100 units of time", 0, -100, 0, 0, "/images/LuckCard11.png", -1));
         lucks.add(new Luck(11, "Buy the necessary materials\nto build the DIY Anaerobic Digester\nfor the video instructions.\nLose 100 units of Money", -100, 0, 0, 0, "/images/LuckCard12.png", -1));
@@ -1199,7 +1199,7 @@ public class boardGameController {
             // Set normal button actions
             acceptTaskButton.setOnAction(e -> {
                 acceptTask(task);
-                showErrorDialog.setText("You accepted this task for " + task.getTaskMoney() + " money and received " + task.getTaskBonus() + " community trust.");
+                // removed this redundant set message
                 hideTaskDialog();
                 endTurnButton.setDisable(false);
             });
@@ -1253,8 +1253,7 @@ public class boardGameController {
 
         // Check if accepting the task would cause money to go negative
         if (currentPlayerObj.getMoneyResource() < task.getTaskMoney()) {
-            // Deduct the money anyway to trigger lose condition
-            currentPlayerObj.setMoneyResource(currentPlayerObj.getMoneyResource() - task.getTaskMoney());
+            // Don't deduct money. Player is just unable to claim task
             showErrorDialog.setText(String.format("Not enough money! Required: %d, Current: %d",
                     task.getTaskMoney(), currentPlayerObj.getMoneyResource()));
             hideTaskDialog();
