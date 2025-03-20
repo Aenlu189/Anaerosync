@@ -1332,26 +1332,13 @@
             </AnchorPane>
             <AnchorPane fx:id="winCondition">
                <children>
-                  <ImageView fitHeight="987.0" fitWidth="1446.0">
+                  <ImageView fitHeight="987.0" fitWidth="1489.0">
                      <image>
                         <Image url="@../../images/Player_Winning.jpg" />
                      </image>
                   </ImageView>
-                  <HBox id="Credits" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="987.0" prefWidth="1444.0">
+                  <HBox id="Credits" alignment="CENTER" onDragDetected="#backToMainMenuOnAction" prefHeight="987.0" prefWidth="1457.0">
                      <children>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="88.0">
-                           <children>
-                              <Button fx:id="winMainMenu" mnemonicParsing="false" onAction="#backToMainMenuOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="247.0" text="Back to main menu">
-                                 <styleClass>
-                                    <String fx:value="green-button" />
-                                    <String fx:value="menu-button" />
-                                 </styleClass>
-                                 <font>
-                                    <Font name="Chalkboard SE Regular" size="25.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
                         <VBox alignment="CENTER" maxHeight="400.0" maxWidth="872.0" minHeight="400.0" minWidth="560.0" prefHeight="400.0" prefWidth="872.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                            <padding>
                               <Insets bottom="20" left="20" right="20" top="20" />
@@ -1372,6 +1359,16 @@
                                     </Text>
                                  </children>
                               </HBox>
+                              <Label prefHeight="78.0" prefWidth="28.0" />
+                              <Button fx:id="winMainMenu" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainMenuOnAction" onMouseClicked="#quitDOnAction" prefHeight="42.0" prefWidth="247.0" text="Back to Main Menu">
+                                 <styleClass>
+                                    <String fx:value="green-button" />
+                                    <String fx:value="menu-button" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Impact" size="26.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </VBox>
                      </children>

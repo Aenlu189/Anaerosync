@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
+<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aureo.anaerosync.IndexController">
    <children>
       <AnchorPane fx:id="thankyou">
          <children>
-            <ImageView fitHeight="813.0" fitWidth="1200.0">
+            <ImageView fitHeight="836.0" fitWidth="1200.0">
                <image>
                   <Image url="@../../images/Other_menu.jpg" />
                </image>
@@ -332,9 +332,9 @@
                               <Font name="Impact" size="53.0" />
                            </font>
                         </Text>
-                        <Text fx:id="warningName" fill="#eb2828" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter all player names">
+                        <Text fx:id="warningName" fill="#eb2828" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Please enter all player names!">
                            <font>
-                              <Font name="Inter Regular" size="15.0" />
+                              <Font name="Impact" size="16.0" />
                            </font>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
@@ -490,7 +490,7 @@
       </AnchorPane>
       <AnchorPane fx:id="optionsMenu">
          <children>
-            <ImageView fitHeight="823.0" fitWidth="1200.0">
+            <ImageView fitHeight="886.0" fitWidth="1200.0">
                <image>
                   <Image url="@../../images/Main_Menu.jpg" />
                </image>

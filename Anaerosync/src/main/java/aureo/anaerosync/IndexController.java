@@ -30,9 +30,6 @@ public class IndexController {
     @FXML private AnchorPane Dialog;
     @FXML private AnchorPane Dialog2;
     @FXML private VBox playerNameInputs;
-    @FXML private Button startButton;
-    @FXML private Button okDialogButton;
-    @FXML private Button okDialog2Button;
     @FXML private Text warningName;
 
     private void showPane(Pane showPane) {
@@ -71,7 +68,6 @@ public class IndexController {
         if (warningName != null) {
             warningName.setVisible(false);
         }
-        
         showPane(nameInput);
     }
 
