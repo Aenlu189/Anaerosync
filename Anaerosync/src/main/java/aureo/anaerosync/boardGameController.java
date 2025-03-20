@@ -58,7 +58,7 @@ public class boardGameController {
 
     @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
     @FXML private HBox exit, backToMain;
-    @FXML private AnchorPane  loseCondition, winCondition, gameLoseCondition;
+    @FXML private AnchorPane  loseCondition, winCondition, gameLoseCondition, rules;
     @FXML private Button winMainMenu, loseMainMenu;
 
     @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
@@ -156,6 +156,7 @@ public class boardGameController {
         winCondition.setVisible(false);
         loseCondition.setVisible(false);
         gameLoseCondition.setVisible(false);
+        rules.setVisible(false);
 
         // Initialize the game
         initializeGame();
@@ -2513,5 +2514,15 @@ public class boardGameController {
                 return;
             }
         }
+    }
+
+    @FXML
+    public void backToGameScreen() {
+        rules.setVisible(false);
+    }
+
+    @FXML
+    public void rulesButtonOnAction() {
+        rules.setVisible(true);
     }
 }
