@@ -2240,6 +2240,12 @@ public class boardGameController {
 
         switch (eventSquare.getEventName()) {
             case "DDOS Attack":
+                // Description if CYBERSECURITY objective is completed
+                if(isTaskCompleted(tasks.get(10)) && isTaskCompleted(tasks.get(11))){
+                    description.append("Since you have completed the CYBERSECURITY objective, this square will have no effect. ");
+                    break;
+                }
+
                 description.append("Until it's your turn again, no player can complete tasks, offer tasks, or trade. ");
                 description.append("The community loses 300 Trust.");
                 break;
@@ -2259,7 +2265,7 @@ public class boardGameController {
         esDescLabel.setText("");
 
         // Set bonus information if applicable
-        if (eventSquare.getEventTime() != 0 || eventSquare.getEventTime() != 0) {
+        if (eventSquare.getEventMoney() != 0 || eventSquare.getEventTime() != 0) {
             StringBuilder bonusText = new StringBuilder("Bonus: ");
             if (eventSquare.getEventMoney() != 0) {
                 bonusText.append(eventSquare.getEventMoney() > 0 ? "+" : "")
@@ -2286,6 +2292,11 @@ public class boardGameController {
             esCostLabel.setText(trustText.toString());
         } else {
             esCostLabel.setText("");
+        }
+
+        // Custom message if DDOS attack is canceled
+        if( eventSquare.getEventName().equals("DDOS Attack") && isTaskCompleted(tasks.get(10)) && isTaskCompleted(tasks.get(11))){
+            esCostLabel.setText("This card will have no effect as you completed the CYBERSECURITY objective");
         }
 
         // Set owner information (not applicable for event squares)
@@ -2331,6 +2342,12 @@ public class boardGameController {
 
         switch (eventSquare.getEventName()) {
             case "DDOS Attack":
+                // Effect if CYBERSECURITY objective is completed
+                if(isTaskCompleted(tasks.get(10)) && isTaskCompleted(tasks.get(11))){
+                    effectMessage.append("Since you have completed the CYBERSECURITY objective,\n this square will have no effect");
+                    break;
+                }
+
                 // Apply DDOS Attack effect
                 SHARED_TRUST = Math.max(0, SHARED_TRUST - 300); // Prevent negative trust
                 effectMessage.append("DDOS Attack! The community lost 300 Trust.\n");
