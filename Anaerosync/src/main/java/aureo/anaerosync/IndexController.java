@@ -13,9 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class IndexController {
     @FXML private AnchorPane optionsMenu;
@@ -30,6 +33,7 @@ public class IndexController {
     @FXML private Button startButton;
     @FXML private Button okDialogButton;
     @FXML private Button okDialog2Button;
+    @FXML private Text warningName;
 
     private void showPane(Pane showPane) {
         optionsMenu.setVisible(false);
@@ -64,6 +68,10 @@ public class IndexController {
             playerNameInputs.getChildren().add(playerRow);
         }
         
+        if (warningName != null) {
+            warningName.setVisible(false);
+        }
+        
         showPane(nameInput);
     }
 
@@ -89,8 +97,50 @@ public class IndexController {
 
     @FXML
     public void startGame() {
-        showPane(Dialog);
-        System.out.println("Dialog 1 through");
+        boolean allNamesEntered = true;
+        boolean allNamesUnique = true;
+        Set<String> nameSet = new HashSet<>();
+        
+        // Check for empty names and duplicates
+        for (int i = 0; i < playerNameInputs.getChildren().size(); i++) {
+            HBox playerRow = (HBox) playerNameInputs.getChildren().get(i);
+            TextField nameField = (TextField) playerRow.getChildren().get(1);
+            String name = nameField.getText().trim();
+            
+            // Check for empty name
+            if (name.isEmpty()) {
+                allNamesEntered = false;
+                break;
+            }
+            
+            // Check for duplicate name
+            if (!nameSet.add(name)) {
+                allNamesUnique = false;
+                break;
+            }
+        }
+        
+        // Determine action based on validation results
+        if (!allNamesEntered) {
+            // Show warning for empty names
+            if (warningName != null) {
+                warningName.setText("Please enter all player names!");
+                warningName.setVisible(true);
+            }
+        } else if (!allNamesUnique) {
+            // Show warning for duplicate names
+            if (warningName != null) {
+                warningName.setText("Player names must be unique!");
+                warningName.setVisible(true);
+            }
+        } else {
+            // All validations passed, proceed to dialog
+            if (warningName != null) {
+                warningName.setVisible(false);
+            }
+            showPane(Dialog);
+            System.out.println("Dialog 1 through");
+        }
     }
 
     @FXML
@@ -130,7 +180,7 @@ public class IndexController {
             .map(hbox -> {
                 TextField nameField = (TextField) hbox.getChildren().get(1);
                 String name = nameField.getText().trim();
-                return name.isEmpty() ? "Player " + (playerNameInputs.getChildren().indexOf(hbox) + 1) : name;
+                return name;
             })
             .toArray(String[]::new);
     }

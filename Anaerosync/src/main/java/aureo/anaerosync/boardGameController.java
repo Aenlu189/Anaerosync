@@ -728,6 +728,10 @@ public class boardGameController {
 
         header.getChildren().addAll(objectiveName, completionStatus);
 
+        Text rewards = new Text();
+        rewards.setText("Rewards: Money: "+objective.getObjectiveMoney() +", Time: "+objective.getObjectiveTime() + ", Trust: " + objective.getObjectiveTrust());
+        rewards.setStyle("-fx-font-size: 12px; -fx-font-style: italic;");
+
         // Task list
         VBox tasksList = new VBox(3);
         tasksList.setStyle("-fx-padding: 5 0 0 10;");
@@ -738,7 +742,7 @@ public class boardGameController {
 
         tasksList.getChildren().addAll(task1Box, task2Box);
 
-        objectiveBox.getChildren().addAll(header, tasksList);
+        objectiveBox.getChildren().addAll(header, rewards, tasksList);
 
         // Update completion status
         updateObjectiveStatus(objective, completionStatus, objectiveName);
@@ -753,7 +757,7 @@ public class boardGameController {
 
         Label taskName = new Label("• " + task.getTaskName());
         taskName.setWrapText(true);
-        taskName.setPrefWidth(180);
+        taskName.setPrefWidth(220);
         taskName.setStyle("-fx-font-size: 12px;");
 
         Label completionStatus = new Label("");
@@ -981,7 +985,7 @@ public class boardGameController {
                 owner.setTimeResource(owner.getTimeResource() + feeTime);
                 SHARED_TRUST += feeTrust;
 
-                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time. Receive %d community trust as a reward for helping.",
+                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time.\nReceived %d community trust as a reward for helping.",
                         owner.getName(), feeMoney, feeTime, feeTrust));
                 showErrorDialog.setStyle("-fx-fill: green;");
 
@@ -1539,43 +1543,11 @@ public class boardGameController {
         timeToReceive = 0;
         selectedCardsToGive.clear();
         selectedCardsToReceive.clear();
-
-        // Create main container with horizontal layout
-        HBox mainContainer = new HBox(20);
-        mainContainer.setAlignment(Pos.CENTER);
-
-        // Current player's section
-        VBox currentPlayerSection = new VBox(5);
-        currentPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
-        Text currentPlayerTitle = new Text("Your Offer");
-        currentPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-
-        // Resource inputs for current player
-        HBox currentResourceInputs = new HBox(10);
-        VBox moneyInputBox = createResourceInput("Money to give:",
-                players[currentPlayer].getMoneyResource());
-        VBox timeInputBox = createResourceInput("Time to give:",
-                players[currentPlayer].getTimeResource());
-        currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
-
-        // Cards section for current player
-        Text currentPlayerCardsText = new Text("Your Cards to Trade:");
-        currentPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-
-        // Container for current player's cards
-        currentPlayerCards = new FlowPane();
-        currentPlayerCards.setHgap(10);
-        currentPlayerCards.setVgap(10);
-        currentPlayerCards.setPrefWrapLength(330);
-        currentPlayerCards.setStyle("-fx-padding: 5;");
-
-        currentPlayerSection.getChildren().addAll(
-                currentPlayerTitle,
-                currentResourceInputs,
-                currentPlayerCardsText,
-                currentPlayerCards
-        );
-
+        
+        // Clear the existing FlowPanes
+        currentPlayerCards.getChildren().clear();
+        selectedPlayerCards.getChildren().clear();
+        
         // Get current player's owned but not completed tasks
         List<Task> currentPlayerTasks = new ArrayList<>(players[currentPlayer].getOwnedTasks());
         List<Task> currentPlayerCompletedTasks = completedTasks.getOrDefault(players[currentPlayer], new ArrayList<>());
@@ -1585,64 +1557,12 @@ public class boardGameController {
                 )
         );
 
-        // Add current player's tradeable tasks
+        // Add current player's tradeable tasks to the existing FlowPane
         for (Task task: currentPlayerTasks) {
             VBox cardBox = createTaskCardForTrade(task, true);
             currentPlayerCards.getChildren().add(cardBox);
         }
-
-        // Center section with trade controls
-        VBox centerControls = new VBox(10);
-        centerControls.setAlignment(Pos.CENTER);
-
-        // Trade direction indicator
-        Text tradeArrow = new Text("⇄");
-        tradeArrow.setStyle("-fx-font-size: 24px;");
-
-        // Trade buttons
-        confirmTradeButton = new Button("Confirm Trade");
-        cancelTradeButton = new Button("Cancel");
-
-        confirmTradeButton.setOnAction(e -> {
-            confirmTrade();
-            endTurnButton.setDisable(false);
-                });
-        cancelTradeButton.setOnAction(e -> cancelTrade());
-
-        centerControls.getChildren().addAll(tradeArrow, confirmTradeButton, cancelTradeButton);
-
-        // Selected player's section
-        VBox selectedPlayerSection = new VBox(5);
-        selectedPlayerSection.setStyle("-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;");
-        Text selectedPlayerTitle = new Text(player.getName() + "'s Offer");
-        selectedPlayerTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-
-        // Resource inputs for selected player
-        HBox selectedResourceInputs = new HBox(10);
-        VBox moneyReceiveBox = createResourceInput("Money to receive:",
-                player.getMoneyResource());
-        VBox timeReceiveBox = createResourceInput("Time to receive:",
-                player.getTimeResource());
-        selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
-
-        // Cards section for selected player
-        Text selectedPlayerCardsText = new Text("Their Cards to Trade:");
-        selectedPlayerCardsText.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-
-        // Container for selected player's cards
-        selectedPlayerCards = new FlowPane();
-        selectedPlayerCards.setHgap(10);
-        selectedPlayerCards.setVgap(10);
-        selectedPlayerCards.setPrefWrapLength(330); // Width for 3 cards (100px) + gaps
-        selectedPlayerCards.setStyle("-fx-padding: 5;");
-
-        selectedPlayerSection.getChildren().addAll(
-                selectedPlayerTitle,
-                selectedResourceInputs,
-                selectedPlayerCardsText,
-                selectedPlayerCards
-        );
-
+        
         // Get selected player's owned but not completed tasks
         List<Task> selectedPlayerTasks = new ArrayList<>(player.getOwnedTasks());
         List<Task> selectedPlayerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
@@ -1652,18 +1572,63 @@ public class boardGameController {
                 )
         );
 
-        // Add selected player's tradeable tasks
+        // Add selected player's tradeable tasks to the existing FlowPane
         for (Task task: selectedPlayerTasks) {
             VBox cardBox = createTaskCardForTrade(task, false);
             selectedPlayerCards.getChildren().add(cardBox);
         }
+        
+        // Find VBox containers without direct casting from the FlowPane parent
+        // These are the VBox containers that are direct children of the tradeCardsModal
+        List<VBox> vboxContainers = new ArrayList<>();
+        for (Node node : tradeCardsModal.getChildren()) {
+            if (node instanceof VBox) {
+                vboxContainers.add((VBox) node);
+            }
+        }
 
-        // Add all sections to main container
-        mainContainer.getChildren().addAll(currentPlayerSection, centerControls, selectedPlayerSection);
-
-        // Update trade modal
-        tradeCardsModal.getChildren().clear();
-        tradeCardsModal.getChildren().add(mainContainer);
+        if (vboxContainers.size() >= 3) {
+            VBox currentPlayerVBox = vboxContainers.get(0);
+            VBox selectedPlayerVBox = vboxContainers.get(2);
+            
+            // Check for existing resource inputs and remove them if present
+            // (to avoid duplicates when opening the modal multiple times)
+            currentPlayerVBox.getChildren().removeIf(node -> 
+                node instanceof HBox && node.getId() != null && node.getId().equals("currentResourceInputs"));
+            selectedPlayerVBox.getChildren().removeIf(node -> 
+                node instanceof HBox && node.getId() != null && node.getId().equals("selectedResourceInputs"));
+            
+            // Create resource inputs for current player
+            HBox currentResourceInputs = new HBox(10);
+            currentResourceInputs.setId("currentResourceInputs");
+            currentResourceInputs.setAlignment(Pos.CENTER);
+            VBox moneyInputBox = createResourceInput("Money to give:",
+                    players[currentPlayer].getMoneyResource());
+            VBox timeInputBox = createResourceInput("Time to give:",
+                    players[currentPlayer].getTimeResource());
+            currentResourceInputs.getChildren().addAll(moneyInputBox, timeInputBox);
+            
+            // Create resource inputs for selected player
+            HBox selectedResourceInputs = new HBox(10);
+            selectedResourceInputs.setId("selectedResourceInputs");
+            selectedResourceInputs.setAlignment(Pos.CENTER);
+            VBox moneyReceiveBox = createResourceInput("Money to receive:",
+                    player.getMoneyResource());
+            VBox timeReceiveBox = createResourceInput("Time to receive:",
+                    player.getTimeResource());
+            selectedResourceInputs.getChildren().addAll(moneyReceiveBox, timeReceiveBox);
+            
+            // Insert resource inputs at appropriate position (after the Label)
+            if (currentPlayerVBox.getChildren().size() >= 1) {
+                currentPlayerVBox.getChildren().add(1, currentResourceInputs);
+            }
+            
+            if (selectedPlayerVBox.getChildren().size() >= 1) {
+                selectedPlayerVBox.getChildren().add(1, selectedResourceInputs);
+            }
+        }
+        
+        // Make the trade modal visible
         tradeCardsModal.setVisible(true);
     }
 
@@ -1833,7 +1798,7 @@ public class boardGameController {
         if (imagePath != null) {
             Image image = new Image(getClass().getResourceAsStream(imagePath));
             ImageView taskImage = new ImageView(image);
-            taskImage.setFitWidth(100);
+            taskImage.setFitWidth(140);
             taskImage.setPreserveRatio(true);
             taskImage.setSmooth(true);
             cardBox.getChildren().add(taskImage);
@@ -1842,7 +1807,7 @@ public class boardGameController {
         // Ignacio could format this more to be better
         Label taskName = new Label(task.getTaskName());
         taskName.setWrapText(true);
-        taskName.setMaxWidth(90);
+        taskName.setMaxWidth(120);
         taskName.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         taskName.setStyle("-fx-font-size: 11px;");
         cardBox.getChildren().add(taskName);
@@ -1996,6 +1961,7 @@ public class boardGameController {
 
                 // Show success message
                 showErrorDialog.setText("Task completed successfully!");
+                completeMessageBox.setText("");
 
 
                 // Check if this completes an objective

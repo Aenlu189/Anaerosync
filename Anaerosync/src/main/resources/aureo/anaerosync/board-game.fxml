@@ -930,7 +930,10 @@
                   <Label fx:id="luckOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="Ok" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Ok" textAlignment="CENTER" />
+                        <Button fx:id="Ok" style="-fx-padding: 5 15; -fx-background-color: green;" text="Ok" textAlignment="CENTER" textFill="#f5f2f2">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
                      </children>
                      <padding>
                         <Insets top="10.0" />
@@ -949,9 +952,18 @@
                   <Label fx:id="taskOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="acceptTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Accept" />
-                        <Button fx:id="declineTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Decline" />
-                        <Button fx:id="offerTaskButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Offer" />
+                        <Button fx:id="acceptTaskButton" style="-fx-padding: 5 15; -fx-background-color: green;" text="Accept" textFill="WHITE">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
+                        <Button fx:id="declineTaskButton" style="-fx-padding: 5 15; -fx-background-color: red;" text="Decline" textFill="#fffbfb">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
+                        <Button fx:id="offerTaskButton" style="-fx-padding: 5 15; -fx-background-color: dodgerblue;" text="Offer" textFill="#f2efef">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
                      </children>
                      <padding>
                         <Insets top="10.0" />
@@ -969,8 +981,14 @@
                   <Label fx:id="landOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="okLandButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Contribute" />
-                        <Button fx:id="declineLandButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Decline" />
+                        <Button fx:id="okLandButton" style="-fx-padding: 5 15; -fx-background-color: green;" text="Contribute" textFill="#fcfafa">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
+                        <Button fx:id="declineLandButton" style="-fx-padding: 5 15; -fx-background-color: red;" text="Decline" textFill="#f8f6f6">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
                      </children>
                      <padding>
                         <Insets top="10.0" />
@@ -988,7 +1006,10 @@
                   <Label fx:id="completeOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="completeOkButton" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="OK" />
+                        <Button fx:id="completeOkButton" style="-fx-padding: 5 15; -fx-background-color: green;" text="OK" textFill="#f2efef">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Button>
                      </children>
                      <padding>
                         <Insets top="10.0" />
@@ -1006,7 +1027,10 @@
                   <Label fx:id="esOwnerLabel" style="-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;" />
                   <HBox alignment="CENTER" spacing="10">
                      <children>
-                        <Button fx:id="Ok1" style="-fx-font-size: 14px; -fx-padding: 5 15;" text="Ok" textAlignment="CENTER" />
+                        <Button fx:id="Ok1" style="-fx-padding: 5 15; -fx-background-color: green;" text="Ok" textAlignment="CENTER" textFill="#f5f3f3">
+                           <font>
+                              <Font name="Impact" size="16.0" />
+                           </font></Button>
                      </children>
                      <padding>
                         <Insets top="10.0" />
@@ -1043,10 +1067,16 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="388.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Game Objectives" textAlignment="RIGHT" />
+                        <Label prefHeight="20.0" prefWidth="388.0" text="Game Objectives" textAlignment="RIGHT">
+                           <font>
+                              <Font name="Impact" size="17.0" />
+                           </font></Label>
                         <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="closeObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-font-size: 10px;" text="✕" />
+                              <Button fx:id="closeObjectivesButton" onAction="#toggleObjectivesPanel" style="-fx-background-color: red;" text="✕" textFill="#fffbfb">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
                      </children>
@@ -1089,7 +1119,7 @@
                      </children>
                   </HBox>
                   <Label />
-                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="33.0" prefWidth="133.0" styleClass="green-button" stylesheets="@stylesheet.css" text="Trade Cards" textFill="WHITE">
+                  <Button fx:id="tradeButton" onAction="#showTradeModal" prefHeight="33.0" prefWidth="133.0" style="-fx-background-color: green;" text="Trade Cards" textFill="WHITE">
                      <font>
                         <Font name="Impact" size="17.0" />
                      </font></Button>
@@ -1110,12 +1140,12 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f9fc" height="111.0" layoutX="105.0" layoutY="869.0" stroke="BLACK" strokeType="INSIDE" width="1225.0" />
             <TextArea fx:id="messageBox" editable="false" layoutX="115.0" layoutY="872.0" prefHeight="111.0" prefWidth="1205.0" style="-fx-control-inner-background: #51a5f5; -fx-text-fill: black; -fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-text-box-border: transparent; -fx-padding: 5; -fx-background-insets: 0; -fx-background-radius: 0;" styleClass="no-scroll-bars" stylesheets="@stylesheet.css" text="" wrapText="true">
                <font>
-                  <Font name="Comic Sans MS Bold" size="15.0" />
+                  <Font name="Inter Regular" size="15.0" />
                </font>
             </TextArea>
             <Label fx:id="showErrorDialog" alignment="CENTER" layoutX="900.0" layoutY="41.0" prefHeight="57.0" prefWidth="514.0" textAlignment="CENTER">
                <font>
-                  <Font name="Comic Sans MS" size="14.0" />
+                  <Font name="Inter Italic" size="15.0" />
                </font>
             </Label>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f9fc" height="99.0" layoutX="1276.0" layoutY="878.0" stroke="TRANSPARENT" strokeType="INSIDE" width="48.0" />
@@ -1191,67 +1221,44 @@
             <HBox fx:id="tradeCardsModal" alignment="CENTER" layoutX="2.0" prefHeight="987.0" prefWidth="1442.0" spacing="20" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
                <children>
                   <!-- Current player's cards -->
-                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="455.0" spacing="10">
-                     <Label style="-fx-font-size: 16px;" text="Your Cards" />
-                     <ScrollPane>
-                        <FlowPane fx:id="currentPlayerCards" hgap="10" vgap="10" />
+                  <VBox alignment="CENTER" prefHeight="945.0" prefWidth="620.0" spacing="10">
+                     <Label text="Your Cards">
+                        <font>
+                           <Font name="Impact" size="21.0" />
+                        </font></Label>
+                     <ScrollPane prefHeight="901.0" prefWidth="595.0">
+                        <FlowPane fx:id="currentPlayerCards" hgap="10" prefHeight="1.0" prefWidth="586.0" vgap="10" />
                      </ScrollPane>
                   </VBox>
 
                   <!-- Trade arrows -->
                   <VBox alignment="CENTER" prefHeight="916.0" prefWidth="194.0" spacing="10">
-                     <Label style="-fx-font-size: 20px;" text="⇄" />
-                     <Button fx:id="confirmTradeButton" onAction="#confirmTrade" text="Confirm Trade" />
-                     <Button fx:id="cancelTradeButton" onAction="#cancelTrade" text="Cancel" />
+                     <Label text="⇄">
+                        <font>
+                           <Font size="27.0" />
+                        </font></Label>
+                     <Button fx:id="confirmTradeButton" onAction="#confirmTrade" style="-fx-background-color: green;" text="Confirm Trade" textFill="#fcf7f7">
+                        <font>
+                           <Font name="Impact" size="16.0" />
+                        </font></Button>
+                     <Button fx:id="cancelTradeButton" onAction="#cancelTrade" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: red;" text="Cancel" textFill="#fffdfd">
+                        <font>
+                           <Font name="Impact" size="16.0" />
+                        </font></Button>
                   </VBox>
 
                   <!-- Selected player's cards -->
-                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="455.0" spacing="10">
-                     <Label fx:id="tradePlayerLabel" style="-fx-font-size: 16px;" text="Their Cards" />
-                     <ScrollPane>
-                        <FlowPane fx:id="selectedPlayerCards" hgap="10" vgap="10" />
+                  <VBox alignment="CENTER" prefHeight="916.0" prefWidth="620.0" spacing="10">
+                     <Label fx:id="tradePlayerLabel" text="Their Cards">
+                        <font>
+                           <Font name="Impact" size="21.0" />
+                        </font></Label>
+                     <ScrollPane prefHeight="925.0" prefWidth="596.0">
+                        <FlowPane fx:id="selectedPlayerCards" hgap="10" prefHeight="0.0" prefWidth="590.0" vgap="10" />
                      </ScrollPane>
                   </VBox>
                </children>
             </HBox>
-            <!-- Add complete task modal -->
-            <VBox fx:id="completeTaskModal" alignment="CENTER" layoutX="2.0" prefHeight="987.0" prefWidth="1442.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
-               <children>
-                  <Label style="-fx-font-size: 20px;" text="Complete Task">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER" spacing="10">
-                     <children>
-                        <Label style="-fx-font-size: 16px;" text="Available Time: " />
-                        <Label fx:id="availableTimeLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <ScrollPane fitToWidth="true" prefHeight="600.0">
-                     <content>
-                        <FlowPane fx:id="completableTaskCards" hgap="10" vgap="10" />
-                     </content>
-                  </ScrollPane>
-                  <Label fx:id="completeMessageBox" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 14px; -fx-text-fill: #333333; -fx-padding: 10;" wrapText="true">
-                     <font>
-                        <Font name="Comic Sans MS" size="14.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER" spacing="20">
-                     <children>
-                        <Button fx:id="confirmCompleteButton" onAction="#confirmCompleteTask" style="-fx-font-size: 14px;" text="Complete Selected Task" />
-                        <Button fx:id="cancelCompleteButton" onAction="#cancelCompleteTask" style="-fx-font-size: 14px;" text="Cancel" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
             <VBox fx:id="viewTasksModal" alignment="CENTER" prefHeight="987.0" prefWidth="1442.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
                <children>
                   <Label fx:id="viewTaskField" style="-fx-font-size: 20px;">
@@ -1306,6 +1313,56 @@
                         <font>
                            <Font name="Impact" size="17.0" />
                         </font></Button>
+                  </HBox>
+               </children>
+            </VBox>
+            <!-- Add complete task modal -->
+            <VBox fx:id="completeTaskModal" alignment="CENTER" layoutX="2.0" prefHeight="987.0" prefWidth="1442.0" spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: black; -fx-border-width: 1;" visible="false">
+               <children>
+                  <Label text="Complete Task">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Impact" size="30.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="10">
+                     <children>
+                        <Label text="Available Time: ">
+                           <font>
+                              <Font name="Inter Regular" size="15.0" />
+                           </font></Label>
+                        <Label fx:id="availableTimeLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" prefHeight="600.0" style="-fx-border-radius: 5;">
+                     <content>
+                        <FlowPane fx:id="completableTaskCards" hgap="10" vgap="10" />
+                     </content>
+                  </ScrollPane>
+                  <Label fx:id="completeMessageBox" style="-fx-font-family: 'Comic Sans MS'; -fx-font-size: 14px; -fx-text-fill: #333333; -fx-padding: 10;" wrapText="true">
+                     <font>
+                        <Font name="Inter Regular" size="17.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="20">
+                     <children>
+                        <Button fx:id="confirmCompleteButton" onAction="#confirmCompleteTask" style="-fx-background-color: green;" text="Complete Selected Task" textFill="#fffefe">
+                           <font>
+                              <Font name="Impact" size="17.0" />
+                           </font></Button>
+                        <Button fx:id="cancelCompleteButton" onAction="#cancelCompleteTask" style="-fx-background-color: red;" text="Cancel" textFill="#fffbfb">
+                           <font>
+                              <Font name="Impact" size="17.0" />
+                           </font></Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>

@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Quitting bug fix&quot;">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Reformatting components for better UI&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/IndexController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742414060330</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="&quot;Reformatting components for better UI&quot;">
+      <option name="closed" value="true" />
+      <created>1742435356866</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1742435356866</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +310,7 @@
     <MESSAGE value="Bug fix - remove deducts money when cannot afford task" />
     <MESSAGE value="&quot;png to jpg&quot;" />
     <MESSAGE value="&quot;Quitting bug fix&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Quitting bug fix&quot;" />
+    <MESSAGE value="&quot;Reformatting components for better UI&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Reformatting components for better UI&quot;" />
   </component>
 </project>
