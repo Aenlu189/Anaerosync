@@ -270,7 +270,7 @@
          <children>
             <ImageView fitHeight="823.0" fitWidth="1200.0">
                <image>
-                  <Image url="@../../images/First_Dialog.png" />
+                  <Image url="@../../images/First_Dialog.jpg" />
                </image>
             </ImageView>
             <HBox id="Credits" alignment="CENTER" layoutY="-7.0" prefHeight="823.0" prefWidth="1200.0">
