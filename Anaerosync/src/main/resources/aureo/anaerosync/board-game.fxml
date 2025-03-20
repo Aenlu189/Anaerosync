@@ -1351,19 +1351,19 @@
                   </ImageView>
                   <HBox id="Credits" alignment="CENTER" layoutX="-15.0" layoutY="-19.0" onDragDetected="#backToMainMenuOnAction" prefHeight="977.0" prefWidth="1472.0">
                      <children>
-                        <VBox alignment="CENTER" maxHeight="400.0" maxWidth="560.0" minHeight="359.0" minWidth="560.0" prefHeight="359.0" prefWidth="560.0" styleClass="border-radius" stylesheets="@stylesheet.css">
+                        <VBox alignment="CENTER" maxHeight="400.0" maxWidth="654.0" minHeight="359.0" minWidth="560.0" prefHeight="400.0" prefWidth="654.0" styleClass="border-radius" stylesheets="@stylesheet.css">
                            <padding>
                               <Insets bottom="20" left="20" right="20" top="20" />
                            </padding>
                            <children>
-                              <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="2.0" text="Game Over!" textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                              <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="2.0" text="You Ran Out of Resources!" textAlignment="CENTER" wrappingWidth="631.4253997802734">
                                  <font>
                                     <Font name="Impact" size="57.0" />
                                  </font>
                               </Text>
                               <HBox prefHeight="30.0" prefWidth="559.0">
                                  <children>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Due to having no more resources, this project cannot be carried on to find its success. This ultimately let down everyone in Maker's Valley." textAlignment="CENTER" wrappingWidth="556.8519134521484">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Due to mismanaging your resources, you can no longer fund your solution. However, you have completed enough task for your solution to be implemented by other residents in Maker's Valley. Yoy can try again to build from ground up. " textAlignment="CENTER" wrappingWidth="609.0694427490234">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>

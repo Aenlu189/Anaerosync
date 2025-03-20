@@ -1761,6 +1761,7 @@ public class boardGameController {
         selectedCardsToGive.clear();
         selectedCardsToReceive.clear();
         tradeCardsModal.setVisible(false);
+        checkLoseCondition();
         setupPlayerInfo(); // Update the player info display
     }
 
@@ -2320,6 +2321,8 @@ public class boardGameController {
             player.setMoneyResource(0);
             checkLoseCondition();
         }
+
+        checkLoseCondition();
 
         switch (eventSquare.getEventName()) {
             case "DDOS Attack":
