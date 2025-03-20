@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Stats implemented!&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -380,15 +381,7 @@
     <MESSAGE value="&quot;Stats implemented!&quot;" />
     <option name="LAST_COMMIT_MESSAGE" value="&quot;Stats implemented!&quot;" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/aureo/anaerosync/AnaerosyncApplication.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/stylesheet_css$PlayerTests.ic" NAME="PlayerTests Coverage Results" MODIFIED="1742506314487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

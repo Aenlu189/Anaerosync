@@ -129,34 +129,34 @@
                         <HBox prefHeight="30.0" prefWidth="559.0" />
                         <HBox alignment="CENTER" prefHeight="216.0" prefWidth="989.0">
                            <children>
-                              <VBox minWidth="120.0" prefHeight="216.0" prefWidth="157.0" spacing="10">
+                              <VBox minWidth="120.0" prefHeight="216.0" prefWidth="181.0" spacing="10">
                                  <children>
-                                    <Text fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" text="Group Leader:" wrappingWidth="122.4229965209961">
+                                    <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" text="Ahmed Wisan: " wrappingWidth="122.4229965209961">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#fff600" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Lead Developer:" wrappingWidth="156.802734375">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Htoo Myat Naing:" wrappingWidth="156.802734375">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Assistant Developer: " wrappingWidth="160.505859375">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Aleeya Emelna:" wrappingWidth="160.505859375">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="RED" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Graphic Designer:">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Sebastian Valdes:" wrappingWidth="173.5634765625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" text="Game Tester:">
+                                    <Text fill="WHITE" stroke="BLACK" strokeType="OUTSIDE" text="Ignacio Carbonell:">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Story Writer:" wrappingWidth="160.505859375">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Abdelmonein Elserafy: " wrappingWidth="205.505859375">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
@@ -165,32 +165,32 @@
                               </VBox>
                               <VBox alignment="TOP_RIGHT" maxWidth="344.0" minWidth="120.0" prefHeight="216.0" prefWidth="344.0" spacing="10">
                                  <children>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Ahmed" wrappingWidth="335.3134765625">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Manager, GUI Desginer &amp; Report Writer" wrappingWidth="335.3134765625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Aen" wrappingWidth="335.2099609375">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Senior Software Engineer" wrappingWidth="335.2099609375">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Ahmed, Aleeya, Ignacio, Sebasatian &amp; Serafy" wrappingWidth="336.1572265625">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Software Architect &amp; Report Writer" wrappingWidth="336.1572265625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Ahmed" wrappingWidth="334.7353515625">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Quality Assurance &amp; Systems Engineer " wrappingWidth="334.7353515625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Aleeya, Ignacio &amp; Sebastian" wrappingWidth="334.6640625">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="OUTSIDE" text="Systems Engineer, Tester &amp; GUI Designer" wrappingWidth="334.6640625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Serafy" wrappingWidth="335.6640625">
+                                    <Text fill="WHITE" stroke="BLACK" strokeLineJoin="ROUND" strokeType="OUTSIDE" text="Script Writer &amp; Game Flow Designer" wrappingWidth="335.6640625">
                                        <font>
                                           <Font name="Impact" size="18.0" />
                                        </font>
