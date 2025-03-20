@@ -29,6 +29,7 @@ public class IndexController {
     @FXML private AnchorPane nameInput;
     @FXML private AnchorPane Dialog;
     @FXML private AnchorPane Dialog2;
+    @FXML private AnchorPane Rules;
     @FXML private VBox playerNameInputs;
     @FXML private Text warningName;
 
@@ -41,6 +42,7 @@ public class IndexController {
         nameInput.setVisible(false);
         Dialog.setVisible(false);
         Dialog2.setVisible(false);
+        Rules.setVisible(false);
 
         showPane.setVisible(true);
     }
@@ -147,24 +149,30 @@ public class IndexController {
 
     @FXML
     public void okDialog2ButtonClicked() {
+        showPane(Rules);
+        System.out.println("Rules through");
+    }
+
+    @FXML
+    public void startButtonClicked() {
         try {
             // Get player names from text fields
             String[] playerNames = getPlayerNames();
-            
+
             // Load the board game FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/board-game.fxml"));
             Scene boardGameScene = new Scene(loader.load());
-            
+
             // Get the controller and set the player data
             boardGameController controller = loader.getController();
             controller.setGameData(playerNames);
-            
+
             // Switch to the board game scene
-            Stage stage = (Stage) Dialog2.getScene().getWindow();
+            Stage stage = (Stage) Rules.getScene().getWindow();
             stage.setScene(boardGameScene);
             stage.setFullScreen(true);
             stage.show();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
