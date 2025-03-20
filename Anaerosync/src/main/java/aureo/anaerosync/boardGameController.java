@@ -58,7 +58,7 @@ public class boardGameController {
 
     @FXML private FlowPane currentPlayerCards, selectedPlayerCards, completableTaskCards, taskList;
     @FXML private HBox exit, backToMain;
-    @FXML private AnchorPane  loseCondition, winCondition;
+    @FXML private AnchorPane  loseCondition, winCondition, gameLoseCondition;
     @FXML private Button winMainMenu, loseMainMenu;
 
     @FXML private Circle B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
@@ -110,8 +110,8 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 10000;
-    private static final int STARTING_TIME = 10000;
+    private static final int STARTING_MONEY = 10;
+    private static final int STARTING_TIME = 10;
     private static int SHARED_TRUST = 10000;
     private static final int TOTAL_TASKS = 20;
 
@@ -155,6 +155,7 @@ public class boardGameController {
         backToMain.setVisible(false);
         winCondition.setVisible(false);
         loseCondition.setVisible(false);
+        gameLoseCondition.setVisible(false);
 
         // Initialize the game
         initializeGame();
@@ -2284,7 +2285,7 @@ public class boardGameController {
         // Set owner information (not applicable for event squares)
         esOwnerLabel.setText("");
 
-        // Set the image if available
+        // Set the image
         if (eventSquare.getEventCard() != null && !eventSquare.getEventCard().isEmpty()) {
             try {
                 Image image = new Image(getClass().getResourceAsStream(eventSquare.getEventCard()));
@@ -2315,7 +2316,7 @@ public class boardGameController {
         Player player = players[currentPlayer];
         StringBuilder effectMessage = new StringBuilder();
 
-        if (SHARED_TRUST < eventSquare.getEventTrust()) {
+        if (SHARED_TRUST < eventSquare.getEventTrust() || player.getMoneyResource() + eventSquare.getEventMoney() <= 0 || player.getTimeResource() + eventSquare.getEventTime() <= 0) {
             player.setMoneyResource(0);
             checkLoseCondition();
         }
@@ -2501,8 +2502,8 @@ public class boardGameController {
                 objectivesPanel.setVisible(false);
 
                 // Show the lose condition panel
-                loseCondition.setVisible(true);
-                loseCondition.toFront(); // Ensure it's on top
+                gameLoseCondition.setVisible(true);
+                gameLoseCondition.toFront(); // Ensure it's on top
 
                 // Update message to show which player triggered the loss
                 showErrorDialog.setText(player.getName() + " has run out of resources! Game Over!");
