@@ -1,8 +1,6 @@
 package aureo.anaerosync;
 
 import aureo.anaerosync.squares.*;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -26,9 +24,6 @@ import java.util.Random;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
-import org.jetbrains.annotations.NotNull;
 import javafx.scene.layout.AnchorPane;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +33,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 @Getter
 public class boardGameController {
@@ -259,29 +256,66 @@ public class boardGameController {
         for (int i=0; i<numPlayers; i++) {
             Player player = players[i];
             VBox playerBox = new VBox(5);
-            playerBox.setStyle("-fx-padding:10; -fx-background-color: "+ toRGBCode(playerColors[i]) + "20;");
+            
+            // Create a more attractive background with rounded corners
+            String playerColor = toRGBCode(playerColors[i]);
+            playerBox.setStyle("-fx-padding: 10; " +
+                    "-fx-background-color: " + playerColor + "30; " +
+                    "-fx-background-radius: 8; " +
+                    "-fx-border-color: " + playerColor + "; " +
+                    "-fx-border-width: 1; " +
+                    "-fx-border-radius: 8;");
 
+            // Player name with indicator if current player
+            HBox nameRow = new HBox(5);
+            nameRow.setAlignment(Pos.CENTER_LEFT);
+            
+            Circle playerIndicator = new Circle(6);
+            playerIndicator.setFill(playerColors[i]);
+            playerIndicator.setStroke(Color.WHITE);
+            playerIndicator.setStrokeWidth(0.5);
+            
             Text nameText = new Text(player.getName());
-            nameText.setStyle("-fx-font-weight: bold");
-            Text moneyText = new Text("Money: "+player.getMoneyResource());
-            Text timeText = new Text("Time: "+player.getTimeResource());
-            Text tasksText = new Text("Tasks: "+player.getOwnedTasks().size());
+            nameText.setStyle("-fx-font-weight: bold; -fx-fill: #333333;");
 
+            if (i == currentPlayer) {
+                nameText.setText(nameText.getText() + " (Current)");
+                nameText.setStyle("-fx-font-weight: bold; -fx-fill: " + playerColor + ";");
+            }
+            
+            nameRow.getChildren().addAll(playerIndicator, nameText);
+            playerBox.getChildren().add(nameRow);
+            
+            // Resource rows
+            Text moneyText = new Text("Money: " + player.getMoneyResource());
+            Text timeText = new Text("Time: " + player.getTimeResource());
+            Text tasksText = new Text("Tasks: " + player.getOwnedTasks().size());
+            
             // Add completed tasks count
             List<Task> playerCompletedTasks = completedTasks.getOrDefault(player, new ArrayList<>());
-            Text completedTasksText = new Text("Completed Tasks: " + playerCompletedTasks.size());
-            Button viewTasks = new Button();
-            viewTasks.setText("View tasks");
-
+            Text completedTasksText = new Text("✅ Completed: " + playerCompletedTasks.size());
+            
+            // Create View tasks button
+            Button viewTasks = new Button("View Tasks");
+            viewTasks.setStyle("-fx-background-color: " + playerColor + "; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4;");
+            
             // Store the player reference for the lambda
             final Player currentPlayerForButton = player;
-
+            
             // Add event handler to view this specific player's owned tasks
             viewTasks.setOnAction(event -> {
                 showPlayerOwnedTasks(currentPlayerForButton);
             });
+            
+            // Add all elements to the player box
+            playerBox.getChildren().addAll(
+                moneyText,
+                timeText,
+                tasksText,
+                completedTasksText,
+                viewTasks
+            );
 
-            playerBox.getChildren().addAll(nameText, moneyText, timeText, tasksText, completedTasksText, viewTasks);
             playerInfoContainer.getChildren().addAll(playerBox);
         }
     }
@@ -434,7 +468,7 @@ public class boardGameController {
 
             // Show roll result in error dialog
             showErrorDialog.setText(String.format("You rolled %d", roll));
-            showErrorDialog.setStyle("-fx-text-fill: white;");
+            showErrorDialog.setStyle("-fx-fill: black;");
 
             movePlayer(currentPlayer, roll);
             hasMoved = true;
@@ -456,7 +490,7 @@ public class boardGameController {
 
         // Show whose turn it is
         showErrorDialog.setText(String.format("%s's turn. Roll the die", players[currentPlayer].getName()));
-        showErrorDialog.setStyle("-fx-text-fill: white;");
+        showErrorDialog.setStyle("-fx-text-fill: black;");
 
         // Check if there's an active DDOS Attack
         boolean ddosFound = false;
@@ -485,6 +519,7 @@ public class boardGameController {
                     offerTaskButton.setDisable(false);
 
                     showErrorDialog.setText("The DDOS Attack has ended.\n Players can now complete tasks, offer tasks, and trade again.");
+                    showErrorDialog.setStyle("-fx-fill: green;");
                 }
                 break;
             }
@@ -516,6 +551,7 @@ public class boardGameController {
                 players[playerIndex].addMoney(100);
                 players[playerIndex].addTime(100);
                 showErrorDialog.setText("You passed home! Received 100 money and 100 time.");
+                showErrorDialog.setStyle("-fx-fill: green;");
             }
 
             // Debug added these
@@ -926,6 +962,7 @@ public class boardGameController {
         }
         if (allCompleted){
             showErrorDialog.setText("Because you have no tasks that need completing,\nyou are forced to contribute to this player's task");
+            showErrorDialog.setStyle("-fx-fill: red;");
             declineLandButton.setDisable(true);
         }
 
@@ -944,8 +981,9 @@ public class boardGameController {
                 owner.setTimeResource(owner.getTimeResource() + feeTime);
                 SHARED_TRUST += feeTrust;
 
-                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time.\nReceive %d community trust as a reward for helping.",
+                showErrorDialog.setText(String.format("Paid fee to %s: %d money and %d time. Receive %d community trust as a reward for helping.",
                         owner.getName(), feeMoney, feeTime, feeTrust));
+                showErrorDialog.setStyle("-fx-fill: green;");
 
 
                 // Check for lose condition after deducting resources
@@ -1140,6 +1178,7 @@ public class boardGameController {
 
         // Display the effect message
         showErrorDialog.setText(effectMessage.toString());
+        showErrorDialog.setStyle("-fx-fill: red;");
 
         // Update the player display
         updateCurrentPlayerDisplay();
@@ -1292,9 +1331,8 @@ public class boardGameController {
             // Add task's trust bonus to SHARED_TRUST
             SHARED_TRUST += task.getTaskBonus();
 
-            showErrorDialog.setText(String.format("You accepted this task for %d money and gained %d trust for the community!",
-                    task.getTaskMoney(), task.getTaskBonus()));
-            showErrorDialog.setStyle("-fx-text-fill: white;");
+            showErrorDialog.setText(String.format("You accepted this task for %d money and %d trust\n You gained %d trust for the community!",
+                    task.getTaskMoney(), task.getTaskTrustNeeded(), task.getTaskBonus()));
             endTurnButton.setDisable(false);
             setupPlayerInfo();
         } else {
@@ -1359,10 +1397,23 @@ public class boardGameController {
 
     // to show the offer to the another player
     private void showOfferToPlayer(Task task, Player targetPlayer) {
+        // Set the offer message with improved styling
         offerMessage.setText(String.format("%s is offering you: %s",
                 offeringPlayer.getName(), task.getTaskName()));
+        
+        // Apply Impact font and larger size through inline CSS
+        offerMessage.setStyle("-fx-font-size: 28px; -fx-font-family: 'Impact', sans-serif; -fx-font-weight: bold; -fx-text-fill: #333333;");
+        
+        try {
+            offerMessage.setFont(Font.font("System", FontWeight.BOLD, 28));
+        } catch (Exception e) {
+            System.err.println("Error setting font: " + e.getMessage());
+        }
 
+        // Clear existing content
         offeredTaskInfo.getChildren().clear();
+        offeredTaskInfo.setSpacing(10);
+        offeredTaskInfo.setAlignment(Pos.CENTER);
 
         // Add task card image
         try {
@@ -1372,18 +1423,45 @@ public class boardGameController {
             taskImage.setFitWidth(200);
             taskImage.setPreserveRatio(true);
             taskImage.setSmooth(true);
-            offeredTaskInfo.getChildren().add(taskImage);
+            
+            // Add a border to the image
+            StackPane imageContainer = new StackPane();
+            Rectangle border = new Rectangle(taskImage.getFitWidth() + 10, taskImage.getFitWidth() * image.getHeight() / image.getWidth() + 10);
+            border.setFill(Color.WHITE);
+            border.setStroke(Color.GRAY);
+            border.setStrokeWidth(2);
+            border.setArcHeight(10);
+            border.setArcWidth(10);
+            
+            imageContainer.getChildren().addAll(border, taskImage);
+            offeredTaskInfo.getChildren().add(imageContainer);
         } catch (Exception e) {
             System.err.println("Error loading task card image: " + e.getMessage());
         }
 
-        // Add task details below the image
-        offeredTaskInfo.getChildren().addAll(
-                new Text(String.format("Money: %d", task.getTaskMoney())),
-                new Text(String.format("Time: %d", task.getTaskTime())),
-                new Text(String.format("Trust: %d", task.getTaskTrustNeeded()))
-        );
-
+        // Create styled task details
+        VBox detailsBox = new VBox(5);
+        detailsBox.setMaxWidth(200);
+        detailsBox.setAlignment(Pos.CENTER_LEFT);
+        detailsBox.setPadding(new Insets(10, 15, 10, 15));
+        detailsBox.setStyle("-fx-background-color: #f5f5f5; -fx-background-radius: 5; -fx-border-color: #dddddd; -fx-border-radius: 5;");
+        
+        // Create styled labels for task details
+        Label moneyLabel = new Label(String.format("Money: %d", task.getTaskMoney()));
+        moneyLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        
+        Label timeLabel = new Label(String.format("Time: %d", task.getTaskTime()));
+        timeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        
+        Label trustLabel = new Label(String.format("Trust: %d", task.getTaskTrustNeeded()));
+        trustLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        
+        detailsBox.getChildren().addAll(moneyLabel, timeLabel, trustLabel);
+        
+        // Add styled details to the main container
+        offeredTaskInfo.getChildren().add(detailsBox);
+        
+        // Show the offer response modal
         acceptOfferButton.setOnAction(e -> acceptOffer(task, targetPlayer));
         declineOfferButton.setOnAction(e -> {
             offerResponseModal.setVisible(false);
@@ -1391,7 +1469,6 @@ public class boardGameController {
             // Enable End Turn button after offer is declined
             endTurnButton.setDisable(false);
         });
-
         offerResponseModal.setVisible(true);
     }
 
