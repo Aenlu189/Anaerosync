@@ -2318,7 +2318,7 @@ public class boardGameController {
         Player player = players[currentPlayer];
         StringBuilder effectMessage = new StringBuilder();
 
-        if (SHARED_TRUST < eventSquare.getEventTrust() || player.getMoneyResource() + eventSquare.getEventMoney() <= 0 || player.getTimeResource() + eventSquare.getEventTime() <= 0) {
+        if (player.getMoneyResource() + eventSquare.getEventMoney() <= 0 || player.getTimeResource() + eventSquare.getEventTime() <= 0) {
             player.setMoneyResource(0);
             checkLoseCondition();
         }
@@ -2483,7 +2483,7 @@ public class boardGameController {
 
     private void checkLoseCondition() {
         for (Player player : players) {
-            if (player.getMoneyResource() <= 0 || player.getTimeResource() <= 0) {
+            if (player.getMoneyResource() < 0 || player.getTimeResource() < 0) {
                 // Disable all game controls
                 rollDiceButton.setDisable(true);
                 endTurnButton.setDisable(true);
