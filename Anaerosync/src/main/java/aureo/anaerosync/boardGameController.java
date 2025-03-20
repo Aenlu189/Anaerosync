@@ -2296,7 +2296,7 @@ public class boardGameController {
 
         // Custom message if DDOS attack is canceled
         if( eventSquare.getEventName().equals("DDOS Attack") && isTaskCompleted(tasks.get(10)) && isTaskCompleted(tasks.get(11))){
-            esCostLabel.setText("This card will have no effect as you completed the CYBERSECURITY objective");
+            esCostLabel.setText("This card will have no effect as you\ncompleted the CYBERSECURITY objective");
         }
 
         // Set owner information (not applicable for event squares)
