@@ -112,9 +112,9 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 10;
-    private static final int STARTING_TIME = 10;
-    private static int SHARED_TRUST = 10;
+    private static final int STARTING_MONEY = 1000;
+    private static final int STARTING_TIME = 1000;
+    private static int SHARED_TRUST = 500;
     private static final int TOTAL_TASKS = 20;
 
     /**
@@ -154,6 +154,7 @@ public class boardGameController {
     public void initialize() {
         System.out.println("Initializing controller...");
         exit.setVisible(false);
+        backToMain.setVisible(false);
         winCondition.setVisible(false);
         loseCondition.setVisible(false);
         gameLoseCondition.setVisible(false);
@@ -213,8 +214,9 @@ public class boardGameController {
         // Set up objectives panel
         setupObjectivesPanel();
 
-        // Hide exit
+        // Hide exit and thank you screens
         exit.setVisible(false);
+        backToMain.setVisible(false);
     }
 
     // Update setGameData to initialize players with resources
@@ -1396,10 +1398,7 @@ public class boardGameController {
             }
         });
 
-        cancelOfferButton.setOnAction(e -> {
-            offerModal.setVisible(false);
-            endTurnButton.setDisable(false);
-        });
+        cancelOfferButton.setOnAction(e -> offerModal.setVisible(false));
 
         offerModal.setVisible(true);
     }
@@ -2210,7 +2209,6 @@ public class boardGameController {
 
     @FXML
     public void quitDOnAction() {
-        displayLoseStats();
         loseCondition.setVisible(true);
     }
 
@@ -2475,26 +2473,48 @@ public class boardGameController {
     }
 
     private void checkWinCondition() {
-        boolean allObjectivesCompleted = true;
-        for (Objective objective : objectives) {
-            if (!objective.isCompleted()) {
-                allObjectivesCompleted = false;
-                break;
-            }
+        int totalCompletedTasks = 0;
+        for (ArrayList<Task> playerTasks : completedTasks.values()) {
+            totalCompletedTasks += playerTasks.size();
         }
-        
-        if (allObjectivesCompleted) {
-            displayWinStats();  // This will populate the winStats VBox
+
+        if (totalCompletedTasks >= TOTAL_TASKS) {
             winCondition.setVisible(true);
         }
     }
 
     private void checkLoseCondition() {
-        if (players[currentPlayer].getMoneyResource() <= 0 || players[currentPlayer].getTimeResource() <= 0) {
-            displayGameLoseStats();  // This will populate the loseStats VBox
-            gameLoseCondition.setVisible(true);
-            showErrorDialog.setText(players[currentPlayer].getName() + " has run out of resources!");
-            showErrorDialog.setStyle("-fx-text-fill: red;");
+        for (Player player : players) {
+            if (player.getMoneyResource() < 0 || player.getTimeResource() < 0) {
+                // Disable all game controls
+                rollDiceButton.setDisable(true);
+                endTurnButton.setDisable(true);
+                completeTaskButton.setDisable(true);
+                tradeButton.setDisable(true);
+                offerTaskButton.setDisable(true);
+
+                // Hide any open modals
+                cardInfoBox.setVisible(false);
+                landInfoBox.setVisible(false);
+                luckInfoBox.setVisible(false);
+                esInfoBox.setVisible(false);
+                completeInfoBox.setVisible(false);
+                offerModal.setVisible(false);
+                offerResponseModal.setVisible(false);
+                tradePlayerModal.setVisible(false);
+                tradeCardsModal.setVisible(false);
+                completeTaskModal.setVisible(false);
+                viewTasksModal.setVisible(false);
+                objectivesPanel.setVisible(false);
+
+                // Show the lose condition panel
+                gameLoseCondition.setVisible(true);
+                gameLoseCondition.toFront(); // Ensure it's on top
+
+                // Update message to show which player triggered the loss
+                showErrorDialog.setText(player.getName() + " has run out of resources! Game Over!");
+                return;
+            }
         }
     }
 
@@ -2506,82 +2526,5 @@ public class boardGameController {
     @FXML
     public void rulesButtonOnAction() {
         rules.setVisible(true);
-    }
-
-    // Helper method to generate stats for both win and lose conditions
-    private void displayPlayerStats(VBox statsContainer) {
-        // Clear any existing stats
-        statsContainer.getChildren().clear();
-        
-        // Add title
-        Label statsTitle = new Label("Final Player Statistics");
-        statsTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, black, 2, 2, 0, 0);");
-        statsContainer.getChildren().add(statsTitle);
-        
-        // Add separator
-        statsContainer.getChildren().add(new Label());
-        
-        // Create stats only for active players
-        for (int i = 0; i < numPlayers; i++) {
-            if (players[i] != null && players[i].getName() != null && !players[i].getName().isEmpty()) {
-                VBox playerBox = new VBox(5);
-                playerBox.setStyle("-fx-padding: 10; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;");
-                
-                // Player name with their color
-                Label nameLabel = new Label(players[i].getName());
-                nameLabel.setStyle(String.format("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: %s; -fx-effect: dropshadow(three-pass-box, black, 2, 2, 0, 0);",
-                        toRGBCode(playerColors[i])));
-                
-                // Create stats labels
-                Label moneyLabel = new Label(String.format("Money: %d", players[i].getMoneyResource()));
-                Label timeLabel = new Label(String.format("Time: %d", players[i].getTimeResource()));
-                Label tasksCompletedLabel = new Label(String.format("Tasks Completed: %d", 
-                        completedTasks.getOrDefault(players[i], new ArrayList<>()).size()));
-                
-                // Style the stats labels
-                String statStyle = "-fx-font-size: 16px; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, black, 1, 1, 0, 0);";
-                moneyLabel.setStyle(statStyle);
-                timeLabel.setStyle(statStyle);
-                tasksCompletedLabel.setStyle(statStyle);
-                
-                // Add all elements to player box
-                playerBox.getChildren().addAll(
-                    nameLabel,
-                    moneyLabel,
-                    timeLabel,
-                    tasksCompletedLabel
-                );
-                
-                // Add to main stats box
-                statsContainer.getChildren().add(playerBox);
-                
-                // Add spacing between players
-                if (i < numPlayers - 1) {
-                    statsContainer.getChildren().add(new Label());
-                }
-            }
-        }
-        
-        // Add final community trust
-        Label trustLabel = new Label(String.format("Final Community Trust: %d", SHARED_TRUST));
-        trustLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, black, 2, 2, 0, 0);");
-        
-        // Add spacing and trust label
-        statsContainer.getChildren().add(new Label());
-        statsContainer.getChildren().add(trustLabel);
-    }
-
-    // Update the displayWinStats method to use the helper method
-    private void displayWinStats() {
-        displayPlayerStats(winStats);
-    }
-
-    // Add a new method for lose stats
-    private void displayLoseStats() {
-        displayPlayerStats(loseStats);
-    }
-
-    private void displayGameLoseStats() {
-        displayPlayerStats(gameLoseStats);
     }
 }
