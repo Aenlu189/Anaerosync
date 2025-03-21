@@ -112,9 +112,9 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 10;
-    private static final int STARTING_TIME = 10;
-    private static int SHARED_TRUST = 10;
+    private static final int STARTING_MONEY = 1500;
+    private static final int STARTING_TIME = 1500;
+    private static int SHARED_TRUST = 500;
     private static final int TOTAL_TASKS = 20;
 
     /**

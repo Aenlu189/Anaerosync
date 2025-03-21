@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="PositionManager tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Rules not editable">
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/board-game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/CornerSquare.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/squares/CornerSquare.class" afterDir="false" />
@@ -56,6 +53,9 @@
     &quot;second&quot;: &quot;285ade5e-2fb8-41f7-9530-468f07e823ab&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -365,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742515980952</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Rules not editable">
+      <option name="closed" value="true" />
+      <created>1742518067783</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1742518067783</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -448,7 +456,8 @@
     <MESSAGE value="Re: DDoS doesnt trigger when CYBERSECURITY obj is complete" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="PositionManager tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="PositionManager tests" />
+    <MESSAGE value="Rules not editable" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rules not editable" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/stylesheet_css$PlayerTests.ic" NAME="PlayerTests Coverage Results" MODIFIED="1742506314487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
