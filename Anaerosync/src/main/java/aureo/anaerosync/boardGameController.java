@@ -2047,7 +2047,8 @@ public class boardGameController {
                             objective.getObjectiveTrust() + " trust.");
 
                     messageBox.setText(objective.getCompleteObjectiveMessage());
-
+                    objective.setCompleted(true);
+                    checkWinCondition();
                     // No need to check other objectives since a task can only be part of one objective
                     break;
                 }
@@ -2296,7 +2297,8 @@ public class boardGameController {
 
         // Custom message if DDOS attack is canceled
         if( eventSquare.getEventName().equals("DDOS Attack") && isTaskCompleted(tasks.get(10)) && isTaskCompleted(tasks.get(11))){
-            esCostLabel.setText("This card will have no effect as you\ncompleted the CYBERSECURITY objective");
+            esBonusLabel.setText("You completed the CYBERSECURITY objective!");
+            esCostLabel.setText("The attack was avoided.");
         }
 
         // Set owner information (not applicable for event squares)
