@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Stats implemented!&quot;">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="minor fix">
+      <change afterPath="$PROJECT_DIR$/src/test/java/AnaerosyncApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/PositionManagerTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/aureo/anaerosync/index.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/IndexController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/squares/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/squares/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +22,13 @@
         <TargetMappings>
           <option name="name" value="Default" />
         </TargetMappings>
+      </list>
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -52,21 +60,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AnaerosyncApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AnaerosyncApplication.executor": "Run",
+    "Application.PositionManagerTests.executor": "Run",
+    "JUnit.AnaerosyncApplicationTests.executor": "Coverage",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected="JUnit.AnaerosyncApplicationTests">
     <configuration name="AnaerosyncApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="aureo.anaerosync.AnaerosyncApplication" />
       <module name="Anaerosync" />
@@ -80,9 +90,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PositionManagerTests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PositionManagerTests" />
+      <module name="Anaerosync" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnaerosyncApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Anaerosync" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AnaerosyncApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AnaerosyncApplicationTests" />
         <item itemvalue="Application.AnaerosyncApplication" />
+        <item itemvalue="Application.PositionManagerTests" />
       </list>
     </recent_temporary>
   </component>
@@ -300,7 +328,31 @@
       <option name="project" value="LOCAL" />
       <updated>1742506612021</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Revert to correct credits">
+      <option name="closed" value="true" />
+      <created>1742508902008</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742508902008</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Re: DDoS doesnt trigger when CYBERSECURITY obj is complete">
+      <option name="closed" value="true" />
+      <created>1742512310136</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1742512310136</updated>
+    </task>
+    <task id="LOCAL-00027" summary="minor fix">
+      <option name="closed" value="true" />
+      <created>1742514250078</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1742514250078</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,9 +431,14 @@
     <MESSAGE value="&quot;Reformatting components for better UI 5&quot;" />
     <MESSAGE value="&quot;Reformatting components for better UI 6&quot;" />
     <MESSAGE value="&quot;Stats implemented!&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Stats implemented!&quot;" />
+    <MESSAGE value="Revert to correct credits" />
+    <MESSAGE value="Re: DDoS doesnt trigger when CYBERSECURITY obj is complete" />
+    <MESSAGE value="minor fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fix" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/stylesheet_css$PlayerTests.ic" NAME="PlayerTests Coverage Results" MODIFIED="1742506314487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/stylesheet_css$PositionManagerTests.ic" NAME="PositionManagerTests Coverage Results" MODIFIED="1742513582480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/stylesheet_css$AnaerosyncApplicationTests.ic" NAME="AnaerosyncApplicationTests Coverage Results" MODIFIED="1742515265388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

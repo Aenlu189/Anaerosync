@@ -8,6 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class PlayerTests {
+    void allTests() {
+        addNullTaskTest();
+        addValidTaskTest();
+        addOwnedTaskTest();
+        nullOwnsTaskTest();
+        notInListOwnsTaskTest();
+        inListOwnsTaskTest();
+    }
+
     @Test
     void addNullTaskTest(){
         Player p = new Player(1, "name",0,0,0);

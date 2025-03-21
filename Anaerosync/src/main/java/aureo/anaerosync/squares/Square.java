@@ -1,5 +1,8 @@
 package aureo.anaerosync.squares;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public abstract class Square {
     protected int position;
     protected SquareType type;
