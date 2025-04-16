@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="Rules not editable">
+    <list default="true" id="cab47c6e-a843-49b0-9a28-834d5d8a0953" name="Changes" comment="&quot;Minor Bug Fix&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aureo/anaerosync/boardGameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/board-game.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/aureo/anaerosync/index.fxml" afterDir="false" />
@@ -50,9 +51,15 @@
   <component name="GitLabMergeRequestsSettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;first&quot;: &quot;https://gitlab.eeecs.qub.ac.uk/CSC2058-2425/CSC2058-2425-G1.git&quot;,
-    &quot;second&quot;: &quot;285ade5e-2fb8-41f7-9530-468f07e823ab&quot;
+    &quot;second&quot;: &quot;5282b08e-4b87-45a7-b261-ca0933a57341&quot;
   }
 }</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Aenlu189/Anaerosync.git",
+    "accountId": "e0a656a6-7582-41f0-96b7-4546e5bf78f9"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -77,7 +84,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -122,8 +129,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -196,6 +203,11 @@
       <workItem from="1742410804487" duration="2549000" />
       <workItem from="1742413725244" duration="752000" />
       <workItem from="1742447566983" duration="3260000" />
+      <workItem from="1742525258578" duration="1558000" />
+      <workItem from="1742528058465" duration="2922000" />
+      <workItem from="1743516874620" duration="506000" />
+      <workItem from="1743623027183" duration="747000" />
+      <workItem from="1744825577059" duration="353000" />
     </task>
     <task id="LOCAL-00008" summary="Fixed test after &quot;Task&quot; update">
       <option name="closed" value="true" />

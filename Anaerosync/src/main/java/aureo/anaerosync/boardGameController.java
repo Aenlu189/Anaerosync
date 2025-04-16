@@ -1,6 +1,7 @@
 package aureo.anaerosync;
 
 import aureo.anaerosync.squares.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -112,8 +113,8 @@ public class boardGameController {
     private final Random random = new Random();
 
 
-    private static final int STARTING_MONEY = 1500;
-    private static final int STARTING_TIME = 1500;
+    private static final int STARTING_MONEY = 1000;
+    private static final int STARTING_TIME = 1000;
     private static int SHARED_TRUST = 500;
     private static final int TOTAL_TASKS = 20;
 
@@ -2218,8 +2219,9 @@ public class boardGameController {
     @FXML
     public void backToMainMenuOnAction() {
         try {
+            Platform.exit();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/aureo/anaerosync/index.fxml"));
-            Scene scene = new Scene(loader.load());
+            Scene scene = new Scene(loader.load(), 1200, 800);
             Stage stage = (Stage) (winCondition.isVisible() ? winMainMenu : loseMainMenu).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
